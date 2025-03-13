@@ -1,0 +1,278 @@
+{
+    "elements": [
+        {
+            "id": "User",
+            "name": "User",
+            "attributes": [
+                {
+                    "name": "user_id",
+                    "type": "PK"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "date_of_birth",
+                    "type": "date"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "height",
+                    "type": "float"
+                },
+                {
+                    "name": "weight",
+                    "type": "float"
+                },
+                {
+                    "name": "goals",
+                    "type": "string"
+                },
+                {
+                    "name": "dietary_preferences",
+                    "type": "string"
+                },
+                {
+                    "name": "allergies",
+                    "type": "string"
+                },
+                {
+                    "name": "activity_level",
+                    "type": "string"
+                },
+                {
+                    "name": "cooking_skills",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "id": "Meal",
+            "name": "Meal",
+            "attributes": [
+                {
+                    "name": "meal_id",
+                    "type": "PK"
+                },
+                {
+                    "name": "user_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "type",
+                    "type": "string"
+                },
+                {
+                    "name": "cooking_level",
+                    "type": "string"
+                },
+                {
+                    "name": "dietary_preference",
+                    "type": "string"
+                },
+                {
+                    "name": "preparation_time",
+                    "type": "float"
+                },
+                {
+                    "name": "serving",
+                    "type": "float"
+                },
+                {
+                    "name": "calories",
+                    "type": "float"
+                },
+                {
+                    "name": "protein",
+                    "type": "float"
+                },
+                {
+                    "name": "carbohydrates",
+                    "type": "float"
+                },
+                {
+                    "name": "fat",
+                    "type": "float"
+                },
+                {
+                    "name": "fiber",
+                    "type": "float"
+                },
+                {
+                    "name": "sugar",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "id": "CalorieTracker",
+            "name": "CalorieTracker",
+            "attributes": [
+                {
+                    "name": "user_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "date_today",
+                    "type": "date"
+                },
+                {
+                    "name": "daily_intake",
+                    "type": "float"
+                },
+                {
+                    "name": "calories_consumed",
+                    "type": "float"
+                },
+                {
+                    "name": "calories_burned",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "id": "WaterTracker",
+            "name": "WaterTracker",
+            "attributes": [
+                {
+                    "name": "user_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "water_intake",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "id": "GroceryList",
+            "name": "GroceryList",
+            "attributes": [
+                {
+                    "name": "user_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "ingredient_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "quantity",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "id": "Ingredient",
+            "name": "Ingredient",
+            "attributes": [
+                {
+                    "name": "ingredient_id",
+                    "type": "PK"
+                },
+                {
+                    "name": "user_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "name": "category",
+                    "type": "string"
+                },
+                {
+                    "name": "quantity",
+                    "type": "float"
+                },
+                {
+                    "name": "calories",
+                    "type": "float"
+                },
+                {
+                    "name": "protein",
+                    "type": "float"
+                },
+                {
+                    "name": "carbohydrates",
+                    "type": "float"
+                },
+                {
+                    "name": "fat",
+                    "type": "float"
+                },
+                {
+                    "name": "fiber",
+                    "type": "float"
+                },
+                {
+                    "name": "sugar",
+                    "type": "float"
+                }
+            ]
+        },
+        {
+            "id": "Meal_Ingredient",
+            "name": "Meal_Ingredient",
+            "attributes": [
+                {
+                    "name": "meal_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "ingredient_id",
+                    "type": "FK"
+                },
+                {
+                    "name": "quantity",
+                    "type": "float"
+                }
+            ]
+        }
+    ],
+    "relations": [
+        {
+            "from": "User",
+            "to": "Meal",
+            "type": "1 to n"
+        },
+        {
+            "from": "User",
+            "to": "CalorieTracker",
+            "type": "1 to 1"
+        },
+        {
+            "from": "User",
+            "to": "WaterTracker",
+            "type": "1 to 1"
+        },
+        {
+            "from": "User",
+            "to": "GroceryList",
+            "type": "1 to n"
+        },
+        {
+            "from": "Meal",
+            "to": "Meal_Ingredient",
+            "type": "1 to n"
+        },
+        {
+            "from": "Ingredient",
+            "to": "Meal_Ingredient",
+            "type": "n to m"
+        }
+    ]
+}
