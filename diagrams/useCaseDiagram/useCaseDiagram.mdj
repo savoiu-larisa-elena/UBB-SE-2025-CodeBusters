@@ -1,0 +1,159 @@
+{
+    "version": "4.0.0",
+    "name": "Meal Planner",
+    "elements": [
+        {
+            "id": "user1",
+            "type": "UMLActor",
+            "name": "User"
+        },
+        {
+            "id": "app1",
+            "type": "UMLActor",
+            "name": "App"
+        },
+        {
+            "id": "uc1",
+            "type": "UMLUseCase",
+            "name": "Sets up their profile"
+        },
+        {
+            "id": "uc2",
+            "type": "UMLUseCase",
+            "name": "Browse through meals"
+        },
+        {
+            "id": "uc3",
+            "type": "UMLUseCase",
+            "name": "Browse through ingredients"
+        },
+        {
+            "id": "uc4",
+            "type": "UMLUseCase",
+            "name": "Adds new meals"
+        },
+        {
+            "id": "uc5",
+            "type": "UMLUseCase",
+            "name": "Adds new ingredients"
+        },
+        {
+            "id": "uc6",
+            "type": "UMLUseCase",
+            "name": "Loads the food consumed"
+        },
+        {
+            "id": "uc7",
+            "type": "UMLUseCase",
+            "name": "Loads the amount of water drank"
+        },
+        {
+            "id": "uc8",
+            "type": "UMLUseCase",
+            "name": "Creates the grocery list"
+        },
+        {
+            "id": "uc9",
+            "type": "UMLUseCase",
+            "name": "Deletes meals"
+        },
+        {
+            "id": "uc10",
+            "type": "UMLUseCase",
+            "name": "Calculates the BMI and suggests calories"
+        },
+        {
+            "id": "uc11",
+            "type": "UMLUseCase",
+            "name": "Keeps track of the calories"
+        },
+        {
+            "id": "uc12",
+            "type": "UMLUseCase",
+            "name": "Keeps track of the amount of water drank"
+        },
+        {
+            "id": "uc13",
+            "type": "UMLUseCase",
+            "name": "Suggests meals and ingredients based on user preferences"
+        },
+        {
+            "id": "assoc1",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc1"
+        },
+        {
+            "id": "assoc2",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc2"
+        },
+        {
+            "id": "assoc3",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc4"
+        },
+        {
+            "id": "assoc4",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc6"
+        },
+        {
+            "id": "assoc5",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc7"
+        },
+        {
+            "id": "assoc6",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc8"
+        },
+        {
+            "id": "assoc7",
+            "type": "UMLAssociation",
+            "end1": "user1",
+            "end2": "uc9"
+        },
+        {
+            "id": "assoc8",
+            "type": "UMLAssociation",
+            "end1": "app1",
+            "end2": "uc10"
+        },
+        {
+            "id": "assoc9",
+            "type": "UMLAssociation",
+            "end1": "app1",
+            "end2": "uc11"
+        },
+        {
+            "id": "assoc10",
+            "type": "UMLAssociation",
+            "end1": "app1",
+            "end2": "uc12"
+        },
+        {
+            "id": "assoc11",
+            "type": "UMLAssociation",
+            "end1": "app1",
+            "end2": "uc13"
+        },
+        {
+            "id": "extend1",
+            "type": "UMLExtend",
+            "from": "uc2",
+            "to": "uc3"
+        },
+        {
+            "id": "extend2",
+            "type": "UMLExtend",
+            "from": "uc6",
+            "to": "uc5"
+        }
+    ]
+}
