@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "MealPlanner (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "MealPlanner (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
