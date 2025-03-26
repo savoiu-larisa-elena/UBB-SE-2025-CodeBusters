@@ -1,50 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+﻿using Microsoft.UI.Xaml;
+using System;
 
 namespace MealPlanner
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
         public App()
         {
             this.InitializeComponent();
+            this.UnhandledException += OnUnhandledException;
         }
 
-        /// <summary>
-        /// Invoked when the application is launched.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
         {
-            m_window = new MainWindow();
-            m_window.Activate();
+            // Log the exception details
+            System.Diagnostics.Debug.WriteLine($"Unhandled exception: {e.Message}");
+            if (e.Exception != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception stack trace: {e.Exception.StackTrace}");
+            }
+            e.Handled = true; // Prevent the application from closing
         }
 
-        private Window? m_window;
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            var window = new MainWindow();
+            window.Activate();
+        }
     }
 }
