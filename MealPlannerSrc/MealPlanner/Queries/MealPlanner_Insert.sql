@@ -1,4 +1,4 @@
-﻿USE [MealPlanner];
+USE [MealPlanner];
 
 INSERT INTO goals (g_description) VALUES 
 ('Lose weight'),
