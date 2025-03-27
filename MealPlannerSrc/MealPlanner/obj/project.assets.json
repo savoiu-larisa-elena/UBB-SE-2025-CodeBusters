@@ -2,22 +2,6 @@
   "version": 3,
   "targets": {
     "net8.0-windows10.0.19041": {
-      "CommunityToolkit.Mvvm/8.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/CommunityToolkit.Mvvm.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2903.40": {
         "type": "package",
         "build": {
@@ -196,22 +180,6 @@
       }
     },
     "net8.0-windows10.0.19041/win-arm64": {
-      "CommunityToolkit.Mvvm/8.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/CommunityToolkit.Mvvm.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2903.40": {
         "type": "package",
         "native": {
@@ -349,22 +317,6 @@
       }
     },
     "net8.0-windows10.0.19041/win-x64": {
-      "CommunityToolkit.Mvvm/8.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/CommunityToolkit.Mvvm.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2903.40": {
         "type": "package",
         "native": {
@@ -502,22 +454,6 @@
       }
     },
     "net8.0-windows10.0.19041/win-x86": {
-      "CommunityToolkit.Mvvm/8.4.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "buildTransitive/CommunityToolkit.Mvvm.targets": {}
-        }
-      },
       "Microsoft.Web.WebView2/1.0.2903.40": {
         "type": "package",
         "native": {
@@ -656,48 +592,6 @@
     }
   },
   "libraries": {
-    "CommunityToolkit.Mvvm/8.4.0": {
-      "sha512": "tqVU8yc/ADO9oiTRyTnwhFN68hCwvkliMierptWOudIAvWY1mWCh5VFh+guwHJmpMwfg0J0rY+yyd5Oy7ty9Uw==",
-      "type": "package",
-      "path": "communitytoolkit.mvvm/8.4.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "License.md",
-        "ThirdPartyNotices.txt",
-        "analyzers/dotnet/roslyn4.0/cs/CommunityToolkit.Mvvm.CodeFixers.dll",
-        "analyzers/dotnet/roslyn4.0/cs/CommunityToolkit.Mvvm.SourceGenerators.dll",
-        "analyzers/dotnet/roslyn4.12/cs/CommunityToolkit.Mvvm.CodeFixers.dll",
-        "analyzers/dotnet/roslyn4.12/cs/CommunityToolkit.Mvvm.SourceGenerators.dll",
-        "analyzers/dotnet/roslyn4.3/cs/CommunityToolkit.Mvvm.CodeFixers.dll",
-        "analyzers/dotnet/roslyn4.3/cs/CommunityToolkit.Mvvm.SourceGenerators.dll",
-        "build/CommunityToolkit.Mvvm.FeatureSwitches.targets",
-        "build/CommunityToolkit.Mvvm.SourceGenerators.targets",
-        "build/CommunityToolkit.Mvvm.Windows.targets",
-        "build/CommunityToolkit.Mvvm.WindowsSdk.targets",
-        "build/CommunityToolkit.Mvvm.targets",
-        "buildTransitive/CommunityToolkit.Mvvm.FeatureSwitches.targets",
-        "buildTransitive/CommunityToolkit.Mvvm.SourceGenerators.targets",
-        "buildTransitive/CommunityToolkit.Mvvm.Windows.targets",
-        "buildTransitive/CommunityToolkit.Mvvm.WindowsSdk.targets",
-        "buildTransitive/CommunityToolkit.Mvvm.targets",
-        "communitytoolkit.mvvm.8.4.0.nupkg.sha512",
-        "communitytoolkit.mvvm.nuspec",
-        "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll",
-        "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.pdb",
-        "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.xml",
-        "lib/net8.0/CommunityToolkit.Mvvm.dll",
-        "lib/net8.0/CommunityToolkit.Mvvm.pdb",
-        "lib/net8.0/CommunityToolkit.Mvvm.xml",
-        "lib/netstandard2.0/CommunityToolkit.Mvvm.dll",
-        "lib/netstandard2.0/CommunityToolkit.Mvvm.pdb",
-        "lib/netstandard2.0/CommunityToolkit.Mvvm.xml",
-        "lib/netstandard2.1/CommunityToolkit.Mvvm.dll",
-        "lib/netstandard2.1/CommunityToolkit.Mvvm.pdb",
-        "lib/netstandard2.1/CommunityToolkit.Mvvm.xml"
-      ]
-    },
     "Microsoft.Web.WebView2/1.0.2903.40": {
       "sha512": "THrzYAnJgE3+cNH+9Epr44XjoZoRELdVpXlWGPs6K9C9G6TqyDfVCeVAR/Er8ljLitIUX5gaSkPsy9wRhD1sgQ==",
       "type": "package",
@@ -1543,29 +1437,28 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.19041": [
-      "CommunityToolkit.Mvvm >= 8.4.0",
       "Microsoft.Windows.SDK.BuildTools >= 10.0.26100.1742",
       "Microsoft.WindowsAppSDK >= 1.7.250310001"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bianca\\.nuget\\packages\\": {},
+    "C:\\Users\\lari\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\MealPlanner.csproj",
+      "projectUniqueName": "C:\\Users\\lari\\Desktop\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\MealPlanner.csproj",
       "projectName": "MealPlanner",
-      "projectPath": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\MealPlanner.csproj",
-      "packagesPath": "C:\\Users\\Bianca\\.nuget\\packages\\",
-      "outputPath": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\obj\\",
+      "projectPath": "C:\\Users\\lari\\Desktop\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\MealPlanner.csproj",
+      "packagesPath": "C:\\Users\\lari\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lari\\Desktop\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Bianca\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lari\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1574,6 +1467,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1598,10 +1492,6 @@
       "net8.0-windows10.0.19041": {
         "targetAlias": "net8.0-windows10.0.19041.0",
         "dependencies": {
-          "CommunityToolkit.Mvvm": {
-            "target": "Package",
-            "version": "[8.4.0, )"
-          },
           "Microsoft.Windows.SDK.BuildTools": {
             "target": "Package",
             "version": "[10.0.26100.1742, )"
@@ -1625,27 +1515,27 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-arm64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x86",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-arm64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.NETCore.App.Runtime.win-x86",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
@@ -1653,15 +1543,15 @@
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-arm64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Runtime.win-x86",
-            "version": "[8.0.14, 8.0.14]"
+            "version": "[8.0.13, 8.0.13]"
           }
         ],
         "frameworkReferences": {
@@ -1672,7 +1562,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="MealPlanner.Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MealPlanner.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:MealPlanner.ViewModels"
+    mc:Ignorable="d"
+    Background="#f9e5da">
+
+    <Page.DataContext>
+        <vm:MainViewModel/>
+    </Page.DataContext>
+
+    <Grid Background="#F9E5DA">
+        
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,100,0,0">
+            <TextBlock Text="Today"
+               FontSize="30"
+               FontWeight="Bold"
+               Foreground="#133224"
+               TextAlignment="Center"
+               Margin="100,0,0,0"/>
+
+        </StackPanel>
+
+        <Button Content="Display Meals" FontSize="16"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            BorderThickness="0"
+            CornerRadius="17"
+            Padding="20,3,20,6"
+            Margin="0,100,100,0"
+            Background="#C76E4E"
+            Foreground="white"
+            Command="{Binding DisplayMeals}"
+        />
+
+        <Button Content="Create Meal" FontSize="16"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            BorderThickness="0"
+            CornerRadius="17"
+            Padding="20,3,20,6"
+            Margin="0,100,250,0"
+            Background="#C76E4E"
+            Foreground="white"
+            Command="{Binding CreateMeal}"
+        />
+
+        <Button Content="Grocey List" FontSize="16"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            BorderThickness="0"
+            CornerRadius="17"
+            Padding="20,3,20,6"
+            Margin="0,100,390,0"
+            Background="#C76E4E"
+            Foreground="white"
+            Command="{Binding GroceryList}"
+        />
+        
+        
+
+    </Grid>
+</Page>
