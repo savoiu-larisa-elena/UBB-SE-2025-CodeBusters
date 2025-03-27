@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using MealPlanner.Pages;
 using MealPlanner.Services;
 
 namespace MealPlanner.ViewModels
@@ -32,7 +33,7 @@ namespace MealPlanner.ViewModels
         private void GoNext()
         {
             // Implement navigation to the next page
-            // NavigationService.Instance.NavigateTo(typeof(NextPage)); // Replace 'NextPage' with the actual next page
+            NavigationService.Instance.NavigateTo(typeof(DietaryPreferencesPage)); // Replace 'NextPage' with the actual next page
         }
     }
 }
