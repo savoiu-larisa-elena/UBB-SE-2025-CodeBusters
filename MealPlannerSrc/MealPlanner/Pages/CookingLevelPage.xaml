@@ -10,70 +10,61 @@
     </Page.DataContext>
 
     <Grid Padding="30">
-        <!-- Back Button -->
-        <Button Content="←" FontSize="20"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Command="{Binding BackCommand}"
-                BorderThickness="0"
-                Background="Transparent"
-                Foreground="Black"/>
+        <Button HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Background="Transparent"
+        BorderBrush="Transparent"
+        Command="{Binding BackCommand}">
+            <BitmapIcon UriSource="Assets/arrow_back.png"
+           Width="40"
+           Height="40"
+           Foreground="#7D8276"/>
+        </Button>
 
-        <!-- Skip Button -->
-        <Button Content="Skip" FontSize="16"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                BorderThickness="0"
-                Background="Transparent"
-                Foreground="Black"/>
-
-        <!-- Title and Description -->
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="How do you prepare your meals?"
-                       FontSize="32"
-                       FontWeight="Bold"
-                       Foreground="#1E1E1E"
-                       TextAlignment="Center"
-                       Margin="0,0,0,10"/>
+                    FontSize="70"
+                    FontWeight="Bold"
+                    Foreground="#133224"
+                    TextAlignment="Center"
+                    Margin="0,0,0,10"/>
             <TextBlock Text="This helps us tailor meal recommendations based on your cooking skills and preferences."
-                       FontSize="16"
-                       Foreground="#4A4A4A"
-                       TextAlignment="Center"
-                       TextWrapping="Wrap"
-                       Width="300"
-                       Margin="0,0,0,20"/>
+                    FontSize="20"
+                    Foreground="#133224"
+                    TextAlignment="Center"
+                    Width="600"
+                    Margin="0,0,0,80"/>
 
-            <!-- Cooking Level Buttons -->
-            <ListView ItemsSource="{Binding CookingLevels}" SelectionMode="None">
+            <ListView ItemsSource="{Binding CookingLevels}" SelectionMode="None" Width="500">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Button Content="{Binding}"
-                            Style="{Binding Converter={StaticResource CookingLevelButtonStyleConverter}}"/>
+                            Style="{Binding Converter={StaticResource CookingLevelButtonStyleConverter}}" Width="450" Margin="10" FontSize="20" FontWeight="SemiBold"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
 
-        <!-- Bottom Navigation Indicator -->
         <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,20">
-            <StackPanel Orientation="Horizontal" Spacing="5">
-                <Ellipse Width="30" Height="4" Fill="Black"/>
-                <Ellipse Width="30" Height="4" Fill="Black"/>
-                <Ellipse Width="30" Height="4" Fill="Black"/>
-                <Ellipse Width="30" Height="4" Fill="Black"/>
-                <Ellipse Width="30" Height="4" Fill="Gray"/>
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <Rectangle Width="200" Height="5" Fill="#133224" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="200" Height="5" Fill="#133224" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="200" Height="5" Fill="#133224" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="200" Height="5" Fill="#133224" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="200" Height="5" Fill="#C9C0B4" RadiusX="2" RadiusY="2"/>
             </StackPanel>
         </Grid>
 
-        <!-- Next Button -->
         <Button Content="→"
-                FontSize="20"
-                Width="50" Height="50"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Command="{Binding NextCommand}"
-                Background="DarkGreen"
-                Foreground="White"
-                CornerRadius="25"/>
+         FontSize="40"
+         Width="50" Height="50"
+         HorizontalAlignment="Right"
+         VerticalAlignment="Bottom"
+         Background="#133224"
+         Foreground="#FCE8DC"
+         CornerRadius="25"
+             Padding="0, -7, 0, 0"
+         Command="{Binding NextCommand}"/>
+        
     </Grid>
 </Page>

@@ -1,12 +1,167 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\lari\\Desktop\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\pages\\grocerylistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:pages\\grocerylistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\pages\\mealdisplaypage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:pages\\mealdisplaypage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\pages\\mealdisplaypage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:pages\\mealdisplaypage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\pages\\grocerylistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:pages\\grocerylistpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\viewmodels\\groceryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:viewmodels\\groceryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\viewmodels\\goalviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:viewmodels\\goalviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\viewmodels\\mealviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:viewmodels\\mealviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\models\\sectionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:models\\sectionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|c:\\lab-ubb\\sem4\\iss\\ubb-se-2025-codebusters\\mealplannersrc\\mealplanner\\models\\groceryingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1FBD97D7-963B-4619-8A7B-2B4F4E7F371D}|MealPlanner.csproj|solutionrelative:models\\groceryingredient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GoalViewModel.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\ViewModels\\GoalViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\GoalViewModel.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\ViewModels\\GoalViewModel.cs",
+              "RelativeToolTip": "ViewModels\\GoalViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:45:28.45Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GroceryViewModel.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\ViewModels\\GroceryViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\GroceryViewModel.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\ViewModels\\GroceryViewModel.cs",
+              "RelativeToolTip": "ViewModels\\GroceryViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:45:06.016Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MealDisplayPage.xaml.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\MealDisplayPage.xaml.cs",
+              "RelativeDocumentMoniker": "Pages\\MealDisplayPage.xaml.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\MealDisplayPage.xaml.cs",
+              "RelativeToolTip": "Pages\\MealDisplayPage.xaml.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACMAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:43:12.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MealDisplayPage.xaml",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\MealDisplayPage.xaml",
+              "RelativeDocumentMoniker": "Pages\\MealDisplayPage.xaml",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\MealDisplayPage.xaml",
+              "RelativeToolTip": "Pages\\MealDisplayPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-26T18:42:23.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GroceryListPage.xaml.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\GroceryListPage.xaml.cs",
+              "RelativeDocumentMoniker": "Pages\\GroceryListPage.xaml.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\GroceryListPage.xaml.cs",
+              "RelativeToolTip": "Pages\\GroceryListPage.xaml.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:42:04.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MealViewModel.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\ViewModels\\MealViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\MealViewModel.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\ViewModels\\MealViewModel.cs",
+              "RelativeToolTip": "ViewModels\\MealViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:46:47.525Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GroceryListPage.xaml",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\GroceryListPage.xaml",
+              "RelativeDocumentMoniker": "Pages\\GroceryListPage.xaml",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Pages\\GroceryListPage.xaml",
+              "RelativeToolTip": "Pages\\GroceryListPage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-26T18:40:57.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SectionModel.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Models\\SectionModel.cs",
+              "RelativeDocumentMoniker": "Models\\SectionModel.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Models\\SectionModel.cs",
+              "RelativeToolTip": "Models\\SectionModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:44:38.749Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GroceryIngredient.cs",
+              "DocumentMoniker": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Models\\GroceryIngredient.cs",
+              "RelativeDocumentMoniker": "Models\\GroceryIngredient.cs",
+              "ToolTip": "C:\\Lab-UBB\\Sem4\\ISS\\UBB-SE-2025-CodeBusters\\MealPlannerSrc\\MealPlanner\\Models\\GroceryIngredient.cs",
+              "RelativeToolTip": "Models\\GroceryIngredient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T18:44:23.604Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
