@@ -5,6 +5,8 @@ namespace MealPlanner
 {
     public partial class App : Application
     {
+        public Window Window { get; set; }
+
         public App()
         {
             this.InitializeComponent();
@@ -24,8 +26,8 @@ namespace MealPlanner
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            var window = new MainWindow();
-            window.Activate();
+            Window = new MainWindow();
+            Window.Activate();
         }
     }
 }
