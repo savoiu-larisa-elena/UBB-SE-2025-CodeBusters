@@ -3,6 +3,8 @@ using System;
 
 using Microsoft.Data.SqlClient;
 using MealPlanner;
+using Microsoft.UI.Xaml.Controls;
+using MealPlanner.Services;
 public class DatabaseConfig
 {
     public static string ConnectionString = @"Server=DESKTOP-H700VKM\MSSQLSERVER01;Database=MealPlanner;Integrated Security=True;TrustServerCertificate=True";
@@ -38,8 +40,28 @@ namespace MealPlanner
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            Window = new MainWindow();
-            Window.Activate();
+            if (Window == null)
+            {
+                Window = new MainWindow();
+
+
+
+                Frame rootFrame = Window.Content as Frame;
+                if (rootFrame == null)
+                {
+                    rootFrame = new Frame();
+                    Window.Content = rootFrame;
+                }
+
+                NavigationService.Instance.Initialize(rootFrame);
+
+                if (rootFrame.Content == null)
+                {
+                    rootFrame.Navigate(typeof(MealPlanner.Pages.WelcomePage));
+                }
+
+                Window.Activate();
+            }
         }
     }
 }

@@ -111,8 +111,8 @@ Background="#FCE8DC">
         <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,20">
             <StackPanel Orientation="Horizontal" Spacing="20">
                 <Rectangle Width="200" Height="4" Fill="Black" RadiusX="2" RadiusY="2"/>
-                <Rectangle Width="200" Height="4" Fill="Black" RadiusX="2" RadiusY="2"/>
-                <Rectangle Width="200" Height="4" Fill="Black" RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="200" Height="4" Fill="#C9C0B4"  RadiusX="2" RadiusY="2"/>
+                <Rectangle Width="200" Height="4" Fill="#C9C0B4"  RadiusX="2" RadiusY="2"/>
                 <Rectangle Width="200" Height="4" Fill="#C9C0B4" RadiusX="2" RadiusY="2"/>
                 <Rectangle Width="200" Height="4" Fill="#C9C0B4" RadiusX="2" RadiusY="2"/>
             </StackPanel>
