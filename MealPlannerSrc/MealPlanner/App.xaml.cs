@@ -1,6 +1,14 @@
 ﻿using Microsoft.UI.Xaml;
 using System;
 
+using Microsoft.Data.SqlClient;
+using MealPlanner;
+public class DatabaseConfig
+{
+    public static string ConnectionString = @"Server=DESKTOP-H700VKM\MSSQLSERVER01;Database=MealPlanner;Integrated Security=True;TrustServerCertificate=True";
+}
+
+
 namespace MealPlanner
 {
     public partial class App : Application
@@ -11,6 +19,10 @@ namespace MealPlanner
         {
             this.InitializeComponent();
             this.UnhandledException += OnUnhandledException;
+            if(!DatabaseHelper.TestConnection())
+            {
+                throw new Exception("Database connection failed.");
+            }
         }
 
         private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
