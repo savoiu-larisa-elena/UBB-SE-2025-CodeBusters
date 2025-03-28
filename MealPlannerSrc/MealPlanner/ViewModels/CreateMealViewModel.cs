@@ -3,11 +3,15 @@ using System.Windows.Input;
 using Microsoft.UI.Xaml.Controls;
 using MealPlanner.Services;
 using System;
+using System.Threading.Tasks;
+using MealPlanner.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace MealPlanner.ViewModels
 {
     public class CreateMealViewModel : ViewModelBase
     {
+        private readonly MealService _mealService;
         private string _mealName;
         private string _cookingTime;
         private string _selectedMealType;
@@ -17,13 +21,14 @@ namespace MealPlanner.ViewModels
 
         public CreateMealViewModel()
         {
+            _mealService = new MealService();
             Directions = new ObservableCollection<string>();
             Ingredients = new ObservableCollection<string>();
             GoBackCommand = new RelayCommand(OnGoBack);
             AddDirectionCommand = new RelayCommand(OnAddDirection);
             AddIngredientCommand = new RelayCommand(OnAddIngredient);
-            SelectMealTypeCommand = new RelayCommand(() => OnSelectMealType(null));
-            SelectCookingLevelCommand = new RelayCommand(() => OnSelectCookingLevel(null));
+            SelectMealTypeCommand = new RelayCommand<string>(OnSelectMealType);
+            SelectCookingLevelCommand = new RelayCommand<string>(OnSelectCookingLevel);
         }
 
         public string MealName
@@ -110,6 +115,23 @@ namespace MealPlanner.ViewModels
         public ICommand SelectMealTypeCommand { get; }
         public ICommand SelectCookingLevelCommand { get; }
 
+        public async Task<bool> CreateMealAsync(Meal meal)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_selectedCookingLevel))
+                {
+                    _selectedCookingLevel = "Beginner"; // Default to Beginner if not selected
+                }
+                return await _mealService.CreateMealAsync(meal, _selectedCookingLevel);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error creating meal: {ex.Message}");
+                return false;
+            }
+        }
+
         private void OnGoBack()
         {
             NavigationService.Instance.GoBack();
@@ -163,14 +185,14 @@ namespace MealPlanner.ViewModels
             }
         }
 
-        private void OnSelectMealType(object mealType)
+        private void OnSelectMealType(string mealType)
         {
-            SelectedMealType = mealType as string;
+            SelectedMealType = mealType;
         }
 
-        private void OnSelectCookingLevel(object level)
+        private void OnSelectCookingLevel(string level)
         {
-            SelectedCookingLevel = level as string;
+            SelectedCookingLevel = level;
         }
     }
 }

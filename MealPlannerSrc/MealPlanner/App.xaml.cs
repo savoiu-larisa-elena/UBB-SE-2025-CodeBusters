@@ -5,22 +5,27 @@ using Microsoft.Data.SqlClient;
 using MealPlanner;
 using Microsoft.UI.Xaml.Controls;
 using MealPlanner.Services;
+using MealPlanner.ViewModels;
+using MealPlanner.Pages;
+
 public class DatabaseConfig
 {
     public static string ConnectionString = @"Server=DESKTOP-H700VKM\MSSQLSERVER01;Database=MealPlanner;Integrated Security=True;TrustServerCertificate=True";
 }
-
 
 namespace MealPlanner
 {
     public partial class App : Application
     {
         public Window Window { get; set; }
+        public static Window MainWindow { get; private set; }
+        public static MealListPageViewModel MealListViewModel { get; private set; }
 
         public App()
         {
             this.InitializeComponent();
             this.UnhandledException += OnUnhandledException;
+            
             if(!DatabaseHelper.TestConnection())
             {
                 throw new Exception("Database connection failed.");
@@ -43,8 +48,7 @@ namespace MealPlanner
             if (Window == null)
             {
                 Window = new MainWindow();
-
-
+                MainWindow = Window;
 
                 Frame rootFrame = Window.Content as Frame;
                 if (rootFrame == null)
@@ -57,8 +61,11 @@ namespace MealPlanner
 
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(MealPlanner.Pages.WelcomePage));
+                    rootFrame.Navigate(typeof(WelcomePage));
                 }
+
+                // Initialize the shared ViewModel
+                MealListViewModel = new MealListPageViewModel();
 
                 Window.Activate();
             }

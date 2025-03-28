@@ -14,17 +14,33 @@ namespace MealPlanner.Models
 
         public string Category { get; set; }
 
-        public string ImagePath { get; set; }
+        public int Protein { get; set; }
+
+        public int Carbohydrates { get; set; }
+
+        public int Fat { get; set; }
+
+        public int Fiber { get; set; }
+
+        public int Sugar { get; set; }
+
+
+
+        public string PhotoLink { get; set; }
 
         public string Recipe { get; set; }
 
-        public Meal(string name, string ingredients, int calories, string category, string imagePath, string recipe)
+        public int PreparationTime { get; set; }
+
+        public int Servings { get; set; }
+
+        public Meal(string name, string ingredients, int calories, string category, string photoLink, string recipe)
         {
             Name = name;
             Ingredients = ingredients;
             Calories = calories;
             Category = category;
-            ImagePath = imagePath;
+            PhotoLink = photoLink;
             Recipe = recipe;
         }
 

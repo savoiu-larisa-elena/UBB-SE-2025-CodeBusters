@@ -11,8 +11,21 @@ namespace MealPlanner.Pages
         public MealListPage()
         {
             this.InitializeComponent();
-            this.DataContext = new MealListPageViewModel();
+            this.DataContext = App.MealListViewModel;
+            this.Loaded += MealListPage_Loaded;
+        }
 
+        private async void MealListPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await App.MealListViewModel.LoadMealsAsync();
+                Debug.WriteLine("Meals loaded successfully");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading meals: {ex.Message}");
+            }
         }
     }
 }

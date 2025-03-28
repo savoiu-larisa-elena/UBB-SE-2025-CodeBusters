@@ -5,10 +5,6 @@
     xmlns:vm="using:MealPlanner.ViewModels"
     Background="#FCE8DC">
 
-    <Page.DataContext>
-        <vm:MealListPageViewModel/>
-    </Page.DataContext>
-
     <Grid Padding="30">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -57,15 +53,80 @@
         <GridView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SelectedMeals}" Margin="0,0,0,0" IsItemClickEnabled="True" SelectionMode="None">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10">
-                        <Button Command="{Binding DataContext.SelectMealCommand}"
-                                CommandParameter="{Binding}"
-                                Background="Transparent"
-                                BorderBrush="Transparent">
-                            <Image Source="{Binding ImagePath}" Width="150" Height="150" Stretch="UniformToFill"/>
-                        </Button>
-                        <TextBlock Text="{Binding Name}" FontSize="18" Foreground="#133224" TextAlignment="Center"/>
-                    </StackPanel>
+                    <Border Background="#E8C8B3" CornerRadius="12" Padding="15" Margin="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Meal Image -->
+                            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                                    CornerRadius="8" >
+                                <Image Source="{Binding PhotoLink}" 
+                                       Width="150" Height="150" 
+                                       Stretch="UniformToFill"/>
+                            </Border>
+
+                            <!-- Meal Name and Category -->
+                            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,5">
+                                <TextBlock Text="{Binding Name}" 
+                                           FontSize="18" 
+                                           FontWeight="Bold" 
+                                           Foreground="#133224"/>
+                                <TextBlock Text="{Binding Category}" 
+                                           FontSize="14" 
+                                           Foreground="#7D8276"/>
+                            </StackPanel>
+
+                            <!-- Nutritional Info -->
+                            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                                    <TextBlock FontSize="14" Foreground="#133224">
+                                        <Run Text="{Binding Calories, Mode=OneWay}"/>
+                                        <Run Text=" kcal"/>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Foreground="#7D8276">
+                                        <Run Text="{Binding Protein, Mode=OneWay}"/>
+                                        <Run Text="g protein"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Margin="5,0">
+                                    <TextBlock FontSize="12" Foreground="#7D8276">
+                                        <Run Text="{Binding Carbohydrates, Mode=OneWay}"/>
+                                        <Run Text="g carbs"/>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Foreground="#7D8276">
+                                        <Run Text="{Binding Fat, Mode=OneWay}"/>
+                                        <Run Text="g fat"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Margin="5,0,0,0">
+                                    <TextBlock FontSize="12" Foreground="#7D8276">
+                                        <Run Text="{Binding Fiber, Mode=OneWay}"/>
+                                        <Run Text="g fiber"/>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Foreground="#7D8276">
+                                        <Run Text="{Binding Sugar, Mode=OneWay}"/>
+                                        <Run Text="g sugar"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
