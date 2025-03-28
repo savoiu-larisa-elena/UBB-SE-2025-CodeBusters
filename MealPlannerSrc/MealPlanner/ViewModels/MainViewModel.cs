@@ -295,17 +295,17 @@ namespace MealPlanner.ViewModels
 
         private void GoDisplayMeals()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(MealListPage));
         }
 
         private void GoCreateMeal()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(CreateMealPage));
         }
 
         private void GoGroceryList()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(GroceryListPage));
         }
 
         private void GoSmallCup()

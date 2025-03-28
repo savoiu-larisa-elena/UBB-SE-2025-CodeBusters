@@ -42,7 +42,7 @@ namespace MealPlanner.Pages
         {
             if (Frame != null)
             {
-                Frame.Navigate(typeof(MealDisplayPage));
+                Frame.Navigate(typeof(MainPage));
             }
         }
 

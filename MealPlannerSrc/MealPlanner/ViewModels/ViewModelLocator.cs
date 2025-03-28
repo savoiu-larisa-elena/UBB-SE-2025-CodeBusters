@@ -18,6 +18,8 @@ namespace MealPlanner.ViewModels
 
         public AddFoodPageViewModel AddFoodViewModel { get; } = new AddFoodPageViewModel();
 
+        public MealListPageViewModel MealListViewModel { get; } = new MealListPageViewModel();
+
 
     }
 }
