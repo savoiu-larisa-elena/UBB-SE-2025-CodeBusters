@@ -45,6 +45,9 @@ namespace MealPlanner.ViewModels
         private string _leftSug;
 
 
+        
+
+
         public string CircleText
         {
             get => _circleText;
@@ -210,6 +213,7 @@ namespace MealPlanner.ViewModels
         public ICommand AddLunch { get; }
         public ICommand AddDinner { get; }
         public ICommand AddSnack { get; }
+        public ICommand AddMeal { get; }
 
         public MainViewModel()
         {
@@ -227,6 +231,7 @@ namespace MealPlanner.ViewModels
             BreakfastCal = "20"; LunchCal = "20"; DinnerCal = "20"; SnackCal = "20";
             WaterPercent = "50"; // nu e percent dar o sa l calculez eu, tu pune aici valoarea din ml
             WaterGoal = "2000";
+
 
             // Initialize values
             for (int i = 0; i < _rValues.Length; i++)
@@ -283,6 +288,8 @@ namespace MealPlanner.ViewModels
 
             AddSnack = new RelayCommand(GoAddSnack);
 
+            AddMeal = new RelayCommand(GoAddMeal);
+
 
         }
 
@@ -337,6 +344,11 @@ namespace MealPlanner.ViewModels
         }
 
         private void GoAddSnack()
+        {
+            NavigationService.Instance.NavigateTo(typeof(MainPage));
+        }
+
+        private void GoAddMeal()
         {
             NavigationService.Instance.NavigateTo(typeof(MainPage));
         }
