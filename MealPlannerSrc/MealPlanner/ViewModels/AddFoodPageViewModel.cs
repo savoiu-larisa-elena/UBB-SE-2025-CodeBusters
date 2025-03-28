@@ -41,7 +41,7 @@ namespace MealPlanner.ViewModels
 
         private void GoNext()
         {
-            NavigationService.Instance.NavigateTo(typeof(GoalPage));
+            NavigationService.Instance.NavigateTo(typeof(MainPage));
         }
 
         private int servingsCount = 0;

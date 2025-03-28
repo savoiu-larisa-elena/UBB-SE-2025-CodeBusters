@@ -330,27 +330,27 @@ namespace MealPlanner.ViewModels
 
         private void GoAddBreakfast()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
         }
 
         private void GoAddLunch()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
         }
 
         private void GoAddDinner()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
         }
 
         private void GoAddSnack()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
         }
 
         private void GoAddMeal()
         {
-            NavigationService.Instance.NavigateTo(typeof(MainPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
         }
 
 
