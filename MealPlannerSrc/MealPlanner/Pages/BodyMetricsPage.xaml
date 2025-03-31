@@ -49,7 +49,7 @@ Background="#FCE8DC">
                    Margin="0,0,0,5" 
                    Foreground="#133224"/>
 
-                <TextBox PlaceholderText="Enter your weight" 
+                <TextBox Text="{Binding BodyMetrics.Weight, Mode=TwoWay}" PlaceholderText="Enter your weight" 
                     FontWeight="Light"
                     FontSize="10"
                     PlaceholderForeground="#133224"
@@ -62,12 +62,12 @@ Background="#FCE8DC">
 
 
             <StackPanel Width="400" Margin="0, 0, 0, 30">
-                <TextBlock Text="Current height:" 
+                <TextBlock Text="Enter your height" 
                            FontWeight="Bold" 
                            Margin="0,0,0,5" 
                            Foreground="#133224"/>
 
-                <TextBox PlaceholderText="Enter your height" 
+                <TextBox Text="{Binding BodyMetrics.Height, Mode=TwoWay}" PlaceholderText="Enter your height" 
                         FontWeight="Light"
                         FontSize="10"
                         PlaceholderForeground="#133224"
@@ -86,7 +86,7 @@ Background="#FCE8DC">
                                Margin="0,0,0,5" 
                                Foreground="#133224"/>
 
-                <TextBox PlaceholderText="Enter your target weight" 
+                <TextBox Text="{Binding BodyMetrics.TargetWeight, Mode=TwoWay}" PlaceholderText="Enter your target weight" 
                         FontWeight="Light"
                         FontSize="10"
                         PlaceholderForeground="#133224"
