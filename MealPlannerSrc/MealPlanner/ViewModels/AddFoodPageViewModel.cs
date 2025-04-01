@@ -11,6 +11,9 @@ using MealPlanner.Services;
 using System.Collections.ObjectModel;
 using MealPlanner.Pages;
 using Microsoft.Data.SqlClient;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI;
+using Windows.UI;
 
 
 
@@ -181,6 +184,71 @@ namespace MealPlanner.ViewModels
             SearchText = "";
             IsSearchVisible = false;
         }
+
+
+        // FOR SELECTED MEAL TYPE
+
+
+        private SolidColorBrush _breakfastColor = new SolidColorBrush(Colors.Transparent);
+        private SolidColorBrush _lunchColor = new SolidColorBrush(Colors.Transparent);
+        private SolidColorBrush _dinnerColor = new SolidColorBrush(Colors.Transparent);
+        private SolidColorBrush _snackColor = new SolidColorBrush(Colors.Transparent);
+        public SolidColorBrush BreakfastColor
+        {
+            get => _breakfastColor;
+            set { _breakfastColor = value; OnPropertyChanged(); }
+        }
+        public SolidColorBrush LunchColor
+        {
+            get => _lunchColor;
+            set { _lunchColor = value; OnPropertyChanged(); }
+        }
+        public SolidColorBrush DinnerColor
+        {
+            get => _dinnerColor;
+            set { _dinnerColor = value; OnPropertyChanged(); }
+        }
+        public SolidColorBrush SnackColor
+        {
+            get => _snackColor;
+            set { _snackColor = value; OnPropertyChanged(); }
+        }
+
+        public void SetCategoryHighlight(string category)
+        {
+            // Default colors
+            BreakfastColor = new SolidColorBrush(Color.FromArgb(255, 199, 110, 78)); // Reddish brown
+            LunchColor = new SolidColorBrush(Color.FromArgb(255, 91, 119, 105)); // Greenish grey
+            DinnerColor = new SolidColorBrush(Color.FromArgb(255, 181, 136, 94)); // Light brown
+            SnackColor = new SolidColorBrush(Color.FromArgb(255, 19, 50, 36)); // Dark green
+
+            // Highlight selected category
+            SolidColorBrush highlightColor = new SolidColorBrush(Color.FromArgb(255, 227, 199, 177)); // Beige
+
+
+
+            switch (category)
+            {
+                case "Breakfast": BreakfastColor = highlightColor; break;
+                case "Lunch": LunchColor = highlightColor; break;
+                case "Dinner": DinnerColor = highlightColor; break;
+                case "Snack": SnackColor = highlightColor; break;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

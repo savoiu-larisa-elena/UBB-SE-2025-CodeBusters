@@ -15,10 +15,11 @@ namespace MealPlanner.Services
             _mainFrame = mainFrame;
         }
 
-        public void NavigateTo(Type pageType)
+        public void NavigateTo(Type pageType, object parameter = null)
         {
-            _mainFrame?.Navigate(pageType);
+            _mainFrame?.Navigate(pageType, parameter);
         }
+
 
         public void GoBack()
         {

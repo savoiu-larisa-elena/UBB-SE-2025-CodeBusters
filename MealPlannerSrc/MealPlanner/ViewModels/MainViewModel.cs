@@ -213,7 +213,7 @@ namespace MealPlanner.ViewModels
         public ICommand AddLunch { get; }
         public ICommand AddDinner { get; }
         public ICommand AddSnack { get; }
-        public ICommand AddMeal { get; }
+        //public ICommand AddMeal { get; }
 
         public MainViewModel()
         {
@@ -288,7 +288,7 @@ namespace MealPlanner.ViewModels
 
             AddSnack = new RelayCommand(GoAddSnack);
 
-            AddMeal = new RelayCommand(GoAddMeal);
+            //AddMeal = new RelayCommand(GoAddMeal);
 
 
         }
@@ -330,28 +330,29 @@ namespace MealPlanner.ViewModels
 
         private void GoAddBreakfast()
         {
-            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage), "Breakfast");
         }
 
         private void GoAddLunch()
         {
-            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage), "Lunch");
         }
 
         private void GoAddDinner()
         {
-            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage), "Dinner");
         }
 
         private void GoAddSnack()
         {
-            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
+            NavigationService.Instance.NavigateTo(typeof(AddFoodPage), "Snack");
         }
 
-        private void GoAddMeal()
-        {
-            NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
-        }
+
+        //private void GoAddMeal()
+        //{
+        //    NavigationService.Instance.NavigateTo(typeof(AddFoodPage));
+        //}
 
 
 

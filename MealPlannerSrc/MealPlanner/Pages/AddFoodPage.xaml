@@ -112,7 +112,7 @@
                         <TextBlock Text="Number of servings:" 
                                    FontWeight="SemiBold" 
                                    Foreground="#133224"
-                                   Margin="0,0,0,5" />
+                                   Margin="0,40,0,5" />
                         <Slider Minimum="1" 
                                     Maximum="10" 
                                     Value="{Binding ServingsCount, Mode=TwoWay}" 
@@ -139,6 +139,7 @@
                             CornerRadius="15"
                             Width="130"
                             Padding="0,5" 
+                            Margin="0,20,0,5"
                             Command="{Binding NextCommand}"
 />
                 </StackPanel>
@@ -161,7 +162,7 @@
 
                                 <TextBlock Text="Breakfast" 
                                            
-                                           Foreground="#E8A087" 
+                                           Foreground="#F9E5DA" 
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
                             </Border>
@@ -175,7 +176,7 @@
                                     HorizontalAlignment="Center">
 
                                 <TextBlock Text="Lunch" 
-                                           Foreground="#E8A087" 
+                                           Foreground="#F9E5DA" 
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
                             </Border>
@@ -187,7 +188,7 @@
                                     HorizontalAlignment="Center">
 
                                 <TextBlock Text="Dinner" 
-                                           Foreground="#E8A087" 
+                                           Foreground="#F9E5DA" 
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
                             </Border>
@@ -198,7 +199,7 @@
                                     Width="80" 
                                     HorizontalAlignment="Center">
                                 <TextBlock Text="Snack" 
-                                           Foreground="#133224" 
+                                           Foreground="#F9E5DA" 
                                            HorizontalAlignment="Center" 
                                            VerticalAlignment="Center"/>
                             </Border>
@@ -240,22 +241,31 @@
                                  Margin="0,0,0,0">
 
 
-                                <ListBoxItem Content="100g"
+                                <ListBoxItem Content="grams"
                                              Height="40"
                                              FontSize="10"
                                              HorizontalAlignment="Center"/>
-                                <ListBoxItem Content="1g"
+                                
+                                <ListBoxItem Content="milliliters mL"
                                              Height="40"
                                              FontSize="10"
                                              HorizontalAlignment="Center"/>
+
+                                <ListBoxItem Content="ounces oz"
+                                             Height="40"
+                                             FontSize="10"
+                                             HorizontalAlignment="Center"/> 
+
                                 <ListBoxItem Content="1 piece"
                                              Height="40"
                                              FontSize="10"
                                              HorizontalAlignment="Center"/>
+
                                 <ListBoxItem Content="1 cup"
                                              Height="40"
                                              FontSize="10"
                                             HorizontalAlignment="Center"/>
+                                
                                 <ListBoxItem Content="1 slice"
                                              Height="40"
                                              FontSize="10"

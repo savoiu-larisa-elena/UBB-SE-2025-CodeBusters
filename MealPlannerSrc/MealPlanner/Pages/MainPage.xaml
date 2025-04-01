@@ -477,7 +477,7 @@
                                 CornerRadius="50"
                                 HorizontalAlignment="Right">
 
-                            <Button Command="{Binding AddMeal}" Foreground="White" Background="#C76E4E">
+                            <Button Command="{Binding AddBreakfast}" Foreground="White" Background="#C76E4E">
                                 <TextBlock Text="+" FontSize="22"  Margin="0, -17"/>
                             </Button>
 
@@ -492,7 +492,7 @@
                                     CornerRadius="50"
                                     HorizontalAlignment="Right">
 
-                            <Button Command="{Binding AddMeal}" Foreground="White" Background="#C76E4E">
+                            <Button Command="{Binding AddLunch}" Foreground="White" Background="#C76E4E">
                                 <TextBlock Text="+" FontSize="22"  Margin="0, -17"/>
                             </Button>
 
@@ -507,7 +507,7 @@
                                     CornerRadius="50"
                                     HorizontalAlignment="Right">
 
-                            <Button Command="{Binding AddMeal}" Foreground="White" Background="#C76E4E">
+                            <Button Command="{Binding AddDinner}" Foreground="White" Background="#C76E4E">
                                 <TextBlock Text="+" FontSize="22" Margin="0, -17"/>
                             </Button>
 
@@ -522,7 +522,7 @@
                                 CornerRadius="50"
                                 HorizontalAlignment="Right">
 
-                            <Button Command="{Binding AddMeal}" Foreground="White" Background="#C76E4E">
+                            <Button Command="{Binding AddSnack}" Foreground="White" Background="#C76E4E">
                                 <TextBlock Text="+" FontSize="22"  Margin="0, -17"/>
                             </Button>
 
