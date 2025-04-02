@@ -14,6 +14,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
 using Windows.UI;
+using Windows.System;
+using Microsoft.UI.Xaml.Controls;
+using MealPlanner.Models;
 
 
 
@@ -25,6 +28,10 @@ namespace MealPlanner.ViewModels
         private string _searchText;
         private object _selectedItem;
         private bool _isSearchVisible;
+        private string _selectedUnit = "g";
+
+
+
         private readonly string connectionString = 
             @"Server=RALUUU_LPT\SQLEXPRESS;Database=MealPlanner;Integrated Security=True;TrustServerCertificate=True";
 
@@ -38,6 +45,8 @@ namespace MealPlanner.ViewModels
             BackCommand = new RelayCommand(GoBack);
             NextCommand = new RelayCommand(GoNext);
             AddToMealCommand = new RelayCommand(AddToMeal, CanAddToMeal);
+            FetchServingUnits();
+
 
 
         }
@@ -145,37 +154,58 @@ namespace MealPlanner.ViewModels
 
         private void AddToMeal()
         {
-            if (SelectedItem == null) return;
+            if (SelectedItem == null)
+            {
+                Console.WriteLine("SelectedItem is null.");
+                return;
+            }
 
             int selectedId = (int)SelectedItem.GetType().GetProperty("Id")?.GetValue(SelectedItem);
             string type = (string)SelectedItem.GetType().GetProperty("Type")?.GetValue(SelectedItem);
 
+            Console.WriteLine($"Selected Item ID: {selectedId}");
+            Console.WriteLine($"Selected Item Type: {type}");
+            Console.WriteLine($"Servings Count: {servingsCount}");
+            Console.WriteLine($"Unit Name: {SelectedUnit}");
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                string insertQuery;
+                try
+                {
+                    connection.Open();
+                    Console.WriteLine("Database connection established.");
 
-                if (type == "Meal")
-                {
-                    insertQuery = "INSERT INTO meal_ingredients (meal_id, ingredient_id, quantity) VALUES (@mealId, NULL, 1)";
-                }
-                else // Ingredient
-                {
-                    insertQuery = "INSERT INTO meal_ingredients (meal_id, ingredient_id, quantity) VALUES (NULL, @ingredientId, 1)";
-                }
+                    string insertQuery = @"
+                                        INSERT INTO daily_meals (m_id, date_eaten, servings, unit_name, total_calories, 
+                                    total_protein, total_carbohydrates, total_fat, total_fiber, total_sugar)
+                                        SELECT 
+                                            @mealId,  -- <-- Update parameter here
+                                            GETDATE(),  
+                                            @servings, 
+                                            @unit_name, 
+                                            m.calories * @servings AS total_calories, 
+                                            m.protein * @servings AS total_protein, 
+                                            m.carbohydrates * @servings AS total_carbohydrates, 
+                                            m.fat * @servings AS total_fat, 
+                                            m.fiber * @servings AS total_fiber, 
+                                            m.sugar * @servings AS total_sugar
+                                        FROM meals m
+                                        WHERE m.m_id = @mealId";  // <-- Update parameter here as well
 
-                using (SqlCommand cmd = new SqlCommand(insertQuery, connection))
-                {
-                    if (type == "Meal")
+
+                    using (SqlCommand cmd = new SqlCommand(insertQuery, connection))
                     {
                         cmd.Parameters.AddWithValue("@mealId", selectedId);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@ingredientId", selectedId);
-                    }
+                        cmd.Parameters.AddWithValue("@unit_name", SelectedUnit);
+                        cmd.Parameters.AddWithValue("@servings", servingsCount);
 
-                    cmd.ExecuteNonQuery();
+                        int result = cmd.ExecuteNonQuery();
+                        Console.WriteLine($"Rows affected: {result}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error inserting data: " + ex.Message);
                 }
             }
 
@@ -184,6 +214,9 @@ namespace MealPlanner.ViewModels
             SearchText = "";
             IsSearchVisible = false;
         }
+
+
+
 
 
         // FOR SELECTED MEAL TYPE
@@ -247,13 +280,45 @@ namespace MealPlanner.ViewModels
 
 
 
+        // SERVING UNITS
 
+        public ObservableCollection<ServingUnitModel> ServingUnits { get; set; } = new ObservableCollection<ServingUnitModel>();
 
-
-
-
-
-
+        private void FetchServingUnits()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT unit_name FROM serving_units";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        var servingUnits = new ObservableCollection<ServingUnitModel>();
+                        while (reader.Read())
+                        {
+                            servingUnits.Add(new ServingUnitModel
+                            {
+                                UnitName = reader["unit_name"].ToString()
+                            });
+                        }
+                        ServingUnits = servingUnits;
+                    }
+                }
+            }
+        }
+        public string SelectedUnit
+        {
+            get => _selectedUnit;
+            set
+            {
+                if (_selectedUnit != value)
+                {
+                    _selectedUnit = value;
+                    OnPropertyChanged(nameof(SelectedUnit));
+                }
+            }
+        }
 
 
 
@@ -270,7 +335,6 @@ namespace MealPlanner.ViewModels
                 }
             }
         }
-
 
 
     }

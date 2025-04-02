@@ -93,6 +93,7 @@
                                  SelectionHighlightColor="#133224"/>
 
                         <ListView ItemsSource="{Binding SearchResults}" 
+                                  Height="50"
                                   Foreground="#133224"
                                   Background="#E3C7B1"
                                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
@@ -100,6 +101,7 @@
                             
                             <ListView.ItemTemplate>
                                 <DataTemplate>
+                                   
                                     <TextBlock Text="{Binding Name}" Padding="10"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -112,7 +114,7 @@
                         <TextBlock Text="Number of servings:" 
                                    FontWeight="SemiBold" 
                                    Foreground="#133224"
-                                   Margin="0,40,0,5" />
+                                   Margin="0,0,0,5" />
                         <Slider Minimum="1" 
                                     Maximum="10" 
                                     Value="{Binding ServingsCount, Mode=TwoWay}" 
@@ -217,6 +219,7 @@
 
                         <!-- Search bar -->
                         <TextBox x:Name="SearchBar" 
+                                 Text="{Binding SelectedUnit, UpdateSourceTrigger=PropertyChanged}"
                                  Width="330" 
                                  PlaceholderText="Select serving size:" 
                                  CornerRadius="15"
@@ -233,6 +236,9 @@
                                 Margin="0,0,0,10">
 
                             <ListBox x:Name="ServingSizeListBox" 
+                                     ItemsSource="{Binding ServingUnits}"
+                                     SelectedItem="{Binding SelectedUnit, Mode=TwoWay}"
+                                     SelectionChanged="ServingSizeListBox_SelectionChanged"
                                  FontSize="5"
                                  Width="340" 
                                  Background="#E3C7B1"
@@ -240,38 +246,14 @@
                                  HorizontalAlignment="Left"
                                  Margin="0,0,0,0">
 
-
-                                <ListBoxItem Content="grams"
-                                             Height="40"
-                                             FontSize="10"
-                                             HorizontalAlignment="Center"/>
-                                
-                                <ListBoxItem Content="milliliters mL"
-                                             Height="40"
-                                             FontSize="10"
-                                             HorizontalAlignment="Center"/>
-
-                                <ListBoxItem Content="ounces oz"
-                                             Height="40"
-                                             FontSize="10"
-                                             HorizontalAlignment="Center"/> 
-
-                                <ListBoxItem Content="1 piece"
-                                             Height="40"
-                                             FontSize="10"
-                                             HorizontalAlignment="Center"/>
-
-                                <ListBoxItem Content="1 cup"
-                                             Height="40"
-                                             FontSize="10"
-                                            HorizontalAlignment="Center"/>
-                                
-                                <ListBoxItem Content="1 slice"
-                                             Height="40"
-                                             FontSize="10"
-                                             HorizontalAlignment="Center"/>
-
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding UnitName}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
                             </ListBox>
+
+
                         </Border>
 
                     </StackPanel>

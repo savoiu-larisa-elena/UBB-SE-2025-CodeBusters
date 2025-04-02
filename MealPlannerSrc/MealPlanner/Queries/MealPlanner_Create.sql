@@ -107,6 +107,8 @@ create table meal_ingredient(
 	quantity float
 )
 
+
+
 create table favourite_meal(
 	m_id int foreign key references meals(m_id),
 	u_id int foreign key references users(u_id),
@@ -120,20 +122,51 @@ CREATE TABLE body_metrics (
     weight int,
     target_weight int
 );
--- Insert sample data into body_metrics table
-INSERT INTO body_metrics (height, weight, target_weight)
-VALUES 
-(175, 70, 65),  -- Example data: height = 175 cm, weight = 70 kg, target weight = 65 kg
-(160, 55, 50),  -- Example data: height = 160 cm, weight = 55 kg, target weight = 50 kg
-(180, 85, 80),  -- Example data: height = 180 cm, weight = 85 kg, target weight = 80 kg
-(165, 60, 58),  -- Example data: height = 165 cm, weight = 60 kg, target weight = 58 kg
-(170, 75, 70);  -- Example data: height = 170 cm, weight = 75 kg, target weight = 70 kg
+
+SELECT * 
+FROM information_schema.tables 
+WHERE table_name = 'body_metrics';
+
+
+CREATE TABLE serving_units (
+    unit_name VARCHAR(50) PRIMARY KEY,  -- Unique key for each unit, 'unit_name' as the primary key
+);
+
+INSERT INTO serving_units (unit_name)
+VALUES ('g'), ('ml'), ('oz'), ('piece'), ('cup'), ('slice');
+
+
+CREATE TABLE daily_meals (
+    dm_id INT PRIMARY KEY IDENTITY(1,1),  -- Unique entry for each meal logged
+    u_id INT NULL,  -- The user who ate the meal, now optional (can be NULL)
+    m_id INT NOT NULL FOREIGN KEY REFERENCES meals(m_id),  -- The meal they ate
+    date_eaten DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE), -- The day they ate it
+    servings FLOAT NOT NULL DEFAULT 1,  -- How many servings were eaten
+    unit_name VARCHAR(50) NOT NULL,  -- The serving unit type (now referring to 'unit_name' from 'serving_units')
+    
+    -- Foreign key reference to the serving_units table using unit_name
+    FOREIGN KEY (unit_name) REFERENCES serving_units(unit_name),
+
+    total_calories FLOAT,  -- Total calories based on servings
+    total_protein FLOAT,   -- Total protein based on servings
+    total_carbohydrates FLOAT,  -- Total carbohydrates based on servings
+    total_fat FLOAT,       -- Total fat based on servings
+    total_fiber FLOAT,     -- Total fiber based on servings
+    total_sugar FLOAT,     -- Total sugar based on servings
+    FOREIGN KEY (u_id) REFERENCES users(u_id)  -- User foreign key can be null now
+);
+
+
+
+drop table daily_meals
+
+
+select* from serving_units
+select* from daily_meals
 
 
 
 select* from body_metrics
-
-
 
 
 -- Now drop tables in reverse order of their creation

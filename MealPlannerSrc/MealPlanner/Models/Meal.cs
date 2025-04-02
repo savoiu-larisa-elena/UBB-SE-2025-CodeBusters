@@ -8,12 +8,12 @@ namespace MealPlanner.Models
 {
     public class Meal
     {
+        public int m_id { get; set; }
+
         public string Name { get; set; }
         public string Ingredients { get; set; }
         public int Calories { get; set; }
-
         public string Category { get; set; }
-
         public int Protein { get; set; }
 
         public int Carbohydrates { get; set; }
@@ -23,8 +23,6 @@ namespace MealPlanner.Models
         public int Fiber { get; set; }
 
         public int Sugar { get; set; }
-
-
 
         public string PhotoLink { get; set; }
 

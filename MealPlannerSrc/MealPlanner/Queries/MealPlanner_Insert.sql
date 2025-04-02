@@ -99,6 +99,9 @@ INSERT INTO meal_ingredient (m_id, i_id, quantity) VALUES
 (4, 4, 150),  -- Vegan Stir Fry uses 150g Tofu
 (5, 5, 30);   -- Protein Pancakes uses 30g Whey Protein Powder
 
+SELECT * FROM meal_ingredient;
+
+
 
 INSERT INTO meal_types (m_description) VALUES 
 ('Breakfast'),
@@ -133,6 +136,12 @@ INSERT INTO favourite_meal (m_id, u_id, is_fav) VALUES
 (5, 5, 0);  -- Chris Johnson does not mark Protein Pancakes as favorite
 
 
-SELECT * 
-FROM information_schema.tables 
-WHERE table_name = 'body_metrics';
+
+-- Insert sample data into body_metrics table
+INSERT INTO body_metrics (height, weight, target_weight)
+VALUES 
+(175, 70, 65),  -- Example data: height = 175 cm, weight = 70 kg, target weight = 65 kg
+(160, 55, 50),  -- Example data: height = 160 cm, weight = 55 kg, target weight = 50 kg
+(180, 85, 80),  -- Example data: height = 180 cm, weight = 85 kg, target weight = 80 kg
+(165, 60, 58),  -- Example data: height = 165 cm, weight = 60 kg, target weight = 58 kg
+(170, 75, 70);  -- Example data: height = 170 cm, weight = 75 kg, target weight = 70 kg
