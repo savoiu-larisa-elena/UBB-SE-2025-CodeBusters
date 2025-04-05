@@ -81,3 +81,27 @@ begin
 	select @a_id = a_id from allergies where a_description = @a_description
 	return @a_id
 end
+
+go
+CREATE PROCEDURE GetMealsByCategory
+    @category VARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        m.m_name as Name,
+        m.recipe as Recipe,
+        m.calories as Calories,
+        mt.m_description as Category,
+        m.protein as Protein,
+        m.carbohydrates as Carbohydrates,
+        m.fat as Fat,
+        m.fiber as Fiber,
+        m.sugar as Sugar,
+        m.photo_link as PhotoLink,
+        m.preparation_time as PreparationTime,
+        m.servings as Servings
+    FROM meals m
+    JOIN meal_types mt ON m.mt_id = mt.mt_id
+    WHERE mt.m_description = @category;
+END
+
