@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealPlannerProject.Exceptions
 {
-    class ConfigurationErrorsException : Exception
+    public class ConfigurationErrorsException : Exception
     {
         public ConfigurationErrorsException() { }
         public ConfigurationErrorsException(string message) : base(message) { }
