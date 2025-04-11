@@ -1,52 +1,54 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using MealPlannerProject.Pages;
-using MealPlannerProject.Services;
-using Windows.Networking;
-
-namespace MealPlannerProject.ViewModels
+﻿namespace MealPlannerProject.ViewModels
 {
-    class GoalPageViewModel
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
+    using MealPlannerProject.Pages;
+    using MealPlannerProject.Services;
+    using Windows.Networking;
+
+    internal class GoalPageViewModel
     {
         public ObservableCollection<string> Goals { get; } = new ObservableCollection<string>
-        {
-            "Lose weight",
-            "Gain weight",
-            "Maintain weight",
-            "Body recomposition",
-            "Improve overall health"
-        };
+            {
+                "Lose weight",
+                "Gain weight",
+                "Maintain weight",
+                "Body recomposition",
+                "Improve overall health",
+            };
 
-        private string _selectedGoal;
+        private string selectedGoal = string.Empty; // Initialize to avoid CS8618
+
         public string SelectedGoal
         {
-            get => _selectedGoal;
+            get => this.selectedGoal;
             set
             {
-                _selectedGoal = value;
-                OnPropertyChanged(nameof(SelectedGoal));
+                this.selectedGoal = value;
+                this.OnPropertyChanged(nameof(this.SelectedGoal));
             }
         }
 
         public ICommand SelectGoalCommand { get; }
+
         public ICommand BackCommand { get; }
+
         public ICommand NextCommand { get; }
 
         public GoalPageViewModel()
         {
-            BackCommand = new RelayCommand(GoBack);
-            NextCommand = new RelayCommand(GoNext);
-            SelectGoalCommand = new RelayCommand<string>(OnGoalSelected);
+            this.BackCommand = new RelayCommand(this.GoBack);
+            this.NextCommand = new RelayCommand(this.GoNext);
+            this.SelectGoalCommand = new RelayCommand<string>(this.OnGoalSelected);
         }
 
-        private void OnGoalSelected(string goal)
+        private void OnGoalSelected(string? goal)
         {
-            SelectedGoal = goal;
+            this.SelectedGoal = (goal != null) ? goal : string.Empty;
         }
-
 
         private void GoBack()
         {
@@ -55,26 +57,26 @@ namespace MealPlannerProject.ViewModels
 
         private GoalPageService goalPageService = new GoalPageService();
 
-        private string firstName;
-        private string lastName;
+        private string firstName = string.Empty;
+        private string lastName = string.Empty;
 
         public string FirstName
         {
-            get => firstName;
+            get => this.firstName;
             set
             {
-                firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                this.firstName = value;
+                this.OnPropertyChanged(nameof(this.FirstName));
             }
         }
 
         public string LastName
         {
-            get => lastName;
+            get => this.lastName;
             set
             {
-                lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                this.lastName = value;
+                this.OnPropertyChanged(nameof(this.LastName));
             }
         }
 
@@ -84,14 +86,13 @@ namespace MealPlannerProject.ViewModels
             LastName = lastName;
         }
 
-
         private void GoNext()
         {
             goalPageService.addGoals(FirstName, LastName, SelectedGoal);
             NavigationService.Instance.NavigateTo(typeof(ActivityLevelPage), this);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged; // Mark as nullable to avoid CS8618
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
