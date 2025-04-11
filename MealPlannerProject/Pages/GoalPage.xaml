@@ -5,6 +5,10 @@
       xmlns:vm="using:MealPlannerProject.ViewModels"
       Background="#FCE8DC">
 
+    <Page.DataContext>
+        <vm:GoalPageViewModel/>
+    </Page.DataContext>
+
     <Grid Padding="30">
         <Button HorizontalAlignment="Left"
                 VerticalAlignment="Top"
