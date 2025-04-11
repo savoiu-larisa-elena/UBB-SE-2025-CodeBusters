@@ -38,7 +38,6 @@ namespace MealPlannerProject.Pages
             }
         }
 
-
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
             try

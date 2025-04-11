@@ -82,20 +82,21 @@
 
         public void SetUserInfo(string firstName, string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
         private void GoNext()
         {
-            goalPageService.addGoals(FirstName, LastName, SelectedGoal);
+            this.goalPageService.addGoals(this.FirstName, this.LastName, this.SelectedGoal);
             NavigationService.Instance.NavigateTo(typeof(ActivityLevelPage), this);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged; // Mark as nullable to avoid CS8618
+
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
