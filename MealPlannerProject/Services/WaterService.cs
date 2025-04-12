@@ -1,15 +1,14 @@
-﻿using MealPlannerProject.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using MealPlannerProject.Queries;
-
-namespace MealPlannerProject.Services
+﻿namespace MealPlannerProject.Services
 {
-    class WaterService
+    using System;
+    using System.Collections.Generic;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using MealPlannerProject.Queries;
+
+    internal class WaterService
     {
         public float GetWaterIntake(int userId)
         {
