@@ -31,7 +31,7 @@
 
         [Column("sugar")]
         public float Sugar { get; set; }
-
+         
         public Ingredient()
         {
         }

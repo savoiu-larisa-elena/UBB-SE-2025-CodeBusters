@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using MealPlannerProject.ViewModels;
 using MealPlannerProject.Queries;
 using System.Data;
+using MealPlannerProject.Interfaces.Services;
 
 namespace MealPlannerProject.ViewModels
 {
@@ -207,7 +208,7 @@ namespace MealPlannerProject.ViewModels
 
         // ----------------------------------------
 
-        private readonly WaterService _waterService;
+        private readonly IWaterService _waterService;
         private readonly CalorieService _calorieService;
         private readonly MacrosService _macrosService;
 
