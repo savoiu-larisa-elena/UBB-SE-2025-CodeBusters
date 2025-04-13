@@ -1,6 +1,7 @@
 ﻿using MealPlannerProject.Queries;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -34,9 +35,11 @@ namespace MealPlannerProject.Services
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@u_name", name)
+                new SqlParameter("@u_name", name),
+                new SqlParameter("@id", SqlDbType.Int) {Direction = System.Data.ParameterDirection.Output},
             };
-            return DataLink.Instance.ExecuteNonQuery("InsertNewUser", parameters);
+            DataLink.Instance.ExecuteNonQuery("InsertNewUser", parameters);
+            return (int) parameters[1].Value;
         }
     }
 }
