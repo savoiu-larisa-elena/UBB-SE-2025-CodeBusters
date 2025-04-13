@@ -49,6 +49,7 @@ namespace MealPlannerProject.Services
             }
         }
 
+
         public async Task<List<Meal>> GetAllMealsAsync()
         {
             var meals = new List<Meal>();

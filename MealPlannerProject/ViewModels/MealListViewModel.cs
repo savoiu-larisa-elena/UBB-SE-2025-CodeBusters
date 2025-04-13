@@ -7,18 +7,20 @@ using System.Data.SqlClient;
 using MealPlannerProject.Models;
 using MealPlannerProject.Services;
 using MealPlannerProject.Queries;
-using MealPlannerProject.ViewModels;
 using System.Diagnostics;
 using MealPlannerProject.Pages;
 using CommunityToolkit.Mvvm.Input;
+using System.Threading.Tasks;
+
+using MealPlannerProject.Interfaces;
 
 namespace MealPlannerProject.ViewModels
 {
-    public class MealListViewModel : ViewModelBase
+    public class MealListViewModel : ViewModelBase, IMealListViewModel
     {
         private readonly NavigationService _navigationService;
         private Meal _selectedMeal;
-
+        private MealService _mealService;
         public ObservableCollection<Meal> AllMeals { get; }
         public ObservableCollection<Meal> BreakfastMeals { get; private set; }
         public ObservableCollection<Meal> LunchMeals { get; private set; }
@@ -28,7 +30,7 @@ namespace MealPlannerProject.ViewModels
         public ObservableCollection<string> FavoriteMeals { get; }
 
         public ICommand BackCommand { get; }
-        public ICommand MealClickCommand { get; }
+        public ICommand SelectMealCommand { get; }
 
         public Meal SelectedMeal
         {
@@ -43,15 +45,28 @@ namespace MealPlannerProject.ViewModels
             }
         }
 
+        // Parameterless constructor for XAML compatibility
         public MealListViewModel()
         {
+            AllMeals = new ObservableCollection<Meal>();
+            BreakfastMeals = new ObservableCollection<Meal>();
+            LunchMeals = new ObservableCollection<Meal>();
+            DinnerMeals = new ObservableCollection<Meal>();
+            SnackMeals = new ObservableCollection<Meal>();
+            RecentMeals = new ObservableCollection<string>();
+            FavoriteMeals = new ObservableCollection<string>();
+        }
+
+        // Constructor with MealService dependency
+        public MealListViewModel(MealService mealService) : this()
+        {
+            _mealService = mealService;
             Debug.WriteLine("Initializing MealListViewModel...");
             _navigationService = NavigationService.Instance;
-            AllMeals = new ObservableCollection<Meal>();
 
             // Initialize commands
             BackCommand = new RelayCommand(NavigateBack);
-            MealClickCommand = new RelayCommand<Meal>(OnMealClicked);
+            SelectMealCommand = new RelayCommand<Meal>(OnMealClicked);
 
             // Test database connection
             TestDatabaseConnection();
@@ -104,7 +119,7 @@ namespace MealPlannerProject.ViewModels
             }
         }
 
-        private void TestDatabaseConnection()
+        private async Task TestDatabaseConnection()
         {
             try
             {
@@ -127,17 +142,17 @@ namespace MealPlannerProject.ViewModels
             }
         }
 
-        private void LoadMealsFromDatabase()
+        private async Task LoadMealsFromDatabase()
         {
             try
             {
                 Debug.WriteLine("Starting to load meals from database...");
 
                 // Load meals for each category
-                LoadMealsByCategory("Breakfast");
-                LoadMealsByCategory("Lunch");
-                LoadMealsByCategory("Dinner");
-                LoadMealsByCategory("Snack");
+                await LoadMealsByCategory("Breakfast");
+                await LoadMealsByCategory("Lunch");
+                await LoadMealsByCategory("Dinner");
+                await LoadMealsByCategory("Snack");
 
                 Debug.WriteLine($"Total meals loaded: {AllMeals.Count}");
             }
@@ -148,7 +163,7 @@ namespace MealPlannerProject.ViewModels
             }
         }
 
-        private void LoadMealsByCategory(string category)
+        private async Task LoadMealsByCategory(string category)
         {
             try
             {
@@ -236,7 +251,7 @@ namespace MealPlannerProject.ViewModels
             _navigationService.NavigateTo(typeof(MealDisplayPage), mealViewModel);
         }
 
-        private void NavigateBack()
+        public void NavigateBack()
         {
             _navigationService.GoBack();
         }

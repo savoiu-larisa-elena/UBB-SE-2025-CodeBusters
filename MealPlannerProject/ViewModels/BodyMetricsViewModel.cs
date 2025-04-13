@@ -4,18 +4,25 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using MealPlannerProject.Pages;
+using MealPlannerProject.Interfaces;
 
 namespace MealPlannerProject.ViewModels
 {
     public class BodyMetricsViewModel : ViewModelBase
     {
-        public ICommand NextCommand { get; }
+        private readonly IBodyMetricService _bodyMetricService;
+
+        public ICommand SubmitBodyMetricsCommand { get; }
 
         private string weight = string.Empty;
         private string height = string.Empty;
         private string targetWeight = string.Empty;
         private string firstName = string.Empty;
         private string lastName = string.Empty;
+
+        public BodyMetricsViewModel() : this(new BodyMetricService())
+        {
+        }
 
         public string Weight
         {
@@ -67,11 +74,10 @@ namespace MealPlannerProject.ViewModels
             }
         }
 
-        private BodyMetricService bodyMetricService = new Services.BodyMetricService();
-
-        public BodyMetricsViewModel()
+        public BodyMetricsViewModel(IBodyMetricService bodyMetricService)
         {
-            NextCommand = new RelayCommand(GoNext);
+            _bodyMetricService = bodyMetricService ?? throw new ArgumentNullException(nameof(bodyMetricService));
+            SubmitBodyMetricsCommand = new RelayCommand(GoNext);
         }
 
         public void SetUserInfo(string firstName, string lastName)
@@ -84,12 +90,11 @@ namespace MealPlannerProject.ViewModels
         {
             try
             {
-                bodyMetricService.addBodyMetrics(FirstName, LastName, Weight, Height, TargetWeight);
+                this._bodyMetricService.UpdateUserBodyMetrics(this.FirstName, this.LastName, this.Weight, this.Height, this.TargetWeight);
                 NavigationService.Instance.NavigateTo(typeof(GoalPage), this);
             }
             catch (Exception ex)
             {
-                // Handle any errors here  
                 Debug.WriteLine($"Error in GoNext: {ex.Message}");
             }
         }

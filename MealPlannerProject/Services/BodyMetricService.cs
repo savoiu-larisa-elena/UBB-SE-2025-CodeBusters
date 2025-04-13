@@ -6,29 +6,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+using MealPlannerProject.Interfaces;
 namespace MealPlannerProject.Services
 {
-    class BodyMetricService
+    /// <summary>
+    /// Service for managing body metrics of users.
+    /// </summary>
+    public class BodyMetricService : IBodyMetricService
     {
-        public void addBodyMetrics(string firstName, string lastName, string weight, string height, string target_goal)
+        /// <summary>
+        /// Updates the body metrics of a user in the database.
+        /// </summary>
+        /// <param name="firstName">The first name of the user.</param>
+        /// <param name="lastName">The last name of the user.</param>
+        /// <param name="weight">The weight of the user.</param>
+        /// <param name="height">The height of the user.</param>
+        /// <param name="targetGoal">The target goal of the user.</param>
+        public void UpdateUserBodyMetrics(string firstName, string lastName, string weight, string height, string targetGoal)
         {
-            //this uses the sql update function
-            float user_weight = float.Parse(weight);
-            float user_height = float.Parse(height);
-            float user_target_goal = float.Parse(target_goal);
+            float userWeight = float.Parse(weight);
+            float userHeight = float.Parse(height);
+            float userTargetGoal = float.Parse(targetGoal);
+
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@u_name", $"{lastName} {firstName}")
+                    new SqlParameter("@u_name", $"{lastName} {firstName}")
             };
 
-            int u_id = DataLink.Instance.ExecuteScalar<int>("SELECT dbo.GetUserByName(@u_name)", parameters, false);
+            int userId = DataLink.Instance.ExecuteScalar<int>("SELECT dbo.GetUserByName(@u_name)", parameters, false);
 
             parameters = new SqlParameter[]
             {
-                new SqlParameter("@u_id", u_id),
-                new SqlParameter("@u_weight", user_weight),
-                new SqlParameter("@u_height", user_height),
-                new SqlParameter("@u_goal", user_target_goal)
+                    new SqlParameter("@u_id", userId),
+                    new SqlParameter("@u_weight", userWeight),
+                    new SqlParameter("@u_height", userHeight),
+                    new SqlParameter("@u_goal", userTargetGoal)
             };
 
             DataLink.Instance.ExecuteNonQuery("UpdateUserBodyMetrics", parameters);
