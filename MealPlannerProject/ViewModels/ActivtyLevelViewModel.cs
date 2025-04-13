@@ -1,34 +1,39 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using MealPlannerProject.Services;
-using MealPlannerProject.Pages;
-using MealPlannerProject.ViewModels;
-using System.ComponentModel;
-
-namespace MealPlannerProject.ViewModels
+﻿namespace MealPlannerProject.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using MealPlannerProject.Pages;
+    using MealPlannerProject.Services;
+
     public class ActivityLevelViewModel : ViewModelBase
     {
-
-        private string _selectedActivity;
+        private string selectedActivity;
+        private string firstName;
+        private string lastName;
 
         private ActivityPageService activityPageService = new ActivityPageService();
+
         public ObservableCollection<string> ActivityLevels { get; } = new ObservableCollection<string>
         {
             "Sedentary",
             "Lightly Active",
             "Moderately Active",
             "Very Active",
-            "Super Active"
+            "Super Active",
         };
 
         public ICommand BackCommand { get; }
+
         public ICommand NextCommand { get; }
 
         public ActivityLevelViewModel()
         {
-            BackCommand = new RelayCommand(GoBack);
-            NextCommand = new RelayCommand(GoNext);
+            this.selectedActivity = string.Empty;
+            this.firstName = string.Empty;
+            this.lastName = string.Empty;
+            this.BackCommand = new RelayCommand(this.GoBack);
+            this.NextCommand = new RelayCommand(this.GoNext);
         }
 
         private void GoBack()
@@ -36,57 +41,54 @@ namespace MealPlannerProject.ViewModels
             NavigationService.Instance.GoBack();
         }
 
-        private string firstName;
-        private string lastName;
-
         public string FirstName
         {
-            get => firstName;
+            get => this.firstName;
             set
             {
-                firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                this.firstName = value;
+                this.OnPropertyChanged(nameof(this.FirstName));
             }
         }
 
         public string LastName
         {
-            get => lastName;
+            get => this.lastName;
             set
             {
-                lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                this.lastName = value;
+                this.OnPropertyChanged(nameof(this.LastName));
             }
         }
 
         public string SelectedActivity
         {
-            get => _selectedActivity;
+            get => this.selectedActivity;
             set
             {
-                _selectedActivity = value;
-                OnPropertyChanged(nameof(SelectedActivity));
+                this.selectedActivity = value;
+                this.OnPropertyChanged(nameof(this.SelectedActivity));
             }
         }
 
         public void SetUserInfo(string firstName, string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
 
         private void GoNext()
         {
-            activityPageService.addActivity(FirstName, LastName, SelectedActivity);
+            this.activityPageService.addActivity(this.FirstName, this.LastName, this.SelectedActivity);
             NavigationService.Instance.NavigateTo(typeof(CookingLevelPage), this);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
- 
