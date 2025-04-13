@@ -5,17 +5,16 @@ namespace MealPlannerProject.Services
     using System.Data;
     using System.Diagnostics;
     using System.Threading.Tasks;
+    using MealPlannerProject.Interfaces.Services;
     using MealPlannerProject.Models;
     using MealPlannerProject.Queries;
     using MealPlannerProject.Repositories;
 
-    public class MealService
+    public class MealService : IMealService
     {
-        // Database-related constants to replace magic numbers
         private const int SuccessfulCreationIndicator = 0;
         private const int FailedOperationCode = -1;
 
-        // Meal type IDs as constants to replace magic numbers
         private const int BreakfastTypeId = 1;
         private const int LunchTypeId = 2;
         private const int DinnerTypeId = 3;
@@ -26,13 +25,12 @@ namespace MealPlannerProject.Services
         private const int VeganMealTypeId = 8;
         private const int HighProteinMealTypeId = 9;
         private const int LowCarbMealTypeId = 10;
-        private const int DefaultMealTypeId = 1; // Default to breakfast if unknown
+        private const int DefaultMealTypeId = 1;
 
-        // Cooking skill IDs as constants to replace magic numbers
         private const int BeginnerSkillId = 1;
         private const int IntermediateSkillId = 2;
         private const int AdvancedSkillId = 3;
-        private const int DefaultCookingSkillId = 1; // Default to beginner if unknown
+        private const int DefaultCookingSkillId = 1;
 
         private readonly MealRepository mealDatabaseRepository;
         private readonly IngredientRepository ingredientDatabaseRepository;

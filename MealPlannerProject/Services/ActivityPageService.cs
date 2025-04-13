@@ -2,9 +2,10 @@
 {
     using System.Data.SqlClient;
     using System.Diagnostics;
+    using MealPlannerProject.Interfaces.Services;
     using MealPlannerProject.Queries;
 
-    internal class ActivityPageService
+    internal class ActivityPageService : IActivityPageService
     {
         private const string UserLookupQuery = "SELECT dbo.GetUserByName(@userFullName)";
         private const string ActivityLookupQuery = "SELECT dbo.GetActivityByDescription(@activityDescription)";

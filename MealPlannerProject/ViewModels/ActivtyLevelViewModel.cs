@@ -4,6 +4,7 @@ using MealPlannerProject.Services;
 using MealPlannerProject.Pages;
 using MealPlannerProject.ViewModels;
 using System.ComponentModel;
+using MealPlannerProject.Interfaces.Services;
 
 namespace MealPlannerProject.ViewModels
 {
@@ -12,7 +13,7 @@ namespace MealPlannerProject.ViewModels
 
         private string _selectedActivity;
 
-        private ActivityPageService activityPageService = new ActivityPageService();
+        private IActivityPageService activityPageService = new ActivityPageService();
         public ObservableCollection<string> ActivityLevels { get; } = new ObservableCollection<string>
         {
             "Sedentary",

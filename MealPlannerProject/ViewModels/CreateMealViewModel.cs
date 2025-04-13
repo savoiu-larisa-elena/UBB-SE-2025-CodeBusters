@@ -9,12 +9,13 @@ using CommunityToolkit.Mvvm.Input;
 using Windows.Storage;
 using System.IO;
 using System.Linq;
+using MealPlannerProject.Interfaces.Services;
 
 namespace MealPlannerProject.ViewModels
 {
     public class CreateMealViewModel : ViewModelBase
     {
-        private readonly MealService _mealService;
+        private readonly IMealService _mealService;
         private string _mealName;
         private string _cookingTime;
         private string _selectedMealType;

@@ -38,7 +38,6 @@
             this.userLastName = string.Empty;
             this.userSelectedCookingSkill = string.Empty;
 
-            // Initialize PropertyChanged event with empty handler
             this.PropertyChanged = (eventSender, eventArguments) => { };
         }
 
