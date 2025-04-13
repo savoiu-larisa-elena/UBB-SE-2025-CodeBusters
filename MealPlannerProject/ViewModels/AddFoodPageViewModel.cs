@@ -18,11 +18,8 @@
         private bool isSearchVisible;
         private string selectedUnit = "g";
 
-
-
         private readonly string connectionString =
             @"Server=DESKTOP-H700VKM\MSSQLSERVER01;Database=Meal_Planner;Integrated Security=True;TrustServerCertificate=True";
-
 
         public ObservableCollection<object> SearchResults { get; set; } = new ObservableCollection<object>();
 
@@ -54,6 +51,7 @@
                 this.OnPropertyChanged(propertyName);
             }
         }
+
         public string TotalPr
         {
             get => this.totalPr;
@@ -122,7 +120,6 @@
             this.TotalFib = this.macrosService.GetFiberIntake(number_userId).ToString();
             this.TotalSug = this.macrosService.GetSugarIntake(number_userId).ToString();
 
-
             // Initialize values
             this.GoalPr = "30";
             this.GoalCarb = "200";
@@ -135,8 +132,6 @@
             this.LeftFib = (float.Parse(this.GoalFib) - float.Parse(this.TotalFib)).ToString();
             this.LeftFat = (float.Parse(this.GoalFat) - float.Parse(this.TotalFat)).ToString();
             this.LeftSug = (float.Parse(this.GoalSug) - float.Parse(this.TotalSug)).ToString();
-
-
         }
 
         public ICommand NextCommand { get; }
@@ -152,7 +147,6 @@
         {
             NavigationService.Instance.NavigateTo(typeof(MainPage));
         }
-
 
         // for SEARCH BAR INGREDIENT / MEAL
         public ICommand AddToMealCommand { get; }
@@ -189,7 +183,6 @@
                 this.OnPropertyChanged();
             }
         }
-
 
         private void PerformSearch()
         {
@@ -246,7 +239,6 @@
             return canAdd;
         }
 
-
         private void AddToMeal()
         {
             Console.WriteLine("AddToMeal method called");
@@ -290,7 +282,6 @@
                                             m.sugar * @servings AS total_sugar
                                         FROM meals m
                                         WHERE m.m_id = @mealId";  // <-- Update parameter here as well
-
 
                         using (SqlCommand cmd = new SqlCommand(insertQuery, connection))
                         {
@@ -346,7 +337,9 @@
         public SolidColorBrush BreakfastColor
         {
             get => this.breakfastColor;
-            set { this.breakfastColor = value;
+            set
+            {
+                this.breakfastColor = value;
                 this.OnPropertyChanged();
             }
         }
@@ -354,15 +347,19 @@
         public SolidColorBrush LunchColor
         {
             get => this.lunchColor;
-            set { this.lunchColor = value;
-                this.OnPropertyChanged(); 
+            set
+            {
+                this.lunchColor = value;
+                this.OnPropertyChanged();
             }
         }
 
         public SolidColorBrush DinnerColor
         {
             get => this.dinnerColor;
-            set { this.dinnerColor = value;
+            set
+            {
+                this.dinnerColor = value;
                 this.OnPropertyChanged();
             }
         }
@@ -370,7 +367,9 @@
         public SolidColorBrush SnackColor
         {
             get => this.snackColor;
-            set { this.snackColor = value;
+            set
+            {
+                this.snackColor = value;
                 this.OnPropertyChanged();
             }
         }
@@ -440,9 +439,8 @@
             }
         }
 
-
-
         private int servingsCount = 0;
+
         public string ServingsCount
         {
             get => $"{this.servingsCount} servings";
