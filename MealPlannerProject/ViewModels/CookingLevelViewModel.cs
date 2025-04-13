@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using MealPlannerProject.Interfaces.Services;
 using MealPlannerProject.Pages;
 using MealPlannerProject.Services;
 
@@ -71,12 +72,12 @@ namespace MealPlannerProject.ViewModels
         }
 
 
-        private CookingPageService cooking = new CookingPageService();
+        private ICookingPageService cooking = new CookingPageService();
         private string _selectedCookingSkill;
 
         private void GoNext()
         {
-            cooking.addCookingSkill(FirstName, LastName, SelectedCookingSkill);
+            cooking.AddCookingSkill(FirstName, LastName, SelectedCookingSkill);
             NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
         }
 

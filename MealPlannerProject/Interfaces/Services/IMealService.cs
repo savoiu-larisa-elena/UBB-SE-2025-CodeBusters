@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MealPlannerProject.Models;
 
-namespace MealPlannerProject.Interfaces
+namespace MealPlannerProject.Interfaces.Services
 {
     public interface IMealService
     {

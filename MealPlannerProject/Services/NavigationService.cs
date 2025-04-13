@@ -50,7 +50,8 @@ namespace MealPlannerProject.Services
 
         internal void NavigateTo(Type type, CookingLevelViewModel cookingLevelViewModel)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            _mainFrame?.Navigate(type, cookingLevelViewModel);
         }
     }
 }

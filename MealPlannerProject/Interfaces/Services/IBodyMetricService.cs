@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlannerProject.Interfaces
+namespace MealPlannerProject.Interfaces.Services
 {
     public interface IBodyMetricService
     {

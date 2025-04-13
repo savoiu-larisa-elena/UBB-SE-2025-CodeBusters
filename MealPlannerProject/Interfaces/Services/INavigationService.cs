@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MealPlannerProject.Interfaces
+namespace MealPlannerProject.Interfaces.Services
 {
     public interface INavigationService
     {

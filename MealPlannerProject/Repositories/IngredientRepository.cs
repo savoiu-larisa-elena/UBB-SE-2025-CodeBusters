@@ -1,10 +1,10 @@
 ﻿using MealPlannerProject.Models;
-using MealPlannerProject.Interfaces;
 using System;
 using System.Data;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using MealPlannerProject.Queries;
+using MealPlannerProject.Interfaces.Repositories;
 
 namespace MealPlannerProject.Repositories
 {

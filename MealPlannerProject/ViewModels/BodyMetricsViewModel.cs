@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using MealPlannerProject.Pages;
-using MealPlannerProject.Interfaces;
+using MealPlannerProject.Interfaces.Services;
 
 namespace MealPlannerProject.ViewModels
 {

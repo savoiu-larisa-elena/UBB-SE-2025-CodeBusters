@@ -5,9 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-using MealPlannerProject.Interfaces;
+using MealPlannerProject.Interfaces.Services;
 namespace MealPlannerProject.Services
 {
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using MealPlannerProject.Models;
 using System.Threading.Tasks;
 
-namespace MealPlannerProject.Interfaces
+namespace MealPlannerProject.Interfaces.Repositories
 {
     public interface IIngredientRepository
     {
