@@ -28,10 +28,13 @@
 
         public ICommand NavigateToNextPageCommand { get; }
 
+        public ICommand NextCommand { get; }
+
         public CookingLevelViewModel()
         {
             this.NavigateToPreviousPageCommand = new RelayCommand(this.NavigateToPreviousPage);
             this.NavigateToNextPageCommand = new RelayCommand(this.NavigateToNextPage);
+            this.NextCommand = new RelayCommand(NavigateToNextPage);
             this.cookingPageService = new CookingPageService();
 
             this.userFirstName = string.Empty;

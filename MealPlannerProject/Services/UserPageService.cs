@@ -34,7 +34,8 @@ namespace MealPlannerProject.Services
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@u_name", name)
+                new SqlParameter("@u_name", name),
+                new SqlParameter("@id", -1),
             };
             return DataLink.Instance.ExecuteNonQuery("InsertNewUser", parameters);
         }
