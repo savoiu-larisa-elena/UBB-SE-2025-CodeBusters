@@ -1,9 +1,10 @@
 go
-create procedure InsertNewUser(@u_name varchar(100))
+create procedure InsertNewUser(@u_name varchar(100), @id INT OUTPUT)
 as
 begin
 set nocount on;
 insert into users(u_name, u_height, u_weight) values (@u_name, 0, 0);
+SET @id = SCOPE_IDENTITY();
 end;
 
 GO

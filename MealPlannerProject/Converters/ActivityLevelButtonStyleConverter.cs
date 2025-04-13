@@ -1,10 +1,9 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Controls;
-using System;
-
-namespace MealPlannerProject.Converters
+﻿namespace MealPlannerProject.Converters
 {
+    using System;
+    using Microsoft.UI.Xaml;
+    using Microsoft.UI.Xaml.Data;
+
     public class ActivityLevelButtonStyleConverter : IValueConverter
     {
         public object? Convert(object value, Type targetType, object parameter, string language)
