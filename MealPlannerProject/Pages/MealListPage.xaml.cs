@@ -1,12 +1,8 @@
-using MealPlannerProject.Models;
-using MealPlannerProject.ViewModels;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Diagnostics;
-
 namespace MealPlannerProject.Pages
 {
+    using MealPlannerProject.ViewModels;
+    using Microsoft.UI.Xaml.Controls;
+
     public sealed partial class MealListPage : Page
     {
         public MealListPage()

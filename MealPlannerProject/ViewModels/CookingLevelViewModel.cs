@@ -1,30 +1,37 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Input;
-using MealPlannerProject.Interfaces.Services;
-using MealPlannerProject.Pages;
-using MealPlannerProject.Services;
-
-namespace MealPlannerProject.ViewModels
+﻿namespace MealPlannerProject.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using MealPlannerProject.Interfaces.Services;
+    using MealPlannerProject.Pages;
+    using MealPlannerProject.Services;
+
     public partial class CookingLevelViewModel : ViewModelBase
     {
         public ObservableCollection<string> CookingLevels { get; } = new ObservableCollection<string>
-        {
-            "I am a beginner",
-            "I cook sometimes",
-            "I love cooking",
-            "I prefer quick meals",
-            "I meal prep"
-        };
+                   {
+                       "I am a beginner",
+                       "I cook sometimes",
+                       "I love cooking",
+                       "I prefer quick meals",
+                       "I meal prep",
+                   };
 
         public ICommand BackCommand { get; }
+
         public ICommand NextCommand { get; }
 
         public CookingLevelViewModel()
         {
-            BackCommand = new RelayCommand(GoBack);
-            NextCommand = new RelayCommand(GoNext);
+            this.BackCommand = new RelayCommand(this.GoBack);
+            this.NextCommand = new RelayCommand(this.GoNext);
+
+            this.firstName = string.Empty;
+            this.lastName = string.Empty;
+            this.selectedCookingSkill = string.Empty;
+
+            this.PropertyChanged = (sender, args) => { };
         }
 
         private void GoBack()
@@ -37,54 +44,54 @@ namespace MealPlannerProject.ViewModels
 
         public string FirstName
         {
-            get => firstName;
+            get => this.firstName;
             set
             {
-                firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                this.firstName = value;
+                this.OnPropertyChanged(nameof(this.FirstName));
             }
         }
 
         public string LastName
         {
-            get => lastName;
+            get => this.lastName;
             set
             {
-                lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                this.lastName = value;
+                this.OnPropertyChanged(nameof(this.LastName));
             }
         }
 
         public string SelectedCookingSkill
         {
-            get => _selectedCookingSkill;
+            get => this.selectedCookingSkill;
             set
             {
-                _selectedCookingSkill = value;
-                OnPropertyChanged(nameof(SelectedCookingSkill));
+                this.selectedCookingSkill = value;
+                this.OnPropertyChanged(nameof(this.SelectedCookingSkill));
             }
         }
 
         public void SetUserInfo(string firstName, string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
-
         private ICookingPageService cooking = new CookingPageService();
-        private string _selectedCookingSkill;
+        private string selectedCookingSkill;
 
         private void GoNext()
         {
-            cooking.AddCookingSkill(FirstName, LastName, SelectedCookingSkill);
+            this.cooking.AddCookingSkill(this.FirstName, this.LastName, this.SelectedCookingSkill);
             NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
+        public new event PropertyChangedEventHandler PropertyChanged;
+
+        protected new void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

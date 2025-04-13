@@ -1,22 +1,23 @@
-using MealPlannerProject.ViewModels;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Diagnostics;
-
 namespace MealPlannerProject.Pages
 {
+    using System;
+    using System.Diagnostics;
+    using MealPlannerProject.ViewModels;
+    using Microsoft.UI.Xaml;
+    using Microsoft.UI.Xaml.Controls;
+    using Microsoft.UI.Xaml.Navigation;
+
     public sealed partial class CookingLevelPage : Page
     {
         private CookingLevelViewModel viewModel = new CookingLevelViewModel();
+
         public CookingLevelPage()
         {
             try
             {
                 this.InitializeComponent();
                 Debug.WriteLine("CookingLevelPage initialized successfully.");
-                this.DataContext = viewModel;
+                this.DataContext = this.viewModel;
             }
             catch (Exception ex)
             {
@@ -24,6 +25,7 @@ namespace MealPlannerProject.Pages
                 throw; // Re-throw the exception to be caught by the global handler
             }
         }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -31,7 +33,7 @@ namespace MealPlannerProject.Pages
             if (e.Parameter is ActivityLevelViewModel activityLevelViewModel)
             {
                 Debug.WriteLine($"Cooking page received user: {activityLevelViewModel.FirstName} {activityLevelViewModel.LastName}");
-                viewModel.SetUserInfo(activityLevelViewModel.FirstName, activityLevelViewModel.LastName);
+                this.viewModel.SetUserInfo(activityLevelViewModel.FirstName, activityLevelViewModel.LastName);
             }
         }
 
@@ -39,22 +41,22 @@ namespace MealPlannerProject.Pages
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(viewModel.SelectedCookingSkill))
+                if (string.IsNullOrWhiteSpace(this.viewModel.SelectedCookingSkill))
                 {
-                    ShowErrorDialog("Please select an activity level.");
+                    this.ShowErrorDialog("Please select an activity level.");
                     return;
                 }
-                //this.Frame.Navigate(typeof(CookingLevelPage), viewModel);
+
+                // this.Frame.Navigate(typeof(CookingLevelPage), viewModel);
             }
             catch (Exception ex)
             {
-                ShowErrorDialog($"An error occurred: {ex.Message}");
+                this.ShowErrorDialog($"An error occurred: {ex.Message}");
             }
         }
 
         private void ShowErrorDialog(string v)
         {
-
         }
     }
 }
