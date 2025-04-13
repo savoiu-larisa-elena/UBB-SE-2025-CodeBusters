@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MealPlannerProject.Exceptions;
 using System.Data;
+using MealPlannerProject.Interfaces.Services;
 
 namespace MealPlannerProject.Queries
 {
-    public sealed partial class DataLink : IDisposable
+    public sealed partial class DataLink : IDisposable, IDataLink
     {
         private static readonly Lazy<DataLink> instance = new(() => new DataLink());
         private readonly string connectionString;

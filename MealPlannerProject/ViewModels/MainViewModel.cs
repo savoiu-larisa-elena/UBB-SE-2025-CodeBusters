@@ -489,7 +489,7 @@ namespace MealPlannerProject.ViewModels
                 currentIntake = 0; // Default to zero if parsing fails
             }
 
-            int number_userId = int.Parse(userId);
+            int number_userId = int.Parse(this.userId);
             float newIntake = currentIntake + amount;
             this.waterService.UpdateWaterIntake(number_userId, newIntake);
             this.WaterIntake = newIntake.ToString();
