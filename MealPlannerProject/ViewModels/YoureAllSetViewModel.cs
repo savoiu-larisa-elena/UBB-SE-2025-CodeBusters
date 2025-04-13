@@ -1,57 +1,55 @@
-﻿using MealPlannerProject.Pages;
-using MealPlannerProject.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace MealPlannerProject.ViewModels
+﻿namespace MealPlannerProject.ViewModels
 {
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using MealPlannerProject.Pages;
+    using MealPlannerProject.Services;
+
     public class YoureAllSetViewModel
     {
         public ICommand NextCommand { get; }
 
-        public YoureAllSetViewModel()
-        {
-            NextCommand = new RelayCommand(GoNext);
-        }
-
         private string firstName;
         private string lastName;
 
+        public YoureAllSetViewModel()
+        {
+            this.NextCommand = new RelayCommand(this.GoNext);
+            this.firstName = string.Empty;
+            this.lastName = string.Empty;
+        }
+
         public string FirstName
         {
-            get => firstName;
+            get => this.firstName;
             set
             {
-                firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                this.firstName = value;
+                this.OnPropertyChanged(nameof(this.FirstName));
             }
         }
 
         public string LastName
         {
-            get => lastName;
+            get => this.lastName;
             set
             {
-                lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                this.lastName = value;
+                this.OnPropertyChanged(nameof(this.LastName));
             }
         }
 
         public void SetUserInfo(string firstName, string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         protected void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void GoNext()
