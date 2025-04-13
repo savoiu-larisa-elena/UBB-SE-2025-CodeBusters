@@ -61,7 +61,7 @@
                 </StackPanel>
 
                 <TextBlock Text="Ingredients:" FontSize="20" FontWeight="Bold" Foreground="#183D2C" Margin="0,0,0,10"/>
-                <ListView ItemsSource="{x:Bind ViewModel.Ingredients}" 
+                <ListView ItemsSource="{x:Bind ViewModel.MealIngredients}" 
                          Background="#E3C7B1" 
                          CornerRadius="15" 
                          Padding="20"
@@ -81,7 +81,7 @@
             <!-- Middle Column -->
             <StackPanel Grid.Column="1" Padding="15,0">
                 <TextBlock Text="Directions:" FontSize="20" FontWeight="Bold" Foreground="#183D2C" Margin="0,80,0,10"/>
-                <ListView ItemsSource="{x:Bind ViewModel.Directions}" 
+                <ListView ItemsSource="{x:Bind ViewModel.CookingDirections}" 
                          Background="#E3C7B1" 
                          CornerRadius="15" 
                          Padding="20"
@@ -107,7 +107,7 @@
                             <Ellipse Width="130" Height="130" Fill="#F9E5DA" Stroke="#C76E4E" StrokeThickness="15" Margin="10,0"/>
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Foreground="#183D2C">
-                                    <Run Text="{x:Bind ViewModel.Calories, Mode=OneWay}"/>
+                                    <Run Text="{x:Bind ViewModel.CalorieCount, Mode=OneWay}"/>
                                     <Run Text="kcal"/>
                                 </TextBlock>
                             </StackPanel>
@@ -118,7 +118,7 @@
                                 <StackPanel>
                                     <TextBlock Text="Protein" FontSize="14" Foreground="#183D2C" FontWeight="SemiBold" TextAlignment="Center"/>
                                     <TextBlock HorizontalAlignment="Center" FontSize="16" Foreground="#183D2C">
-                                        <Run Text="{x:Bind ViewModel.Protein, Mode=OneWay}"/>
+                                        <Run Text="{x:Bind ViewModel.ProteinGrams, Mode=OneWay}"/>
                                         <Run Text="g"/>
                                     </TextBlock>
                                 </StackPanel>
@@ -128,7 +128,7 @@
                                 <StackPanel HorizontalAlignment="Center">
                                     <TextBlock Text="Carbs" FontSize="14" Foreground="#183D2C" FontWeight="SemiBold" TextAlignment="Center"/>
                                     <TextBlock HorizontalAlignment="Center" FontSize="16" Foreground="#183D2C">
-                                        <Run Text="{x:Bind ViewModel.Carbs, Mode=OneWay}"/>
+                                        <Run Text="{x:Bind ViewModel.CarbohydrateGrams, Mode=OneWay}"/>
                                         <Run Text="g"/>
                                     </TextBlock>
                                 </StackPanel>
@@ -138,7 +138,7 @@
                                 <StackPanel>
                                     <TextBlock Text="Fats" FontSize="14" Foreground="#183D2C" FontWeight="SemiBold" TextAlignment="Center"/>
                                     <TextBlock HorizontalAlignment="Center" FontSize="16" Foreground="#183D2C">
-                                        <Run Text="{x:Bind ViewModel.Fat, Mode=OneWay}"/>
+                                        <Run Text="{x:Bind ViewModel.FatGrams, Mode=OneWay}"/>
                                         <Run Text="g"/>
                                     </TextBlock>
                                 </StackPanel>
@@ -160,7 +160,7 @@
                         <StackPanel>
                             <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="#183D2C" Margin="0,0,0,5">
                                 <Run Text="Protein: "/>
-                                <Run Text="{x:Bind ViewModel.Protein, Mode=OneWay}"/>
+                                <Run Text="{x:Bind ViewModel.ProteinGrams, Mode=OneWay}"/>
                                 <Run Text="g"/>
                             </TextBlock>
                         </StackPanel>
@@ -168,7 +168,7 @@
                         <StackPanel>
                             <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="#183D2C" Margin="0,0,0,5">
                                 <Run Text="Carbs: "/>
-                                <Run Text="{x:Bind ViewModel.Carbs, Mode=OneWay}"/>
+                                <Run Text="{x:Bind ViewModel.CarbohydrateGrams, Mode=OneWay}"/>
                                 <Run Text="g"/>
                             </TextBlock>
                         </StackPanel>
@@ -176,21 +176,21 @@
                         <StackPanel>
                             <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="#183D2C" Margin="0,0,0,5">
                                 <Run Text="Fats: "/>
-                                <Run Text="{x:Bind ViewModel.Fat, Mode=OneWay}"/>
+                                <Run Text="{x:Bind ViewModel.FatGrams, Mode=OneWay}"/>
                                 <Run Text="g"/>
                             </TextBlock>
                         </StackPanel>
                         <StackPanel>
                             <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="#183D2C" Margin="0,0,0,5">
                                 <Run Text="Fiber: "/>
-                                <Run Text="{x:Bind ViewModel.Fiber, Mode=OneWay}"/>
+                                <Run Text="{x:Bind ViewModel.FiberGrams, Mode=OneWay}"/>
                                 <Run Text="g"/>
                             </TextBlock>
                         </StackPanel>
                         <StackPanel>
                             <TextBlock FontSize="14" FontWeight="SemiBold" Foreground="#183D2C" Margin="0,0,0,5">
                                 <Run Text="Sugar: "/>
-                                <Run Text="{x:Bind ViewModel.Sugar, Mode=OneWay}"/>
+                                <Run Text="{x:Bind ViewModel.SugarGrams, Mode=OneWay}"/>
                                 <Run Text="g"/>
                             </TextBlock>
                         </StackPanel>

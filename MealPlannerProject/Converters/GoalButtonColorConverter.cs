@@ -8,22 +8,39 @@
 
     public class GoalButtonColorConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        private const byte FullyOpaqueAlpha = 255;
+
+        private const string WeightLossGoal = "Lose weight";
+        private const string WeightGainGoal = "Gain weight";
+        private const string WeightMaintenanceGoal = "Maintain weight";
+        private const string BodyRecompositionGoal = "Body recomposition";
+        private const string HealthImprovementGoal = "Improve overall health";
+
+        private static readonly Color WeightLossColor = Color.FromArgb(FullyOpaqueAlpha, 82, 115, 91);      // Green shade
+        private static readonly Color WeightGainColor = Color.FromArgb(FullyOpaqueAlpha, 186, 104, 72);     // Brown-orange shade
+        private static readonly Color WeightMaintenanceColor = Color.FromArgb(FullyOpaqueAlpha, 25, 50, 38); // Dark green shade
+        private static readonly Color BodyRecompositionColor = Color.FromArgb(FullyOpaqueAlpha, 238, 217, 195); // Light beige shade
+        private static readonly Color HealthImprovementColor = Color.FromArgb(FullyOpaqueAlpha, 176, 135, 94); // Tan shade
+        private static readonly Color DefaultColor = Colors.White;
+
+        public object Convert(object goalValue, Type targetType, object parameterValue, string cultureInfo)
         {
-            switch (value.ToString())
+            string goalType = goalValue?.ToString() ?? string.Empty;
+
+            return goalType switch
             {
-                case "Lose weight": return new SolidColorBrush(Color.FromArgb(255, 82, 115, 91));
-                case "Gain weight": return new SolidColorBrush(Color.FromArgb(255, 186, 104, 72));
-                case "Maintain weight": return new SolidColorBrush(Color.FromArgb(255, 25, 50, 38));
-                case "Body recomposition": return new SolidColorBrush(Color.FromArgb(255, 238, 217, 195));
-                case "Improve overall health": return new SolidColorBrush(Color.FromArgb(255, 176, 135, 94));
-                default: return new SolidColorBrush(Colors.White);
-            }
+                WeightLossGoal => new SolidColorBrush(WeightLossColor),
+                WeightGainGoal => new SolidColorBrush(WeightGainColor),
+                WeightMaintenanceGoal => new SolidColorBrush(WeightMaintenanceColor),
+                BodyRecompositionGoal => new SolidColorBrush(BodyRecompositionColor),
+                HealthImprovementGoal => new SolidColorBrush(HealthImprovementColor),
+                _ => new SolidColorBrush(DefaultColor)
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Converting colors back to goal types is not supported.");
         }
     }
 }

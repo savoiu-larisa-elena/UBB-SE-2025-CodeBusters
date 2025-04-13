@@ -7,16 +7,16 @@
 
     public class MealViewModel : INotifyPropertyChanged
     {
-        private string mealName = string.Empty; // Initialize to avoid null
-        private string cookingTime = string.Empty; // Initialize to avoid null
-        private ObservableCollection<string> directions = new ObservableCollection<string>(); // Initialize to avoid null
-        private ObservableCollection<string> ingredients = new ObservableCollection<string>(); // Initialize to avoid null
-        private int calories;
-        private int protein;
-        private int carbs;
-        private int fat;
-        private int fiber;
-        private int sugar;
+        private string mealName = string.Empty;
+        private string cookingTime = string.Empty;
+        private ObservableCollection<string> cookingDirections = new ObservableCollection<string>();
+        private ObservableCollection<string> mealIngredients = new ObservableCollection<string>();
+        private int caloriesGrams;
+        private int proteinGrams;
+        private int carbohydrateGrams;
+        private int fatGrams;
+        private int fiberGrams;
+        private int sugarGrams;
 
         public string MealName
         {
@@ -46,114 +46,114 @@
             }
         }
 
-        public ObservableCollection<string> Directions
+        public ObservableCollection<string> CookingDirections
         {
-            get => this.directions;
+            get => this.cookingDirections;
             set
             {
-                if (this.directions != value)
+                if (this.cookingDirections != value)
                 {
-                    this.directions = value;
+                    this.cookingDirections = value;
                     Debug.WriteLine($"Directions set with {value?.Count ?? 0} items");
-                    this.OnPropertyChanged(nameof(this.Directions));
+                    this.OnPropertyChanged(nameof(this.CookingDirections));
                 }
             }
         }
 
-        public ObservableCollection<string> Ingredients
+        public ObservableCollection<string> MealIngredients
         {
-            get => this.ingredients;
+            get => this.mealIngredients;
             set
             {
-                if (this.ingredients != value)
+                if (this.mealIngredients != value)
                 {
-                    this.ingredients = value;
+                    this.mealIngredients = value;
                     Debug.WriteLine($"Ingredients set with {value?.Count ?? 0} items");
-                    this.OnPropertyChanged(nameof(this.Ingredients));
+                    this.OnPropertyChanged(nameof(this.MealIngredients));
                 }
             }
         }
 
-        public int Calories
+        public int CalorieCount
         {
-            get => this.calories;
+            get => this.caloriesGrams;
             set
             {
-                if (this.calories != value)
+                if (this.caloriesGrams != value)
                 {
-                    this.calories = value;
+                    this.caloriesGrams = value;
                     Debug.WriteLine($"Calories set to: {value}");
-                    this.OnPropertyChanged(nameof(this.Calories));
+                    this.OnPropertyChanged(nameof(this.CalorieCount));
                 }
             }
         }
 
-        public int Protein
+        public int ProteinGrams
         {
-            get => this.protein;
+            get => this.proteinGrams;
             set
             {
-                if (this.protein != value)
+                if (this.proteinGrams != value)
                 {
-                    this.protein = value;
+                    this.proteinGrams = value;
                     Debug.WriteLine($"Protein set to: {value}");
-                    this.OnPropertyChanged(nameof(this.Protein));
+                    this.OnPropertyChanged(nameof(this.ProteinGrams));
                 }
             }
         }
 
-        public int Carbs
+        public int CarbohydrateGrams
         {
-            get => this.carbs;
+            get => this.carbohydrateGrams;
             set
             {
-                if (this.carbs != value)
+                if (this.carbohydrateGrams != value)
                 {
-                    this.carbs = value;
+                    this.carbohydrateGrams = value;
                     Debug.WriteLine($"Carbs set to: {value}");
-                    this.OnPropertyChanged(nameof(this.Carbs));
+                    this.OnPropertyChanged(nameof(this.CarbohydrateGrams));
                 }
             }
         }
 
-        public int Fat
+        public int FatGrams
         {
-            get => this.fat;
+            get => this.fatGrams;
             set
             {
-                if (this.fat != value)
+                if (this.fatGrams != value)
                 {
-                    this.fat = value;
+                    this.fatGrams = value;
                     Debug.WriteLine($"Fat set to: {value}");
-                    this.OnPropertyChanged(nameof(this.Fat));
+                    this.OnPropertyChanged(nameof(this.FatGrams));
                 }
             }
         }
 
-        public int Fiber
+        public int FiberGrams
         {
-            get => this.fiber;
+            get => this.fiberGrams;
             set
             {
-                if (this.fiber != value)
+                if (this.fiberGrams != value)
                 {
-                    this.fiber = value;
+                    this.fiberGrams = value;
                     Debug.WriteLine($"Fiber set to: {value}");
-                    this.OnPropertyChanged(nameof(this.Fiber));
+                    this.OnPropertyChanged(nameof(this.FiberGrams));
                 }
             }
         }
 
-        public int Sugar
+        public int SugarGrams
         {
-            get => this.sugar;
+            get => this.sugarGrams;
             set
             {
-                if (this.sugar != value)
+                if (this.sugarGrams != value)
                 {
-                    this.sugar = value;
+                    this.sugarGrams = value;
                     Debug.WriteLine($"Sugar set to: {value}");
-                    this.OnPropertyChanged(nameof(this.Sugar));
+                    this.OnPropertyChanged(nameof(this.SugarGrams));
                 }
             }
         }
@@ -161,8 +161,8 @@
         public MealViewModel()
         {
             Debug.WriteLine("Initializing MealViewModel");
-            this.Directions = new ObservableCollection<string>();
-            this.Ingredients = new ObservableCollection<string>();
+            this.CookingDirections = new ObservableCollection<string>();
+            this.MealIngredients = new ObservableCollection<string>();
         }
 
         public void InitializeFromMeal(Meal meal)
@@ -177,35 +177,33 @@
 
             this.MealName = meal.Name;
             this.CookingTime = $"{meal.PreparationTime} min";
-            this.Calories = meal.Calories;
-            this.Protein = meal.Protein;
-            this.Carbs = meal.Carbohydrates;
-            this.Fat = meal.Fat;
-            this.Fiber = meal.Fiber;
-            this.Sugar = meal.Sugar;
+            this.CalorieCount = meal.Calories;
+            this.ProteinGrams = meal.Protein;
+            this.CarbohydrateGrams = meal.Carbohydrates;
+            this.FatGrams = meal.Fat;
+            this.FiberGrams = meal.Fiber;
+            this.SugarGrams = meal.Sugar;
 
-            // Initialize Ingredients
             if (!string.IsNullOrEmpty(meal.Ingredients))
             {
-                this.Ingredients = new ObservableCollection<string>(meal.Ingredients.Split('\n'));
-                Debug.WriteLine($"Loaded {this.Ingredients.Count} ingredients");
+                this.MealIngredients = new ObservableCollection<string>(meal.Ingredients.Split('\n'));
+                Debug.WriteLine($"Loaded {this.MealIngredients.Count} ingredients");
             }
             else
             {
                 Debug.WriteLine("No ingredients found in meal");
-                this.Ingredients = new ObservableCollection<string> { "No ingredients available" };
+                this.MealIngredients = new ObservableCollection<string> { "No ingredients available" };
             }
 
-            // Initialize Directions
             if (!string.IsNullOrEmpty(meal.Recipe))
             {
-                this.Directions = new ObservableCollection<string>(meal.Recipe.Split('\n'));
-                Debug.WriteLine($"Loaded {this.Directions.Count} directions");
+                this.CookingDirections = new ObservableCollection<string>(meal.Recipe.Split('\n'));
+                Debug.WriteLine($"Loaded {this.CookingDirections.Count} directions");
             }
             else
             {
                 Debug.WriteLine("No recipe found in meal");
-                this.Directions = new ObservableCollection<string> { "No directions available" };
+                this.CookingDirections = new ObservableCollection<string> { "No directions available" };
             }
 
             Debug.WriteLine("Finished initializing MealViewModel from Meal");

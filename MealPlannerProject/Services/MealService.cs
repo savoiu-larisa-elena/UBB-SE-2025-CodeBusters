@@ -11,25 +11,51 @@ namespace MealPlannerProject.Services
 
     public class MealService
     {
-        private readonly MealRepository mealRepository;
-        private readonly IngredientRepository ingredientRepository;
+        // Database-related constants to replace magic numbers
+        private const int SuccessfulCreationIndicator = 0;
+        private const int FailedOperationCode = -1;
+
+        // Meal type IDs as constants to replace magic numbers
+        private const int BreakfastTypeId = 1;
+        private const int LunchTypeId = 2;
+        private const int DinnerTypeId = 3;
+        private const int SnackTypeId = 4;
+        private const int DessertTypeId = 5;
+        private const int PostWorkoutTypeId = 6;
+        private const int PreWorkoutTypeId = 7;
+        private const int VeganMealTypeId = 8;
+        private const int HighProteinMealTypeId = 9;
+        private const int LowCarbMealTypeId = 10;
+        private const int DefaultMealTypeId = 1; // Default to breakfast if unknown
+
+        // Cooking skill IDs as constants to replace magic numbers
+        private const int BeginnerSkillId = 1;
+        private const int IntermediateSkillId = 2;
+        private const int AdvancedSkillId = 3;
+        private const int DefaultCookingSkillId = 1; // Default to beginner if unknown
+
+        private readonly MealRepository mealDatabaseRepository;
+        private readonly IngredientRepository ingredientDatabaseRepository;
 
         public MealService()
         {
-            this.mealRepository = new MealRepository();
-            this.ingredientRepository = new IngredientRepository();
+            this.mealDatabaseRepository = new MealRepository();
+            this.ingredientDatabaseRepository = new IngredientRepository();
         }
 
-        public async Task<bool> CreateMealAsync(Meal meal, string cookingLevel)
+        public async Task<bool> CreateMealWithCookingLevelAsync(Meal mealToCreate, string cookingLevelDescription)
         {
             try
             {
-                var cookingSkillId = this.GetCookingSkillId(cookingLevel);
-                var mealTypeId = this.GetMealTypeId(meal.Category);
+                int cookingSkillIdentifier = this.ResolveCookingSkillIdentifier(cookingLevelDescription);
+                int mealTypeIdentifier = this.ResolveMealTypeIdentifier(mealToCreate.Category);
 
-                var mealId = await this.mealRepository.CreateMealAsync(meal, cookingSkillId, mealTypeId);
+                int createdMealIdentifier = await this.mealDatabaseRepository.CreateMealAsync(
+                    mealToCreate,
+                    cookingSkillIdentifier,
+                    mealTypeIdentifier);
 
-                if (mealId > 0)
+                if (createdMealIdentifier > SuccessfulCreationIndicator)
                 {
                     Debug.WriteLine("Meal created successfully");
                     return true;
@@ -40,20 +66,20 @@ namespace MealPlannerProject.Services
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Debug.WriteLine($"Error creating meal: {ex.Message}");
-                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                Debug.WriteLine($"Error creating meal: {exception.Message}");
+                Debug.WriteLine($"Stack trace: {exception.StackTrace}");
                 return false;
             }
         }
 
-        public async Task<List<Meal>> GetAllMealsAsync()
+        public async Task<List<Meal>> RetrieveAllMealsAsync()
         {
-            var meals = new List<Meal>();
+            List<Meal> retrievedMeals = new List<Meal>();
             try
             {
-                string query = @"
+                string sqlQueryText = @"
                 SELECT m.m_name, m.recipe, mt.m_description as meal_type, m.calories, 
                        m.preparation_time, m.servings, m.protein, m.carbohydrates, 
                        m.fat, m.fiber, m.sugar, m.photo_link,
@@ -62,93 +88,100 @@ namespace MealPlannerProject.Services
                 JOIN meal_types mt ON m.mt_id = mt.mt_id
                 JOIN cooking_skills cs ON m.cs_id = cs.cs_id";
 
-                DataTable result = await Task.Run(() => DataLink.Instance.ExecuteReader(query));
+                DataTable queryResultTable = await Task.Run(() => DataLink.Instance.ExecuteReader(sqlQueryText));
 
-                foreach (DataRow row in result.Rows)
+                foreach (DataRow dataRow in queryResultTable.Rows)
                 {
-                    var meal = new Meal
+                    Meal mealFromDatabase = new Meal
                     {
-                        Name = row["m_name"]?.ToString() ?? string.Empty,
-                        Recipe = row["recipe"]?.ToString() ?? string.Empty,
-                        Category = row["meal_type"]?.ToString() ?? string.Empty,
-                        Calories = row["calories"] != DBNull.Value ? Convert.ToInt32(row["calories"]) : 0,
-                        PreparationTime = row["preparation_time"] != DBNull.Value ? Convert.ToInt32(row["preparation_time"]) : 0,
-                        Servings = row["servings"] != DBNull.Value ? Convert.ToInt32(row["servings"]) : 0,
-                        Protein = row["protein"] != DBNull.Value ? Convert.ToInt32(row["protein"]) : 0,
-                        Carbohydrates = row["carbohydrates"] != DBNull.Value ? Convert.ToInt32(row["carbohydrates"]) : 0,
-                        Fat = row["fat"] != DBNull.Value ? Convert.ToInt32(row["fat"]) : 0,
-                        Fiber = row["fiber"] != DBNull.Value ? Convert.ToInt32(row["fiber"]) : 0,
-                        Sugar = row["sugar"] != DBNull.Value ? Convert.ToInt32(row["sugar"]) : 0,
-                        PhotoLink = row["photo_link"]?.ToString() ?? string.Empty,
-                        CookingLevel = row["cooking_level"]?.ToString() ?? string.Empty,
+                        Name = dataRow["m_name"]?.ToString() ?? string.Empty,
+                        Recipe = dataRow["recipe"]?.ToString() ?? string.Empty,
+                        Category = dataRow["meal_type"]?.ToString() ?? string.Empty,
+                        Calories = dataRow["calories"] != DBNull.Value ? Convert.ToInt32(dataRow["calories"]) : 0,
+                        PreparationTime = dataRow["preparation_time"] != DBNull.Value ? Convert.ToInt32(dataRow["preparation_time"]) : 0,
+                        Servings = dataRow["servings"] != DBNull.Value ? Convert.ToInt32(dataRow["servings"]) : 0,
+                        Protein = dataRow["protein"] != DBNull.Value ? Convert.ToInt32(dataRow["protein"]) : 0,
+                        Carbohydrates = dataRow["carbohydrates"] != DBNull.Value ? Convert.ToInt32(dataRow["carbohydrates"]) : 0,
+                        Fat = dataRow["fat"] != DBNull.Value ? Convert.ToInt32(dataRow["fat"]) : 0,
+                        Fiber = dataRow["fiber"] != DBNull.Value ? Convert.ToInt32(dataRow["fiber"]) : 0,
+                        Sugar = dataRow["sugar"] != DBNull.Value ? Convert.ToInt32(dataRow["sugar"]) : 0,
+                        PhotoLink = dataRow["photo_link"]?.ToString() ?? string.Empty,
+                        CookingLevel = dataRow["cooking_level"]?.ToString() ?? string.Empty,
                     };
-                    meals.Add(meal);
+                    retrievedMeals.Add(mealFromDatabase);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Debug.WriteLine($"Error getting meals: {ex.Message}");
-                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                Debug.WriteLine($"Error getting meals: {exception.Message}");
+                Debug.WriteLine($"Stack trace: {exception.StackTrace}");
             }
 
-            return meals;
+            return retrievedMeals;
         }
 
-        public async Task<Ingredient?> GetIngredientByNameAsync(string name)
+        public async Task<Ingredient?> RetrieveIngredientByNameAsync(string ingredientName)
         {
-            return await Task.Run(() => this.ingredientRepository.GetIngredientByNameAsync(name));
+            return await Task.Run(() => this.ingredientDatabaseRepository.GetIngredientByNameAsync(ingredientName));
         }
 
-        public async Task<int> CreateMealAsync(Meal meal)
+        public async Task<int> CreateMealAsync(Meal mealToCreate)
         {
             try
             {
-                var cookingSkillId = this.GetCookingSkillId(meal.CookingLevel);
-                var mealTypeId = this.GetMealTypeId(meal.Category);
+                int cookingSkillIdentifier = this.ResolveCookingSkillIdentifier(mealToCreate.CookingLevel);
+                int mealTypeIdentifier = this.ResolveMealTypeIdentifier(mealToCreate.Category);
 
-                return await this.mealRepository.CreateMealAsync(meal, cookingSkillId, mealTypeId);
+                return await this.mealDatabaseRepository.CreateMealAsync(
+                    mealToCreate,
+                    cookingSkillIdentifier,
+                    mealTypeIdentifier);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Debug.WriteLine($"Error creating meal: {ex.Message}");
-                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-                return -1;
+                Debug.WriteLine($"Error creating meal: {exception.Message}");
+                Debug.WriteLine($"Stack trace: {exception.StackTrace}");
+                return FailedOperationCode;
             }
         }
 
-        public async Task<bool> AddMealIngredientAsync(int mealId, int ingredientId, float quantity)
+        public async Task<bool> AddIngredientToMealAsync(int mealIdentifier, int ingredientIdentifier, float ingredientQuantity)
         {
-            var result = await this.mealRepository.AddMealIngredientAsync(mealId, ingredientId, quantity);
-            return result > 0;
+            int operationResult = await this.mealDatabaseRepository.AddMealIngredientAsync(
+                mealIdentifier,
+                ingredientIdentifier,
+                ingredientQuantity);
+
+            return operationResult > SuccessfulCreationIndicator;
         }
 
-        private int GetMealTypeId(string category)
+        private int ResolveMealTypeIdentifier(string mealCategory)
         {
-            return category?.ToLower() switch
+            return mealCategory?.ToLower() switch
             {
-                "breakfast" => 1,
-                "lunch" => 2,
-                "dinner" => 3,
-                "snack" => 4,
-                "dessert" => 5,
-                "post-workout" => 6,
-                "pre-workout" => 7,
-                "vegan meal" => 8,
-                "high-protein meal" => 9,
-                "low-carb meal" => 10,
-                _ => 1
+                "breakfast" => BreakfastTypeId,
+                "lunch" => LunchTypeId,
+                "dinner" => DinnerTypeId,
+                "snack" => SnackTypeId,
+                "dessert" => DessertTypeId,
+                "post-workout" => PostWorkoutTypeId,
+                "pre-workout" => PreWorkoutTypeId,
+                "vegan meal" => VeganMealTypeId,
+                "high-protein meal" => HighProteinMealTypeId,
+                "low-carb meal" => LowCarbMealTypeId,
+                _ => DefaultMealTypeId
             };
         }
 
-        private int GetCookingSkillId(string category)
+        private int ResolveCookingSkillIdentifier(string cookingSkillLevel)
         {
-            Debug.WriteLine($"GetCookingSkillId called with category: {category}");
-            return category?.ToLower() switch
+            Debug.WriteLine($"ResolveCookingSkillIdentifier called with cooking skill level: {cookingSkillLevel}");
+            return cookingSkillLevel?.ToLower() switch
             {
-                "beginner" => 1,
-                "intermediate" => 2,
-                "advanced" => 3,
-                _ => 1
+                "beginner" => BeginnerSkillId,
+                "intermediate" => IntermediateSkillId,
+                "advanced" => AdvancedSkillId,
+                _ => DefaultCookingSkillId
             };
         }
     }

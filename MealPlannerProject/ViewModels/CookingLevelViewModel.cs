@@ -9,65 +9,65 @@
 
     public partial class CookingLevelViewModel : ViewModelBase
     {
+        private readonly ICookingPageService cookingPageService;
+
+        private string userFirstName;
+        private string userLastName;
+        private string userSelectedCookingSkill;
+
         public ObservableCollection<string> CookingLevels { get; } = new ObservableCollection<string>
-                   {
-                       "I am a beginner",
-                       "I cook sometimes",
-                       "I love cooking",
-                       "I prefer quick meals",
-                       "I meal prep",
-                   };
+        {
+            "I am a beginner",
+            "I cook sometimes",
+            "I love cooking",
+            "I prefer quick meals",
+            "I meal prep",
+        };
 
-        public ICommand BackCommand { get; }
+        public ICommand NavigateToPreviousPageCommand { get; }
 
-        public ICommand NextCommand { get; }
+        public ICommand NavigateToNextPageCommand { get; }
 
         public CookingLevelViewModel()
         {
-            this.BackCommand = new RelayCommand(this.GoBack);
-            this.NextCommand = new RelayCommand(this.GoNext);
+            this.NavigateToPreviousPageCommand = new RelayCommand(this.NavigateToPreviousPage);
+            this.NavigateToNextPageCommand = new RelayCommand(this.NavigateToNextPage);
+            this.cookingPageService = new CookingPageService();
 
-            this.firstName = string.Empty;
-            this.lastName = string.Empty;
-            this.selectedCookingSkill = string.Empty;
+            this.userFirstName = string.Empty;
+            this.userLastName = string.Empty;
+            this.userSelectedCookingSkill = string.Empty;
 
-            this.PropertyChanged = (sender, args) => { };
+            // Initialize PropertyChanged event with empty handler
+            this.PropertyChanged = (eventSender, eventArguments) => { };
         }
-
-        private void GoBack()
-        {
-            NavigationService.Instance.GoBack();
-        }
-
-        private string firstName;
-        private string lastName;
 
         public string FirstName
         {
-            get => this.firstName;
+            get => this.userFirstName;
             set
             {
-                this.firstName = value;
+                this.userFirstName = value;
                 this.OnPropertyChanged(nameof(this.FirstName));
             }
         }
 
         public string LastName
         {
-            get => this.lastName;
+            get => this.userLastName;
             set
             {
-                this.lastName = value;
+                this.userLastName = value;
                 this.OnPropertyChanged(nameof(this.LastName));
             }
         }
 
         public string SelectedCookingSkill
         {
-            get => this.selectedCookingSkill;
+            get => this.userSelectedCookingSkill;
             set
             {
-                this.selectedCookingSkill = value;
+                this.userSelectedCookingSkill = value;
                 this.OnPropertyChanged(nameof(this.SelectedCookingSkill));
             }
         }
@@ -78,17 +78,25 @@
             this.LastName = lastName;
         }
 
-        private ICookingPageService cooking = new CookingPageService();
-        private string selectedCookingSkill;
-
-        private void GoNext()
+        private void NavigateToPreviousPage()
         {
-            this.cooking.AddCookingSkill(this.FirstName, this.LastName, this.SelectedCookingSkill);
+            NavigationService.Instance.GoBack();
+        }
+
+        private void NavigateToNextPage()
+        {
+            this.cookingPageService.AddCookingSkill(
+                this.FirstName,
+                this.LastName,
+                this.SelectedCookingSkill);
+
             NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
         }
 
+        // Override base class event to provide our own implementation
         public new event PropertyChangedEventHandler PropertyChanged;
 
+        // Override base class method to use our own PropertyChanged event
         protected new void OnPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
