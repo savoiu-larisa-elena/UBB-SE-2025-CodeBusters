@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Windows.System;
-
-namespace MealPlannerProject.Models
+﻿namespace MealPlannerProject.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using Windows.System;
+
     [Table("calorie_trackers")]
     public class Calorie
     {
         [Key]
         [ForeignKey("User")]
-        public int U_Id { get; set; }  // Foreign key to Users table
+        public int U_Id { get; set; }
 
-        public DateTime Today { get; set; }  // Date of the tracking record
+        public DateTime Today { get; set; }
 
-        public float DailyIntake { get; set; }  // Goal calories for the day
+        public float DailyIntake { get; set; }
 
-        public float CaloriesConsumed { get; set; }  // Food calories consumed
+        public float CaloriesConsumed { get; set; }
 
-        public float CaloriesBurned { get; set; }  // Exercise calories burned
+        public float CaloriesBurned { get; set; }
 
-        public virtual User User { get; set; }  // Navigation property to User
+        public virtual User? User { get; set; }
 
     }
 }

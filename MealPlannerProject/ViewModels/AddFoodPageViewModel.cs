@@ -19,7 +19,7 @@
         private string selectedUnit = "g";
 
         private readonly string connectionString =
-            @"Server=DESKTOP-H700VKM\MSSQLSERVER01;Database=Meal_Planner;Integrated Security=True;TrustServerCertificate=True";
+            @"Server=LAPTOP-ANDU\SQLEXPRESS;Database=Meal_Planner;Integrated Security=True;TrustServerCertificate=True";
 
         public ObservableCollection<object> SearchResults { get; set; } = new ObservableCollection<object>();
 

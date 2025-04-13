@@ -1,4 +1,4 @@
-﻿namespace MealPlannerProject.ViewModels
+namespace MealPlannerProject.ViewModels
 {
     using System.Collections.ObjectModel;
     using System.ComponentModel;
@@ -12,7 +12,7 @@
         private string firstName;
         private string lastName;
 
-        private ActivityPageService activityPageService = new ActivityPageService();
+        private IActivityPageService activityPageService = new ActivityPageService();
 
         public ObservableCollection<string> ActivityLevels { get; } = new ObservableCollection<string>
         {
@@ -80,6 +80,7 @@
 
         private void GoNext()
         {
+
             this.activityPageService.addActivity(this.FirstName, this.LastName, this.SelectedActivity);
             NavigationService.Instance.NavigateTo(typeof(CookingLevelPage), this);
         }

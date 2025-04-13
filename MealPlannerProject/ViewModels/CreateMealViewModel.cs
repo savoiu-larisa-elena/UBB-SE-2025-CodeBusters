@@ -9,12 +9,13 @@ using CommunityToolkit.Mvvm.Input;
 using Windows.Storage;
 using System.IO;
 using System.Linq;
+using MealPlannerProject.Interfaces.Services;
 
 namespace MealPlannerProject.ViewModels
 {
     public class CreateMealViewModel : ViewModelBase
     {
-        private readonly MealService _mealService;
+        private readonly IMealService _mealService;
         private string _mealName;
         private string _cookingTime;
         private string _selectedMealType;
@@ -232,7 +233,7 @@ namespace MealPlannerProject.ViewModels
                     if (float.TryParse(quantityBox.Text, out float quantity))
                     {
                         // Get ingredient from database
-                        var ingredient = await _mealService.GetIngredientByNameAsync(ingredientBox.Text);
+                        var ingredient = await _mealService.RetrieveIngredientByNameAsync(ingredientBox.Text);
                         if (ingredient != null)
                         {
                             var mealIngredient = new MealIngredient
@@ -312,7 +313,7 @@ namespace MealPlannerProject.ViewModels
                     // Then add the meal-ingredient relationships
                     foreach (var ingredient in _ingredients)
                     {
-                        await _mealService.AddMealIngredientAsync(mealId, ingredient.IngredientId, ingredient.Quantity);
+                        await _mealService.AddIngredientToMealAsync(mealId, ingredient.IngredientId, ingredient.Quantity);
                     }
                     return true;
                 }
