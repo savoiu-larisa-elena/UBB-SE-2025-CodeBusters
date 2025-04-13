@@ -1,40 +1,61 @@
-﻿using MealPlannerProject.Queries;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MealPlannerProject.Services
+﻿namespace MealPlannerProject.Services
 {
-    class ActivityPageService
+    using System.Data.SqlClient;
+    using System.Diagnostics;
+    using MealPlannerProject.Interfaces.Services;
+    using MealPlannerProject.Queries;
+
+    internal class ActivityPageService : IActivityPageService
     {
-        public void addActivity(string FirstName, string LastName, string a_description)
+        private const string UserLookupQuery = "SELECT dbo.GetUserByName(@userFullName)";
+        private const string ActivityLookupQuery = "SELECT dbo.GetActivityByDescription(@activityDescription)";
+        private const string UpdateActivityProcedure = "UpdateUserActivity";
+
+        private const string UserNameParameter = "@userFullName";
+        private const string ActivityDescriptionParameter = "@activityDescription";
+        private const string UserIdParameter = "@u_id";
+        private const string ActivityIdParameter = "@a_id";
+
+        private const bool IsDirectSqlQuery = false;
+
+        [System.Obsolete]
+        public void AddActivity(string firstName, string lastName, string activityDescription)
         {
-            Debug.WriteLine($"Adding activity {a_description} for user {FirstName} {LastName}");
-            string u_name = LastName + " " + FirstName;
-            var parameters = new SqlParameter[]
-            {
-               new SqlParameter("@u_name", u_name)
-            };
-            Debug.WriteLine($"User name: {u_name}");
-            int u_id = DataLink.Instance.ExecuteScalar<int>("SELECT dbo.GetUserByName(@u_name)", parameters, false);
-            Debug.WriteLine($"User ID: {u_id}");
-            parameters = new SqlParameter[]
-            {
-                new SqlParameter("@a_description", a_description)
-            };
-            int a_id = DataLink.Instance.ExecuteScalar<int>("SELECT dbo.GetActivityByDescription(@a_description)", parameters, false);
+            Debug.WriteLine($"Adding activity {activityDescription} for user {firstName} {lastName}");
 
-            parameters = new SqlParameter[]
+            string userFullName = lastName + " " + firstName;
+            Debug.WriteLine($"User name: {userFullName}");
+
+            var userLookupParameters = new SqlParameter[]
             {
-                new SqlParameter("@u_id", u_id),
-                new SqlParameter("@a_id", a_id)
+               new SqlParameter(UserNameParameter, userFullName),
             };
 
-            DataLink.Instance.ExecuteNonQuery("UpdateUserActivity", parameters);
+            int userId = DataLink.Instance.ExecuteScalar<int>(
+                UserLookupQuery,
+                userLookupParameters,
+                IsDirectSqlQuery);
+
+            Debug.WriteLine($"User ID: {userId}");
+
+            var activityLookupParameters = new SqlParameter[]
+            {
+                new SqlParameter(ActivityDescriptionParameter, activityDescription),
+            };
+
+            int activityId = DataLink.Instance.ExecuteScalar<int>(
+                ActivityLookupQuery,
+                activityLookupParameters,
+                IsDirectSqlQuery);
+
+            var updateParameters = new SqlParameter[]
+            {
+                new SqlParameter(UserIdParameter, userId),
+                new SqlParameter(ActivityIdParameter, activityId),
+            };
+
+            DataLink.Instance.ExecuteNonQuery(UpdateActivityProcedure, updateParameters);
+            Debug.WriteLine($"Successfully updated activity level to '{activityDescription}' for user {firstName} {lastName}");
         }
     }
 }

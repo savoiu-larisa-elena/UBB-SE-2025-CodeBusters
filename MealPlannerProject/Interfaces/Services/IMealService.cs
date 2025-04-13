@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MealPlannerProject.Models;
+﻿namespace MealPlannerProject.Interfaces.Services
+{
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using MealPlannerProject.Models;
 
 namespace MealPlannerProject.Interfaces.Services
 {

@@ -6,8 +6,6 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 
-namespace MealPlannerProject.Pages
-{
     public sealed partial class MealListPage : Page
     {
         public MealListPage()
