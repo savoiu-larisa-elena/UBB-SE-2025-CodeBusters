@@ -10,13 +10,10 @@ namespace MealPlannerProject.Services
     using MealPlannerProject.Queries;
     using MealPlannerProject.Repositories;
 
-namespace MealPlannerProject.Services
-{
-    public class MealService
+    public class MealService : IMealService
     {
-        private readonly MealRepository _mealRepository;
-        private readonly IngredientRepository _ingredientRepository;
-        private DataLink dataLink;
+        private const int SuccessfulCreationIndicator = 0;
+        private const int FailedOperationCode = -1;
 
         private const int BreakfastTypeId = 1;
         private const int LunchTypeId = 2;
@@ -44,6 +41,7 @@ namespace MealPlannerProject.Services
             this.ingredientDatabaseRepository = new IngredientRepository();
         }
 
+        [Obsolete]
         public async Task<bool> CreateMealWithCookingLevelAsync(Meal mealToCreate, string cookingLevelDescription)
         {
             try
@@ -75,7 +73,7 @@ namespace MealPlannerProject.Services
             }
         }
 
-        public async Task<List<Meal>> GetAllMealsAsync()
+        public async Task<List<Meal>> RetrieveAllMealsAsync()
         {
             List<Meal> retrievedMeals = new List<Meal>();
             try
@@ -126,6 +124,7 @@ namespace MealPlannerProject.Services
             return await Task.Run(() => this.ingredientDatabaseRepository.GetIngredientByNameAsync(ingredientName));
         }
 
+        [Obsolete]
         public async Task<int> CreateMealAsync(Meal mealToCreate)
         {
             try
@@ -146,6 +145,7 @@ namespace MealPlannerProject.Services
             }
         }
 
+        [Obsolete]
         public async Task<bool> AddIngredientToMealAsync(int mealIdentifier, int ingredientIdentifier, float ingredientQuantity)
         {
             int operationResult = await this.mealDatabaseRepository.AddMealIngredientAsync(

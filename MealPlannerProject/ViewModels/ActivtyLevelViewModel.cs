@@ -3,6 +3,7 @@ namespace MealPlannerProject.ViewModels
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Windows.Input;
+    using MealPlannerProject.Interfaces.Services;
     using MealPlannerProject.Pages;
     using MealPlannerProject.Services;
 
@@ -81,7 +82,7 @@ namespace MealPlannerProject.ViewModels
         private void GoNext()
         {
 
-            this.activityPageService.addActivity(this.FirstName, this.LastName, this.SelectedActivity);
+            this.activityPageService.AddActivity(this.FirstName, this.LastName, this.SelectedActivity);
             NavigationService.Instance.NavigateTo(typeof(CookingLevelPage), this);
         }
 
