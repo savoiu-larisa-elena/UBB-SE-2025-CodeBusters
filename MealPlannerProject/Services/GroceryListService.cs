@@ -2,16 +2,16 @@
 using MealPlannerProject.Queries;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+
+using MealPlannerProject.Interfaces;
 
 namespace MealPlannerProject.Services
 {
-    internal class GroceryListService
+    public class GroceryListService: IGroceryListService
     {
+        // No dependency injection for IDataLink, using DataLink directly
         public List<GroceryIngredient> GetIngredientsForUser(int userId)
         {
             var ingredients = new List<GroceryIngredient>();
@@ -21,6 +21,7 @@ namespace MealPlannerProject.Services
                 new SqlParameter("@UserId", SqlDbType.Int) { Value = userId }
             };
 
+            // Using DataLink directly for executing queries
             DataTable table = DataLink.Instance.ExecuteReader("sp_GetUserGroceryList", parameters);
 
             foreach (DataRow row in table.Rows)
@@ -48,7 +49,6 @@ namespace MealPlannerProject.Services
             DataLink.Instance.ExecuteNonQuery("sp_UpdateGroceryItemChecked", parameters);
         }
 
-
         public void AddIngredientToUser(int userId, GroceryIngredient ingredient)
         {
             SqlParameter[] parameters = new[]
@@ -60,7 +60,5 @@ namespace MealPlannerProject.Services
             int newId = DataLink.Instance.ExecuteScalar<int>("sp_AddIngredientToUserList", parameters, true);
             ingredient.Id = newId;
         }
-
-
     }
 }

@@ -1,90 +1,107 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Input;
-using MealPlannerProject.Interfaces.Services;
-using MealPlannerProject.Pages;
-using MealPlannerProject.Services;
-
-namespace MealPlannerProject.ViewModels
+﻿namespace MealPlannerProject.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Windows.Input;
+    using MealPlannerProject.Interfaces.Services;
+    using MealPlannerProject.Pages;
+    using MealPlannerProject.Services;
+
     public partial class CookingLevelViewModel : ViewModelBase
     {
+        private readonly ICookingPageService cookingPageService;
+
+        private string userFirstName;
+        private string userLastName;
+        private string userSelectedCookingSkill;
+
         public ObservableCollection<string> CookingLevels { get; } = new ObservableCollection<string>
         {
             "I am a beginner",
             "I cook sometimes",
             "I love cooking",
             "I prefer quick meals",
-            "I meal prep"
+            "I meal prep",
         };
 
-        public ICommand BackCommand { get; }
+        public ICommand NavigateToPreviousPageCommand { get; }
+
+        public ICommand NavigateToNextPageCommand { get; }
+
         public ICommand NextCommand { get; }
 
         public CookingLevelViewModel()
         {
-            BackCommand = new RelayCommand(GoBack);
-            NextCommand = new RelayCommand(GoNext);
-        }
+            this.NavigateToPreviousPageCommand = new RelayCommand(this.NavigateToPreviousPage);
+            this.NavigateToNextPageCommand = new RelayCommand(this.NavigateToNextPage);
+            this.NextCommand = new RelayCommand(NavigateToNextPage);
+            this.cookingPageService = new CookingPageService();
 
-        private void GoBack()
-        {
-            NavigationService.Instance.GoBack();
-        }
+            this.userFirstName = string.Empty;
+            this.userLastName = string.Empty;
+            this.userSelectedCookingSkill = string.Empty;
 
-        private string firstName;
-        private string lastName;
+            this.PropertyChanged = (eventSender, eventArguments) => { };
+        }
 
         public string FirstName
         {
-            get => firstName;
+            get => this.userFirstName;
             set
             {
-                firstName = value;
-                OnPropertyChanged(nameof(FirstName));
+                this.userFirstName = value;
+                this.OnPropertyChanged(nameof(this.FirstName));
             }
         }
 
         public string LastName
         {
-            get => lastName;
+            get => this.userLastName;
             set
             {
-                lastName = value;
-                OnPropertyChanged(nameof(LastName));
+                this.userLastName = value;
+                this.OnPropertyChanged(nameof(this.LastName));
             }
         }
 
         public string SelectedCookingSkill
         {
-            get => _selectedCookingSkill;
+            get => this.userSelectedCookingSkill;
             set
             {
-                _selectedCookingSkill = value;
-                OnPropertyChanged(nameof(SelectedCookingSkill));
+                this.userSelectedCookingSkill = value;
+                this.OnPropertyChanged(nameof(this.SelectedCookingSkill));
             }
         }
 
         public void SetUserInfo(string firstName, string lastName)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
-
-        private ICookingPageService cooking = new CookingPageService();
-        private string _selectedCookingSkill;
-
-        private void GoNext()
+        private void NavigateToPreviousPage()
         {
-            cooking.AddCookingSkill(FirstName, LastName, SelectedCookingSkill);
+            NavigationService.Instance.GoBack();
+        }
+
+        private void NavigateToNextPage()
+        {
+            this.cookingPageService.AddCookingSkill(
+                this.FirstName,
+                this.LastName,
+                this.SelectedCookingSkill);
+
             NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
+        // Override base class event to provide our own implementation
+        public new event PropertyChangedEventHandler PropertyChanged;
+
+        // Override base class method to use our own PropertyChanged event
+        protected new void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
