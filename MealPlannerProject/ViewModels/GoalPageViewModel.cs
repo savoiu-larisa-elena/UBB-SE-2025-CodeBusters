@@ -88,7 +88,7 @@
 
         private void GoNext()
         {
-            this.goalPageService.addGoals(this.FirstName, this.LastName, this.SelectedGoal);
+            this.goalPageService.AddGoals(this.FirstName, this.LastName, this.SelectedGoal);
             NavigationService.Instance.NavigateTo(typeof(ActivityLevelPage), this);
         }
 
