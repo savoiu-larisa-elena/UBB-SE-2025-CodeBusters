@@ -1,26 +1,35 @@
 ﻿using MealPlannerProject.Models;
-using MealPlannerProject.Queries;
+using MealPlannerProject.Interfaces;
 using System;
 using System.Data;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using MealPlannerProject.Queries;
 
 namespace MealPlannerProject.Repositories
 {
-    public class IngredientRepository
+    public class IngredientRepository : IIngredientRepository
     {
+        private readonly DataLink _dataLink;
+
+     
+
+        // Constructor with Dependency Injection for IDataLink
+        public IngredientRepository()
+        {
+        }
+
+        // Async method to fetch ingredient details by name
         public async Task<Ingredient?> GetIngredientByNameAsync(string name)
         {
-            string query = @"SELECT i_id, i_name, calories, protein, carbohydrates, fat, fiber, sugar 
-                             FROM ingredients 
-                             WHERE i_name = @name;";
+            const string query = @"SELECT i_id, i_name, calories, protein, carbohydrates, fat, fiber, sugar 
+                                   FROM ingredients 
+                                   WHERE i_name = @name;";
 
-            var parameters = new SqlParameter[]
-            {
-                new("@name", name)
-            };
+            var parameters = new SqlParameter[] { new("@name", name) };
 
-            DataTable result = await Task.Run(() => DataLink.Instance.ExecuteSqlQuery(query, parameters));
+            // Execute SQL query asynchronously
+            DataTable result = await Task.Run(() => _dataLink.ExecuteSqlQuery(query, parameters));
 
             if (result.Rows.Count > 0)
             {

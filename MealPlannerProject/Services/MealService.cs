@@ -14,6 +14,7 @@ namespace MealPlannerProject.Services
     {
         private readonly MealRepository _mealRepository;
         private readonly IngredientRepository _ingredientRepository;
+        private DataLink dataLink;
 
         public MealService()
         {
