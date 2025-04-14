@@ -2,6 +2,7 @@
 {
     internal interface IWaterService
     {
+        void AddUserIfNotExists(int userId);
         float GetWaterIntake(int userId);
 
         void RemoveWater300(int userId);
