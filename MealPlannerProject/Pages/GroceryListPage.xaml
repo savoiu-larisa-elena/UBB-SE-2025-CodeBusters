@@ -122,17 +122,17 @@
         <StackPanel Margin="75, 250, 0, 0"
             HorizontalAlignment="Left">
 
-            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Sections}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout MaximumRowsOrColumns="3"
+                <ItemsRepeater ItemsSource="{x:Bind ViewModel.Sections}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout MaximumRowsOrColumns="3"
                                MinColumnSpacing="30"
                                MinRowSpacing="30"
                                Orientation="Horizontal" />
-                </ItemsRepeater.Layout>
+                    </ItemsRepeater.Layout>
 
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="models:SectionModel">
-                        <Border Width="600"
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="models:SectionModel">
+                            <Border Width="600"
                         CornerRadius="15"
                         Background="#E3C7B1"
                         Padding="15"
@@ -140,29 +140,29 @@
                                 Height="370
                                 ">
 
-                            <StackPanel>
-                                <TextBlock Text="{x:Bind Title}"
+                                <StackPanel>
+                                    <TextBlock Text="{x:Bind Title}"
                                    Foreground="#183D2C"
                                    FontSize="16"
                                    FontWeight="SemiBold"
                                    Margin="0, 0, 0, 10"/>
 
-                                <ListView ItemsSource="{x:Bind Items}" Height="500">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:GroceryIngredient">
-                                            <StackPanel Orientation="Horizontal" Spacing="10">
-                                                <CheckBox IsChecked="{x:Bind IsChecked, Mode=TwoWay}"
+                                    <ListView ItemsSource="{x:Bind Items}" Height="500">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="models:GroceryIngredient">
+                                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                                    <CheckBox IsChecked="{x:Bind IsChecked, Mode=TwoWay}"
                                               Content="{x:Bind Name}"
                                               Foreground="#183D2C"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
 
         </StackPanel>
 

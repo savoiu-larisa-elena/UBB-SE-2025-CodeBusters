@@ -1,5 +1,6 @@
 ﻿namespace MealPlannerProject.Services
 {
+    using System.Collections.ObjectModel;
     using System.Data.SqlClient;
     using System.Diagnostics;
     using MealPlannerProject.Interfaces.Services;
@@ -56,6 +57,23 @@
 
             DataLink.Instance.ExecuteNonQuery(UpdateActivityProcedure, updateParameters);
             Debug.WriteLine($"Successfully updated activity level to '{activityDescription}' for user {firstName} {lastName}");
+        }
+
+        public static bool ValidateSelectedActivity(string activity)
+        {
+            return !string.IsNullOrWhiteSpace(activity);
+        }
+
+        public static ObservableCollection<string> GetActivityLevels()
+        {
+            return new ObservableCollection<string>
+                {
+                "Sedentary",
+                "Lightly Active",
+                "Moderately Active",
+                "Very Active",
+                "Super Active",
+                };
         }
     }
 }

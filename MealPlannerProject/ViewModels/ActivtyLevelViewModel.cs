@@ -15,14 +15,7 @@ namespace MealPlannerProject.ViewModels
 
         private IActivityPageService activityPageService = new ActivityPageService();
 
-        public ObservableCollection<string> ActivityLevels { get; } = new ObservableCollection<string>
-        {
-            "Sedentary",
-            "Lightly Active",
-            "Moderately Active",
-            "Very Active",
-            "Super Active",
-        };
+        public ObservableCollection<string> ActivityLevels { get; } = ActivityPageService.GetActivityLevels();
 
         public ICommand BackCommand { get; }
 
