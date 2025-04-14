@@ -7,6 +7,7 @@
     using MealPlannerProject.Pages;
     using MealPlannerProject.Services;
     using Microsoft.Data.SqlClient;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.UI;
     using Microsoft.UI.Xaml.Media;
     using Windows.UI;
@@ -17,10 +18,7 @@
         private object selectedItem;
         private bool isSearchVisible;
         private string selectedUnit = "g";
-
-        private readonly string connectionString =
-            @"Server=LAPTOP-ANDU\SQLEXPRESS;Database=Meal_Planner;Integrated Security=True;TrustServerCertificate=True";
-
+        private string connectionString;
         public ObservableCollection<object> SearchResults { get; set; } = new ObservableCollection<object>();
 
         private string totalPr;
@@ -94,13 +92,25 @@
 
         public string LeftSug { get => this.leftSug; set => this.SetProperty(ref this.leftSug, value); }
 
-        private string userId = "1"; // Replace with actual logged-in user ID
+        private static int _userId;
+        public static int UserId
+        {
+            get => _userId;
+            set => _userId = value;
+        }
 
         private readonly MacrosService macrosService;
 
         // FOR BACK COMMAND <-
         public AddFoodPageViewModel()
         {
+            var config = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
+            string? localDataSource = config["LocalDataSource"];
+            string? initialCatalog = config["InitialCatalog"];
+            this.connectionString = $"Data Source={localDataSource};Initial Catalog={initialCatalog};Integrated Security=True; TrustServerCertificate = True";
             this.BackCommand = new RelayCommand(this.GoBack);
             this.NextCommand = new RelayCommand(this.GoNext);
             this.AddToMealCommand = new RelayCommand(this.AddToMeal, this.CanAddToMeal);
@@ -109,7 +119,7 @@
             Console.WriteLine("AddFoodPageViewModel initialized");
             Console.WriteLine($"AddToMealCommand is null: {this.AddToMealCommand == null}");
 
-            int number_userId = int.Parse(this.userId);
+            int number_userId = _userId;
 
             // Initialize MacrosService
             this.macrosService = new MacrosService();
