@@ -1,34 +1,67 @@
-﻿using MealPlannerProject.Converters;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.UI.Xaml;
-using Xunit;
+using System;
+using System.Reflection;
 
-namespace MealPlannerProject.Tests
+namespace MealPlannerProjectTest.Converters
 {
+    [TestClass]
     public class CookingLevelButtonStyleConverterTests
     {
-        private readonly CookingLevelButtonStyleConverter _converter = new CookingLevelButtonStyleConverter();
+        private object? _converter;
+        private Type? _converterType;
 
-        [Theory]
-        [InlineData("I'm a beginner", "BeginnerButtonStyle")]
-        [InlineData("I cook sometimes", "CookSometimesButtonStyle")]
-        [InlineData("I love cooking", "LoveCookingButtonStyle")]
-        [InlineData("I prefer quick meals", "QuickMealsButtonStyle")]
-        [InlineData("I meal prep", "MealPrepButtonStyle")]
-        public void Convert_ValidCookingLevel_ReturnsCorrectStyle(string cookingLevel, string expectedStyle)
+        [TestInitialize]
+        public void Setup()
         {
-            var result = _converter.Convert(cookingLevel, typeof(Style), null, null);
-            var expected = Application.Current.Resources[expectedStyle] as Style;
+            _converterType = Type.GetType("MealPlannerProject.Converters.CookingLevelButtonStyleConverter, MealPlannerProject");
+            if (_converterType == null)
+            {
+                throw new Exception("Could not find CookingLevelButtonStyleConverter type");
+            }
 
-            Assert.Equal(expected, result);
+            _converter = Activator.CreateInstance(_converterType);
         }
 
-        [Theory]
-        [InlineData("Unknown cooking level")]
-        [InlineData(null)]
-        public void Convert_InvalidCookingLevel_ReturnsNull(string cookingLevel)
+        #region Convert Tests
+
+        [DataTestMethod]
+        [DataRow("I'm a beginner", "BeginnerButtonStyle")]
+        [DataRow("I cook sometimes", "CookSometimesButtonStyle")]
+        [DataRow("I love cooking", "LoveCookingButtonStyle")]
+        [DataRow("I prefer quick meals", "QuickMealsButtonStyle")]
+        [DataRow("I meal prep", "MealPrepButtonStyle")]
+        public void Convert_ValidCookingLevel_ReturnsExpectedStyle(string cookingLevel, string expectedStyleKey)
         {
-            var result = _converter.Convert(cookingLevel, typeof(Style), null, null);
-            Assert.Null(result);
+            // Arrange
+            var method = _converterType!.GetMethod("Convert");
+            Assert.IsNotNull(method, "Convert method not found");
+
+            var expectedStyle = Application.Current.Resources[expectedStyleKey] as Style;
+
+            // Act
+            var result = method!.Invoke(_converter, new object[] { cookingLevel, typeof(Style), null!, null! });
+
+            // Assert
+            Assert.AreEqual(expectedStyle, result);
         }
+
+        [DataTestMethod]
+        [DataRow("Unknown cooking level")]
+        [DataRow(null)]
+        public void Convert_InvalidCookingLevel_ReturnsNull(object? cookingLevel)
+        {
+            // Arrange
+            var method = _converterType!.GetMethod("Convert");
+            Assert.IsNotNull(method, "Convert method not found");
+
+            // Act
+            var result = method!.Invoke(_converter, new object[] { cookingLevel, typeof(Style), null!, null! });
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        #endregion
     }
 }
