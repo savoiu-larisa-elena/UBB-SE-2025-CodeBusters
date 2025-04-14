@@ -3,20 +3,25 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using MealPlannerProject.Queries;
+using MealPlannerProject.Interfaces;
 using MealPlannerProject.Interfaces.Repositories;
 
 namespace MealPlannerProject.Repositories
 {
     public class IngredientRepository : IIngredientRepository
     {
-        private readonly DataLink _dataLink;
+        private readonly IDataLink _dataLink;
 
      
 
         // Constructor with Dependency Injection for IDataLink
         public IngredientRepository()
         {
+        }
+
+        public IngredientRepository(IDataLink _dataLink)
+        {
+           this._dataLink = _dataLink;
         }
 
         // Async method to fetch ingredient details by name

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,7 @@ namespace MealPlannerProject.Interfaces
         int ExecuteQuery(string query, SqlParameter[]? sqlParameters, bool isStoredProcedure);
         [Obsolete]
         int ExecuteNonQuery(string storedProcedure, SqlParameter[]? sqlParameters);
+        [Obsolete]
+        DataTable ExecuteSqlQuery(string query, SqlParameter[]? sqlParameters);
     }
 }
