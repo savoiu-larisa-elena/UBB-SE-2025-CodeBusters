@@ -25,7 +25,11 @@ namespace MealPlannerProject.Services
         {
             float userWeight = float.Parse(weight);
             float userHeight = float.Parse(height);
-            float userTargetGoal = float.Parse(targetGoal);
+            float? userTargetGoal;
+            if (targetGoal == "")
+                userTargetGoal = null;
+            else
+                userTargetGoal = float.Parse(targetGoal);
 
             var parameters = new SqlParameter[]
             {
@@ -39,7 +43,7 @@ namespace MealPlannerProject.Services
                     new SqlParameter("@u_id", userId),
                     new SqlParameter("@u_weight", userWeight),
                     new SqlParameter("@u_height", userHeight),
-                    new SqlParameter("@u_goal", userTargetGoal)
+                    new SqlParameter("@u_goal", userTargetGoal == null? DBNull.Value: userTargetGoal),
             };
 
             DataLink.Instance.ExecuteNonQuery("UpdateUserBodyMetrics", parameters);
