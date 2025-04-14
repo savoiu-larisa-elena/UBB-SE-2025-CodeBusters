@@ -5,9 +5,10 @@
     using System.Data.SqlClient;
     using System.Threading.Tasks;
     using MealPlannerProject.Exceptions;
+    using MealPlannerProject.Interfaces;
     using Microsoft.Extensions.Configuration;
 
-    public sealed partial class DataLink : IDisposable
+    public sealed partial class DataLink : IDisposable, IDataLink
     {
         [Obsolete]
         private static readonly Lazy<DataLink> InstanceValue = new (() => new DataLink());
