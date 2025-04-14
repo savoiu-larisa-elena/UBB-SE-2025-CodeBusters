@@ -274,7 +274,7 @@ namespace MealPlannerProject.ViewModels
 
         // ----------------------------------------
 
-        private readonly IWaterService waterService;
+        private readonly IWaterIntakeService waterService;
         private readonly CalorieService calorieService;
         private readonly MacrosService macrosService;
         private static int _userId;
@@ -292,7 +292,7 @@ namespace MealPlannerProject.ViewModels
             int number_userId = UserId;
 
             // Initialize WaterService
-            this.waterService = new WaterService();
+            this.waterService = new WaterIntakeService();
             this.waterService.AddUserIfNotExists(number_userId); // Ensure user exists in the water tracker table
 
             // Initialize CalorieService

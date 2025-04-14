@@ -8,15 +8,16 @@
     using System.Runtime.ConstrainedExecution;
     using System.Text;
     using System.Threading.Tasks;
+    using MealPlannerProject.Interfaces;
     using MealPlannerProject.Interfaces.Services;
     using MealPlannerProject.Queries;
 
-    public class WaterService : IWaterService
+    public class WaterIntakeService : IWaterIntakeService
     {
-        public DataLink dataLink;
+        public IDataLink dataLink;
 
         [Obsolete]
-        public WaterService()
+        public WaterIntakeService()
         {
             this.dataLink = DataLink.Instance;
         }

@@ -1,6 +1,6 @@
 ﻿namespace MealPlannerProject.Interfaces.Services
 {
-    internal interface IWaterService
+    internal interface IWaterIntakeService
     {
         void AddUserIfNotExists(int userId);
         float GetWaterIntake(int userId);
