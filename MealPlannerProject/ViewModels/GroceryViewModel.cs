@@ -6,6 +6,7 @@
     using CommunityToolkit.Mvvm.Input;
     using MealPlannerProject.Models;
     using MealPlannerProject.Services;
+    using Windows.System;
 
     public class GroceryViewModel : ObservableObject
     {
@@ -39,12 +40,6 @@
             set => this.SetProperty(ref this.newGroceryIngredientName, value);
         }
 
-        // private int _newIngredientQuantity;
-        // public int NewIngredientQuantity
-        // {
-        //    get => _newIngredientQuantity;
-        //    set => SetProperty(ref _newIngredientQuantity, value);
-        // }
         public RelayCommand<GroceryIngredient> AddGroceryIngredientCommand { get; }
 
         public GroceryViewModel()
@@ -72,13 +67,23 @@
             this.LoadUserGroceryList();
         }
 
-        public void AddGroceryIngredient(GroceryIngredient? ingredient = null)
+        [System.Obsolete]
+        public async void AddGroceryIngredient(GroceryIngredient? ingredient = null)
         {
             GroceryIngredient resultIngredient = this.service.AddIngredientToUser(_userId, ingredient ?? GroceryIngredient.defaultIngredient, newGroceryIngredientName, sections);
             if (resultIngredient == GroceryIngredient.defaultIngredient)
                 return;
             else
                 ingredient = resultIngredient;
+
+            ingredient.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(GroceryIngredient.IsChecked))
+                {
+                    var ing = (GroceryIngredient)s;
+                    this.service.UpdateIsChecked(_userId, ing.Id, ing.IsChecked);
+                }
+            };
 
             this.Sections[0].Items.Add(ingredient);
 

@@ -2,6 +2,9 @@ namespace MealPlannerProject.Pages
 {
     using System;
     using System.Diagnostics;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
+    using MealPlannerProject.Services;
     using MealPlannerProject.ViewModels;
     using Microsoft.UI.Xaml;
     using Microsoft.UI.Xaml.Controls;
@@ -9,8 +12,10 @@ namespace MealPlannerProject.Pages
 
     public sealed partial class ActivityLevelPage : Page
     {
+        [Obsolete]
         private readonly ActivityLevelViewModel viewModel = new ();
 
+        [Obsolete]
         public ActivityLevelPage()
         {
             try
@@ -37,23 +42,26 @@ namespace MealPlannerProject.Pages
             }
         }
 
-        private static void ShowErrorDialog(string v)
+        private async Task ShowErrorDialog(string v)
         {
-            _ = new ContentDialog
+            var dialog = new ContentDialog
             {
                 Title = "Error",
                 Content = v,
                 CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot,
             };
+            await dialog.ShowAsync();
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        [Obsolete]
+        private async void NextButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(this.viewModel.SelectedActivity))
+                if (!ActivityPageService.ValidateSelectedActivity(this.viewModel.SelectedActivity))
                 {
-                    ShowErrorDialog("Please select an activity level.");
+                    await ShowErrorDialog("Please select an activity level.");
                     return;
                 }
 
@@ -61,7 +69,7 @@ namespace MealPlannerProject.Pages
             }
             catch (Exception ex)
             {
-                ShowErrorDialog($"An error occurred: {ex.Message}");
+                await ShowErrorDialog($"An error occurred: {ex.Message}");
             }
         }
     }

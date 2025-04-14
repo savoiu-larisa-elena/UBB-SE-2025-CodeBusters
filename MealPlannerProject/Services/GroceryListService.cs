@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using MealPlannerProject.Interfaces;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MealPlannerProject.Services
 {
@@ -92,15 +93,6 @@ namespace MealPlannerProject.Services
 
             int newId = DataLink.Instance.ExecuteScalar<int>("sp_AddIngredientToUserList", parameters, true);
             ingredient.Id = newId;
-
-            ingredient.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(GroceryIngredient.IsChecked))
-                {
-                    var ing = (GroceryIngredient)s;
-                    this.UpdateIsChecked(userId, ing.Id, ing.IsChecked);
-                }
-            };
 
             return ingredient;
         }
