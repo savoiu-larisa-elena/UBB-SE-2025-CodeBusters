@@ -6,6 +6,8 @@ using System.Data;
 using System.Data.SqlClient;
 
 using MealPlannerProject.Interfaces;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MealPlannerProject.Services
 {
@@ -34,6 +36,18 @@ namespace MealPlannerProject.Services
                 });
             }
 
+            foreach (var ingredient in ingredients)
+            {
+                ingredient.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(GroceryIngredient.IsChecked))
+                    {
+                        var item = (GroceryIngredient)s;
+                        this.UpdateIsChecked(userId, item.Id, item.IsChecked);
+                    }
+                };
+            }
+
             return ingredients;
         }
 
@@ -49,8 +63,27 @@ namespace MealPlannerProject.Services
             DataLink.Instance.ExecuteNonQuery("sp_UpdateGroceryItemChecked", parameters);
         }
 
-        public void AddIngredientToUser(int userId, GroceryIngredient ingredient)
+        public GroceryIngredient AddIngredientToUser(int userId, GroceryIngredient ingredient, string newGroceryIngredientName, ObservableCollection<SectionModel> sections)
         {
+            if (ingredient == GroceryIngredient.defaultIngredient)
+            {
+                if (string.IsNullOrWhiteSpace(newGroceryIngredientName))
+                {
+                    return GroceryIngredient.defaultIngredient;
+                }
+
+                ingredient = new GroceryIngredient
+                {
+                    Name = newGroceryIngredientName,
+                    IsChecked = false,
+                };
+            }
+
+            if (sections.SelectMany(s => s.Items).Any(i => i.Name == ingredient.Name))
+            {
+                return GroceryIngredient.defaultIngredient;
+            }
+
             SqlParameter[] parameters = new[]
             {
                 new SqlParameter("@UserId", SqlDbType.Int) { Value = userId },
@@ -59,6 +92,17 @@ namespace MealPlannerProject.Services
 
             int newId = DataLink.Instance.ExecuteScalar<int>("sp_AddIngredientToUserList", parameters, true);
             ingredient.Id = newId;
+
+            ingredient.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(GroceryIngredient.IsChecked))
+                {
+                    var ing = (GroceryIngredient)s;
+                    this.UpdateIsChecked(userId, ing.Id, ing.IsChecked);
+                }
+            };
+
+            return ingredient;
         }
     }
 }
