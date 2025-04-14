@@ -94,19 +94,8 @@ Background="#FCE8DC">
                      Background="#E3C7B1"
                      CornerRadius="15"
                      SelectionHighlightColorWhenNotFocused="#133224"
-                     SelectionHighlightColor="#133224"/>    
+                     SelectionHighlightColor="#133224"/>
             </StackPanel>
-
-
-            <!-- Activity Level Buttons -->
-            <ListView ItemsSource="{Binding ActivityLevels}" SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Button Content="{Binding}"
-                            Style="{Binding Converter={StaticResource ActivityLevelButtonStyleConverter}}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
         </StackPanel>
 
         <!-- Bottom Navigation Indicator -->
@@ -126,7 +115,7 @@ Background="#FCE8DC">
                 Width="50" Height="50"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Command="{Binding NextCommand}"
+                Command="{Binding SubmitBodyMetricsCommand}"
                 Click="NextButton_Click"
                 Background="DarkGreen"
                 Foreground="White"

@@ -57,12 +57,14 @@ namespace MealPlannerProject.Pages
             if (userId != -1)
             {
                 GroceryViewModel.UserId = userId;
+                AddFoodPageViewModel.UserId = userId;
                 this.Frame.Navigate(typeof(MainPage));
             }
             else
             {
                 userId = userPageService.insertNewUser(LastName + " " + FirstName);
                 GroceryViewModel.UserId = userId;
+                AddFoodPageViewModel.UserId = userId;
                 this.Frame.Navigate(typeof(BodyMetricsPage), this);
             }
         }

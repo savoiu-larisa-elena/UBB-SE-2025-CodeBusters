@@ -92,7 +92,8 @@
                 this.LastName,
                 this.SelectedCookingSkill);
 
-            NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
+            //NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
+            NavigationService.Instance.NavigateTo(typeof(DietaryPreferencesPage), this);
         }
 
         // Override base class event to provide our own implementation
