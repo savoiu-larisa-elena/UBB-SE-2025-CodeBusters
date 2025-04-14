@@ -1,30 +1,25 @@
-﻿using Moq;
-using Xunit;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Data;
-using System.Threading.Tasks;
-using MealPlannerProject.Models;
+using Moq;
+using Xunit;
+using MealPlannerProject.Interfaces;
 using MealPlannerProject.Repositories;
-using MealPlannerProject.Queries;
+using System.Threading.Tasks;
 
 namespace MealPlannerProject.Tests
 {
+    [TestClass]
     public class IngredientRepositoryTests
     {
-        private readonly Mock<DataLink> _mockDataLink;
-        private readonly IngredientRepository _ingredientRepository;
 
-        public IngredientRepositoryTests()
-        {
-            // Create mock DataLink
-            _mockDataLink = new Mock<DataLink>();
-
-            // Inject mock DataLink into IngredientRepository
-            _ingredientRepository = new IngredientRepository();
-        }
-
-        [Fact]
+        [TestMethod]
         public async Task GetIngredientByNameAsync_ShouldReturnIngredient_WhenIngredientExists()
         {
+            var _mockDataLink = new Mock<IDataLink>();
+
+            // Inject mock DataLink into IngredientRepository
+            var _ingredientRepository = new IngredientRepository(_mockDataLink.Object);
             // Arrange
             var ingredientName = "Tomato";
             var mockTable = new DataTable();
@@ -46,15 +41,19 @@ namespace MealPlannerProject.Tests
             var ingredient = await _ingredientRepository.GetIngredientByNameAsync(ingredientName);
 
             // Assert
-            Assert.NotNull(ingredient);
-            Assert.Equal("Tomato", ingredient.Name);
-            Assert.Equal(1, ingredient.Id);
-            Assert.Equal(22.5f, ingredient.Calories);
+            Xunit.Assert.NotNull(ingredient);
+            Xunit.Assert.Equal("Tomato", ingredient.Name);
+            Xunit.Assert.Equal(1, ingredient.Id);
+            Xunit.Assert.Equal(22.5f, ingredient.Calories);
         }
 
-        [Fact]
+        [TestMethod]
         public async Task GetIngredientByNameAsync_ShouldReturnNull_WhenIngredientDoesNotExist()
         {
+            var _mockDataLink = new Mock<IDataLink>();
+
+            // Inject mock DataLink into IngredientRepository
+            var _ingredientRepository = new IngredientRepository(_mockDataLink.Object);
             // Arrange
             var ingredientName = "NonExistentIngredient";
             var mockTable = new DataTable();
@@ -66,7 +65,7 @@ namespace MealPlannerProject.Tests
             var ingredient = await _ingredientRepository.GetIngredientByNameAsync(ingredientName);
 
             // Assert
-            Assert.Null(ingredient);
+            Xunit.Assert.Null(ingredient);
         }
     }
 }

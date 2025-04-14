@@ -16,6 +16,17 @@ namespace MealPlannerProject.Converters
             { "I meal prep", "MealPrepButtonStyle" }
         };
 
+        private readonly Dictionary<string, object>? _testResources;
+
+        public CookingLevelButtonStyleConverter(Dictionary<string, object>? testResources = null)
+        {
+            _testResources = testResources;
+        }
+
+        public CookingLevelButtonStyleConverter()
+        {
+        }
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value is string cookingLevel && CookingLevelButtonStyles.ContainsKey(cookingLevel))
