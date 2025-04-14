@@ -1,6 +1,7 @@
 ﻿using MealPlannerProject.Queries;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MealPlannerProject.Services
 {
     class UserPageService
     {
-        public bool userHasAnAccount(string name)
+        public int userHasAnAccount(string name)
         {
             var parameters = new SqlParameter[]
             {
@@ -20,16 +21,25 @@ namespace MealPlannerProject.Services
             };
 
             int? userId = DataLink.Instance.ExecuteScalar<int>("SELECT dbo.GetUserByName(@u_name)", parameters, false);
-            return userId.HasValue && userId.Value > 0;
+            if (userId.HasValue && userId.Value > 0)
+            {
+                return userId.Value;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
-        public void insertNewUser(string name)
+        public int insertNewUser(string name)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@u_name", name)
+                new SqlParameter("@u_name", name),
+                new SqlParameter("@id", SqlDbType.Int) {Direction = System.Data.ParameterDirection.Output},
             };
             DataLink.Instance.ExecuteNonQuery("InsertNewUser", parameters);
+            return (int) parameters[1].Value;
         }
     }
 }

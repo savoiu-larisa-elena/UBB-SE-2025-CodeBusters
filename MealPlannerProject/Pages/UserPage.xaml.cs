@@ -14,12 +14,14 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using MealPlannerProject.Services;
 using MealPlannerProject.Pages;
+using MealPlannerProject.ViewModels;
 
 namespace MealPlannerProject.Pages
 {
     public sealed partial class UserPage : Page
     {
         public string FirstName { get; set; } = string.Empty;
+
         public string LastName { get; set; } = string.Empty;
 
         private Services.UserPageService userPageService = new Services.UserPageService();
@@ -51,14 +53,18 @@ namespace MealPlannerProject.Pages
                 dialog.ShowAsync();
                 return;
             }
-            bool nextPageNavigation = userPageService.userHasAnAccount(LastName + " " + FirstName);
-            if(nextPageNavigation)
+            int userId = this.userPageService.userHasAnAccount(this.LastName + " " + this.FirstName);
+            if (userId != -1)
             {
+                GroceryViewModel.UserId = userId;
+                AddFoodPageViewModel.UserId = userId;
                 this.Frame.Navigate(typeof(MainPage));
             }
             else
             {
-                userPageService.insertNewUser(LastName + " " + FirstName);
+                userId = userPageService.insertNewUser(LastName + " " + FirstName);
+                GroceryViewModel.UserId = userId;
+                AddFoodPageViewModel.UserId = userId;
                 this.Frame.Navigate(typeof(BodyMetricsPage), this);
             }
         }

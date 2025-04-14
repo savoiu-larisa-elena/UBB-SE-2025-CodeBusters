@@ -1,13 +1,12 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Diagnostics;
-using MealPlannerProject.ViewModels;
-using MealPlannerProject.Models;
-
 namespace MealPlannerProject.Pages
 {
+    using System;
+    using System.Diagnostics;
+    using MealPlannerProject.Models;
+    using MealPlannerProject.ViewModels;
+    using Microsoft.UI.Xaml.Controls;
+    using Microsoft.UI.Xaml.Navigation;
+
     public sealed partial class AddFoodPage : Page
     {
         public AddFoodPageViewModel AddFoodPageViewModel { get; } = new AddFoodPageViewModel(); // Initialize ViewModel
@@ -18,7 +17,7 @@ namespace MealPlannerProject.Pages
             {
                 this.InitializeComponent();
 
-                this.DataContext = AddFoodPageViewModel;
+                this.DataContext = this.AddFoodPageViewModel;
                 Debug.WriteLine("AddFoodPage initialized successfully.");
             }
             catch (Exception ex)
@@ -33,7 +32,7 @@ namespace MealPlannerProject.Pages
             base.OnNavigatedTo(e);
             if (e.Parameter is string selectedMeal)
             {
-                AddFoodPageViewModel.SetCategoryHighlight(selectedMeal);
+                this.AddFoodPageViewModel.SetCategoryHighlight(selectedMeal);
             }
         }
 
@@ -41,10 +40,10 @@ namespace MealPlannerProject.Pages
         private void ServingSizeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // This method will be called when the selection changes in the ListBox
-            if (ServingSizeListBox.SelectedItem is ServingUnitModel selectedUnit)
+            if (this.ServingSizeListBox.SelectedItem is ServingUnitModel selectedUnit)
             {
                 // Update the SelectedUnit in the ViewModel via the ViewModel's property
-                AddFoodPageViewModel.SelectedUnit = selectedUnit.UnitName;
+                this.AddFoodPageViewModel.SelectedUnit = selectedUnit.UnitName;
             }
         }
     }

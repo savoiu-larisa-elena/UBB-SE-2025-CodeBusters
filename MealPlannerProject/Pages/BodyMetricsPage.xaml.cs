@@ -73,7 +73,6 @@ namespace MealPlannerProject.Pages
                 viewModel.Weight = WeightTextBox.Text;
                 viewModel.Height = HeightTextBox.Text;
                 viewModel.TargetWeight = TargetGoalTextBox.Text;
-                this.Frame.Navigate(typeof(GoalPage), viewModel);
                 Debug.WriteLine($"Navigating to GoalPage with {viewModel.LastName} and {viewModel.FirstName}");
             }
             catch (Exception ex)
