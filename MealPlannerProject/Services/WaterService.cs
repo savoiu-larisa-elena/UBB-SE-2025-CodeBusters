@@ -10,13 +10,20 @@
     using MealPlannerProject.Interfaces.Services;
     using MealPlannerProject.Queries;
 
-    internal class WaterService : IWaterService
+    public class WaterService : IWaterService
     {
+        public DataLink dataLink;
+
+        public WaterService()
+        {
+            this.dataLink = DataLink.Instance;
+        }
+
         [Obsolete]
         public float GetWaterIntake(int userId)
         {
             var parameters = new SqlParameter[] { new SqlParameter("@UserId", userId) };
-            return DataLink.Instance.ExecuteScalar<float>("SELECT dbo.get_water_intake(@UserId)", parameters, false);
+            return this.dataLink.ExecuteScalar<float>("SELECT dbo.get_water_intake(@UserId)", parameters, false);
         }
 
         [Obsolete]
@@ -27,7 +34,7 @@
                 new SqlParameter("@UserId", userId),
                 new SqlParameter("@NewIntake", newIntake),
             };
-            DataLink.Instance.ExecuteQuery("exec update_water_intake @UserId, @NewIntake", parameters, false);
+            this.dataLink.ExecuteQuery("exec update_water_intake @UserId, @NewIntake", parameters, false);
         }
 
         [Obsolete]
