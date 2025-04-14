@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
@@ -17,24 +17,9 @@
     <Page Remove="UnitTestApp.xaml" />
     <ApplicationDefinition Include="UnitTestApp.xaml" />
     <ProjectCapability Include="TestContainer" />
-	  <PackageReference Include="Moq" Version="4.20.69" />
   </ItemGroup>
 
-	<PropertyGroup>
-		<CollectCoverage>true</CollectCoverage>
-		<CoverletOutputFormat>cobertura</CoverletOutputFormat>
-		<CoverletOutput>./TestResults/</CoverletOutput>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="coverlet.collector" Version="3.2.0">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
-
-
-	<ItemGroup>
+  <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -57,9 +42,6 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\MealPlannerProject\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="17.13.0" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
@@ -73,9 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MealPlannerProject\MealPlannerProject.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ConvertorsTesting\" />
   </ItemGroup>
 
   <!-- 
