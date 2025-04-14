@@ -28,6 +28,7 @@ namespace MealPlannerProject.ViewModels
 
         public ICommand NextCommand { get; }
 
+        [System.Obsolete]
         public ActivityLevelViewModel()
         {
             this.selectedActivity = string.Empty;
@@ -78,7 +79,7 @@ namespace MealPlannerProject.ViewModels
             this.LastName = lastName;
         }
 
-
+        [System.Obsolete]
         private void GoNext()
         {
 
@@ -86,9 +87,9 @@ namespace MealPlannerProject.ViewModels
             NavigationService.Instance.NavigateTo(typeof(CookingLevelPage), this);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public new event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void OnPropertyChanged(string propertyName)
+        protected new void OnPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

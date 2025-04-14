@@ -9,14 +9,19 @@
 
     public class GroceryViewModel : ObservableObject
     {
-        public static int UserId;
+        private static int _userId;
+        public static int UserId
+        {
+            get => _userId;
+            set => _userId =  value;
+        }
         private readonly GroceryListService service = new ();
 
-        public ObservableCollection<GroceryIngredient> Ingredients { get; } = new ();
+        public ObservableCollection<GroceryIngredient> Ingredients { get; private set; } = new ();
 
-        public ObservableCollection<GroceryIngredient> MostFrequentIngredients { get; set; }
+        public ObservableCollection<GroceryIngredient> MostFrequentIngredients { get; private set; }
 
-        public ObservableCollection<GroceryIngredient> RecentlyUsedIngredients { get; set; }
+        public ObservableCollection<GroceryIngredient> RecentlyUsedIngredients { get; private set; }
 
         private ObservableCollection<SectionModel> sections;
 
@@ -44,62 +49,36 @@
 
         public GroceryViewModel()
         {
-            //this.userId = userId;
             this.AddGroceryIngredientCommand = new RelayCommand<GroceryIngredient>(this.AddGroceryIngredient);
-
             this.MostFrequentIngredients = new ObservableCollection<GroceryIngredient>
             {
                 new GroceryIngredient { Name = "Tomatoes" },
                 new GroceryIngredient { Name = "Onions" },
                 new GroceryIngredient { Name = "Garlic" },
             };
-
             this.RecentlyUsedIngredients = new ObservableCollection<GroceryIngredient>
             {
                 new GroceryIngredient { Name = "Olive Oil" },
                 new GroceryIngredient { Name = "Salt" },
                 new GroceryIngredient { Name = "Pepper" },
             };
-
             this.Sections = new ObservableCollection<SectionModel>
             {
                 new SectionModel { Title = "My List" },
             };
+            this.sections = new ();
+            this.newGroceryIngredientName = "";
 
             this.LoadUserGroceryList();
         }
 
         public void AddGroceryIngredient(GroceryIngredient? ingredient = null)
         {
-            if (ingredient == null)
-            {
-                if (string.IsNullOrWhiteSpace(this.NewGroceryIngredientName))
-                {
-                    return;
-                }
-
-                ingredient = new GroceryIngredient
-                {
-                    Name = this.NewGroceryIngredientName,
-                    IsChecked = false,
-                };
-            }
-
-            if (this.Sections.SelectMany(s => s.Items).Any(i => i.Name == ingredient.Name))
-            {
+            GroceryIngredient resultIngredient = this.service.AddIngredientToUser(_userId, ingredient ?? GroceryIngredient.defaultIngredient, newGroceryIngredientName, sections);
+            if (resultIngredient == GroceryIngredient.defaultIngredient)
                 return;
-            }
-
-            this.service.AddIngredientToUser(UserId, ingredient);
-
-            ingredient.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(GroceryIngredient.IsChecked))
-                {
-                    var ing = (GroceryIngredient)s;
-                    this.service.UpdateIsChecked(UserId, ing.Id, ing.IsChecked);
-                }
-            };
+            else
+                ingredient = resultIngredient;
 
             this.Sections[0].Items.Add(ingredient);
 
@@ -109,19 +88,7 @@
 
         private void LoadUserGroceryList()
         {
-            var ingredientsFromDb = this.service.GetIngredientsForUser(UserId);
-
-            foreach (var ingredient in ingredientsFromDb)
-            {
-                ingredient.PropertyChanged += (s, e) =>
-                {
-                    if (e.PropertyName == nameof(GroceryIngredient.IsChecked))
-                    {
-                        var item = (GroceryIngredient)s;
-                        this.service.UpdateIsChecked(UserId, item.Id, item.IsChecked);
-                    }
-                };
-            }
+            var ingredientsFromDb = this.service.GetIngredientsForUser(_userId);
 
             this.Sections = new ObservableCollection<SectionModel>
             {
@@ -135,5 +102,4 @@
             this.OnPropertyChanged(nameof(this.Sections));
         }
     }
-
 }

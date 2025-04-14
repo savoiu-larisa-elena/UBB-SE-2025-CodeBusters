@@ -43,7 +43,7 @@ BEGIN
     
 	IF @IngredientId IS NULL
     BEGIN
-        INSERT INTO ingredients(i_name, category) VALUES (@IngredientName, 'Uncategorized');
+        INSERT INTO ingredients(u_id, i_name, category) VALUES (@UserId, @IngredientName, 'Uncategorized');
         SET @IngredientId = SCOPE_IDENTITY();
     END
 
