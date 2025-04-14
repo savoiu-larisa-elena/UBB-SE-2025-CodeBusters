@@ -24,5 +24,7 @@ namespace MealPlannerProject.Models
             get => _isChecked;
             set => SetProperty(ref _isChecked, value);
         }
+
+        public readonly static GroceryIngredient defaultIngredient = new GroceryIngredient() { Id = -1, _name = "", IsChecked = false };
     }
 }
