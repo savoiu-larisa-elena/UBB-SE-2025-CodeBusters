@@ -1,9 +1,10 @@
 go
-create procedure InsertNewUser(@u_name varchar(100))
+create procedure InsertNewUser(@u_name varchar(100), @id INT OUTPUT)
 as
 begin
 set nocount on;
 insert into users(u_name, u_height, u_weight) values (@u_name, 0, 0);
+SET @id = SCOPE_IDENTITY();
 end;
 
 GO
@@ -42,7 +43,7 @@ BEGIN
     
 	IF @IngredientId IS NULL
     BEGIN
-        INSERT INTO ingredients(i_name, category) VALUES (@IngredientName, 'Uncategorized');
+        INSERT INTO ingredients(u_id, i_name, category) VALUES (@UserId, @IngredientName, 'Uncategorized');
         SET @IngredientId = SCOPE_IDENTITY();
     END
 

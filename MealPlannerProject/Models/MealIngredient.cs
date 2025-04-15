@@ -5,13 +5,21 @@ namespace MealPlannerProject.Models
     public class MealIngredient
     {
         public int IngredientId { get; set; }
+
         public float Quantity { get; set; }
+
         public string IngredientName { get; set; }
+
         public float Protein { get; set; }
+
         public float Calories { get; set; }
+
         public float Carbs { get; set; }
+
         public float Fats { get; set; }
+
         public float Fiber { get; set; }
+
         public float Sugar { get; set; }
 
         // Calculate macros based on quantity

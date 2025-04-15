@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿namespace MealPlannerProject.Queries
 {
     using System;
@@ -7,11 +8,30 @@
     using MealPlannerProject.Exceptions;
     using MealPlannerProject.Interfaces;
     using Microsoft.Extensions.Configuration;
+=======
+
+﻿namespace MealPlannerProject.Queries
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Data.SqlClient;
+    using Microsoft.Extensions.Configuration;
+    using MealPlannerProject.Exceptions;
+    using System.Data;
+    using MealPlannerProject.Interfaces.Services;
+>>>>>>> d94c7e742c2c933962afdd1d7e5b6c25110af836
 
     public sealed partial class DataLink : IDisposable, IDataLink
     {
         [Obsolete]
+<<<<<<< HEAD
         private static readonly Lazy<DataLink> InstanceValue = new(() => new DataLink());
+=======
+        private static readonly Lazy<DataLink> InstanceValue = new (() => new DataLink());
+>>>>>>> d94c7e742c2c933962afdd1d7e5b6c25110af836
         private readonly string connectionString;
         [Obsolete]
         private SqlConnection? sqlConnection;
