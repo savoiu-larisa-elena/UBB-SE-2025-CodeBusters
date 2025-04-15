@@ -1,28 +1,38 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using System;
+using System.Collections.Generic;
 
 namespace MealPlannerProject.Converters
 {
     public class CookingLevelButtonStyleConverter : IValueConverter
     {
+        private static readonly Dictionary<string, string> CookingLevelButtonStyles = new Dictionary<string, string>
+        {
+            { "I'm a beginner", "BeginnerButtonStyle" },
+            { "I cook sometimes", "CookSometimesButtonStyle" },
+            { "I love cooking", "LoveCookingButtonStyle" },
+            { "I prefer quick meals", "QuickMealsButtonStyle" },
+            { "I meal prep", "MealPrepButtonStyle" }
+        };
+
+        private readonly Dictionary<string, object>? _testResources;
+
+        public CookingLevelButtonStyleConverter(Dictionary<string, object>? testResources = null)
+        {
+            _testResources = testResources;
+        }
+
+        public CookingLevelButtonStyleConverter()
+        {
+        }
+
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is string cookingLevel)
+            if (value is string cookingLevel && CookingLevelButtonStyles.ContainsKey(cookingLevel))
             {
-                switch (cookingLevel)
-                {
-                    case "I'm a beginner":
-                        return Application.Current.Resources["BeginnerButtonStyle"] as Style;
-                    case "I cook sometimes":
-                        return Application.Current.Resources["CookSometimesButtonStyle"] as Style;
-                    case "I love cooking":
-                        return Application.Current.Resources["LoveCookingButtonStyle"] as Style;
-                    case "I prefer quick meals":
-                        return Application.Current.Resources["QuickMealsButtonStyle"] as Style;
-                    case "I meal prep":
-                        return Application.Current.Resources["MealPrepButtonStyle"] as Style;
-                }
+                var styleName = CookingLevelButtonStyles[cookingLevel];
+                return Application.Current.Resources[styleName] as Style;
             }
             return null;
         }

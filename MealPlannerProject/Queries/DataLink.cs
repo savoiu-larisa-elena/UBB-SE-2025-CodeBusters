@@ -1,23 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using MealPlannerProject.Exceptions;
-using System.Data;
-using MealPlannerProject.Interfaces.Services;
 
-namespace MealPlannerProject.Queries
+﻿namespace MealPlannerProject.Queries
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Data.SqlClient;
+    using Microsoft.Extensions.Configuration;
+    using MealPlannerProject.Exceptions;
+    using System.Data;
+    using MealPlannerProject.Interfaces.Services;
+
     public sealed partial class DataLink : IDisposable, IDataLink
     {
-        private static readonly Lazy<DataLink> instance = new(() => new DataLink());
+        [Obsolete]
+        private static readonly Lazy<DataLink> InstanceValue = new (() => new DataLink());
         private readonly string connectionString;
+        [Obsolete]
         private SqlConnection? sqlConnection;
         private bool disposedValue;
 
+        [Obsolete]
         private DataLink()
         {
             try
@@ -34,9 +38,9 @@ namespace MealPlannerProject.Queries
                     throw new ArgumentNullException("LocalDataSource or InitialCatalog is null or empty");
                 }
 
-                connectionString = $"Data Source={localDataSource};Initial Catalog={initialCatalog};Integrated Security=True; TrustServerCertificate = True";
+                this.connectionString = $"Data Source={localDataSource};Initial Catalog={initialCatalog};Integrated Security=True; TrustServerCertificate = True";
 
-                using var connection = new SqlConnection(connectionString);
+                using var connection = new SqlConnection(this.connectionString);
                 connection.Open();
             }
             catch (SqlException ex)
@@ -49,33 +53,20 @@ namespace MealPlannerProject.Queries
             }
         }
 
-        public static DataLink Instance => instance.Value;
+        [Obsolete]
+        public static DataLink Instance => InstanceValue.Value;
 
-        private SqlConnection GetConnection()
-        {
-            if (disposedValue)
-            {
-                throw new ObjectDisposedException("DataLink");
-            }
-
-            if (sqlConnection == null || sqlConnection.State != System.Data.ConnectionState.Open)
-            {
-                sqlConnection = new SqlConnection(connectionString);
-            }
-
-            return sqlConnection;
-        }
-
+        [Obsolete]
         public T? ExecuteScalar<T>(string query, SqlParameter[]? sqlParameters = null, bool isStoredProcedure = true)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 connection.Open();
 
                 using var command = new SqlCommand(query, connection)
                 {
-                    CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text
+                    CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text,
                 };
 
                 if (sqlParameters != null)
@@ -96,21 +87,22 @@ namespace MealPlannerProject.Queries
             }
         }
 
-
+        [Obsolete]
         public int ExecuteQuery(string query, SqlParameter[]? sqlParameters = null, bool isStoredProcedure = true)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 connection.Open();
                 using var command = new SqlCommand(query, connection)
                 {
-                    CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text
+                    CommandType = isStoredProcedure ? CommandType.StoredProcedure : CommandType.Text,
                 };
                 if (sqlParameters != null)
                 {
                     command.Parameters.AddRange(sqlParameters);
                 }
+
                 return command.ExecuteNonQuery();
             }
             catch (SqlException ex)
@@ -123,20 +115,22 @@ namespace MealPlannerProject.Queries
             }
         }
 
+        [Obsolete]
         public T? ExecuteBool<T>(string storedProcedure, SqlParameter[]? sqlParameters = null)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 connection.Open();
                 using var command = new SqlCommand(storedProcedure, connection)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
                 if (sqlParameters != null)
                 {
                     command.Parameters.AddRange(sqlParameters);
                 }
+
                 var result = command.ExecuteScalar();
                 return result == DBNull.Value ? default : (T)Convert.ChangeType(result, typeof(T));
             }
@@ -150,16 +144,17 @@ namespace MealPlannerProject.Queries
             }
         }
 
+        [Obsolete]
         public DataTable ExecuteReader(string storedProcedure, SqlParameter[]? sqlParameters = null)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 connection.Open();
 
                 using var command = new SqlCommand(storedProcedure, connection)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
                 if (sqlParameters != null)
@@ -182,16 +177,17 @@ namespace MealPlannerProject.Queries
             }
         }
 
+        [Obsolete]
         public int ExecuteNonQuery(string storedProcedure, SqlParameter[]? sqlParameters = null)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 connection.Open();
 
                 using var command = new SqlCommand(storedProcedure, connection)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
                 if (sqlParameters != null)
@@ -211,16 +207,17 @@ namespace MealPlannerProject.Queries
             }
         }
 
-        public async Task<int> ExecuteNonQueryAsync(string storedProcedure, SqlParameter[] sqlParameters = null)
+        [Obsolete]
+        public async Task<int> ExecuteNonQueryAsync(string storedProcedure, SqlParameter[]? sqlParameters = null)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 await connection.OpenAsync();
 
                 using var command = new SqlCommand(storedProcedure, connection)
                 {
-                    CommandType = CommandType.StoredProcedure
+                    CommandType = CommandType.StoredProcedure,
                 };
 
                 if (sqlParameters != null)
@@ -240,43 +237,24 @@ namespace MealPlannerProject.Queries
             }
         }
 
-
+        [Obsolete]
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    if (sqlConnection != null)
-                    {
-                        if (sqlConnection.State == ConnectionState.Open)
-                        {
-                            sqlConnection.Close();
-                        }
-                        sqlConnection.Dispose();
-                        sqlConnection = null;
-                    }
-                }
-                disposedValue = true;
-            }
-        }
-
+        [Obsolete]
         public DataTable ExecuteSqlQuery(string query, SqlParameter[]? sqlParameters = null)
         {
             try
             {
-                using var connection = GetConnection();
+                using var connection = this.GetConnection();
                 connection.Open();
 
                 using var command = new SqlCommand(query, connection)
                 {
-                    CommandType = CommandType.Text  // Always a raw SQL query
+                    CommandType = CommandType.Text,  // Always a raw SQL query
                 };
 
                 if (sqlParameters != null)
@@ -299,6 +277,40 @@ namespace MealPlannerProject.Queries
             }
         }
 
+        [Obsolete]
+        private SqlConnection GetConnection()
+        {
+            ObjectDisposedException.ThrowIf(this.disposedValue, new ObjectDisposedException("DataLink"));
 
+            if (this.sqlConnection == null || this.sqlConnection.State != System.Data.ConnectionState.Open)
+            {
+                this.sqlConnection = new SqlConnection(this.connectionString);
+            }
+
+            return this.sqlConnection;
+        }
+
+        [Obsolete]
+        private void Dispose(bool disposing)
+        {
+            if (!this.disposedValue)
+            {
+                if (disposing)
+                {
+                    if (this.sqlConnection != null)
+                    {
+                        if (this.sqlConnection.State == ConnectionState.Open)
+                        {
+                            this.sqlConnection.Close();
+                        }
+
+                        this.sqlConnection.Dispose();
+                        this.sqlConnection = null;
+                    }
+                }
+
+                this.disposedValue = true;
+            }
+        }
     }
 }

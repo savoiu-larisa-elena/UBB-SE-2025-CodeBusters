@@ -62,7 +62,8 @@ namespace MealPlannerProject
                     rootFrame.Navigate(typeof(MealPlannerProject.Pages.WelcomePage));
                 }
 
-                // Initialize the shared ViewModel
+                // Initialize the shared ViewModel with the required MealService instance  
+                var mealService = new MealService(); // Ensure MealService is properly instantiated  
                 MealListViewModel = new MealListViewModel();
 
                 Window.Activate();

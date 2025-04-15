@@ -1,60 +1,73 @@
-using MealPlannerProject.ViewModels;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Diagnostics;
-
 namespace MealPlannerProject.Pages
 {
+    using System;
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+    using MealPlannerProject.ViewModels;
+    using Microsoft.UI.Xaml;
+    using Microsoft.UI.Xaml.Controls;
+    using Microsoft.UI.Xaml.Navigation;
+
     public sealed partial class CookingLevelPage : Page
     {
-        private CookingLevelViewModel viewModel = new CookingLevelViewModel();
+        private const string EmptyCookingSkillSelectionError = "Please select a cooking skill level.";
+
+        private readonly CookingLevelViewModel cookingLevelViewModel;
+
         public CookingLevelPage()
         {
             try
             {
                 this.InitializeComponent();
                 Debug.WriteLine("CookingLevelPage initialized successfully.");
-                this.DataContext = viewModel;
+                this.cookingLevelViewModel = new CookingLevelViewModel();
+                this.DataContext = this.cookingLevelViewModel;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Debug.WriteLine($"Exception in CookingLevelPage constructor: {ex.Message}");
-                throw; // Re-throw the exception to be caught by the global handler
+                Debug.WriteLine($"Exception in CookingLevelPage constructor: {exception.Message}");
+                throw;
             }
         }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
 
-            if (e.Parameter is ActivityLevelViewModel activityLevelViewModel)
+        protected override void OnNavigatedTo(NavigationEventArgs navigationEventArgs)
+        {
+            base.OnNavigatedTo(navigationEventArgs);
+
+            if (navigationEventArgs.Parameter is ActivityLevelViewModel activityLevelViewModel)
             {
                 Debug.WriteLine($"Cooking page received user: {activityLevelViewModel.FirstName} {activityLevelViewModel.LastName}");
-                viewModel.SetUserInfo(activityLevelViewModel.FirstName, activityLevelViewModel.LastName);
+                this.cookingLevelViewModel.SetUserInfo(activityLevelViewModel.FirstName, activityLevelViewModel.LastName);
             }
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        private void NextButton_Click(object sender, RoutedEventArgs routedEventArgs)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(viewModel.SelectedCookingSkill))
+                if (string.IsNullOrWhiteSpace(this.cookingLevelViewModel.SelectedCookingSkill))
                 {
-                    ShowErrorDialog("Please select an activity level.");
+                    this.ShowErrorMessageDialog(EmptyCookingSkillSelectionError);
                     return;
                 }
-                //this.Frame.Navigate(typeof(CookingLevelPage), viewModel);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                ShowErrorDialog($"An error occurred: {ex.Message}");
+                this.ShowErrorMessageDialog($"An error occurred: {exception.Message}");
             }
         }
 
-        private void ShowErrorDialog(string v)
+        private async void ShowErrorMessageDialog(string errorMessage)
         {
+            ContentDialog errorDialog = new ContentDialog
+            {
+                Title = "Error",
+                Content = errorMessage,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot,
+            };
 
+            await errorDialog.ShowAsync();
         }
     }
 }

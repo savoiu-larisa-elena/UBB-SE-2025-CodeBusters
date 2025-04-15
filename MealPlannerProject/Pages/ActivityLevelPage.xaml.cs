@@ -1,24 +1,28 @@
-using MealPlannerProject.ViewModels;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Diagnostics;
-
 namespace MealPlannerProject.Pages
 {
+    using System;
+    using System.Diagnostics;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
+    using MealPlannerProject.Services;
+    using MealPlannerProject.ViewModels;
+    using Microsoft.UI.Xaml;
+    using Microsoft.UI.Xaml.Controls;
+    using Microsoft.UI.Xaml.Navigation;
+
     public sealed partial class ActivityLevelPage : Page
     {
+        [Obsolete]
+        private readonly ActivityLevelViewModel viewModel = new ();
 
-        private ActivityLevelViewModel viewModel = new ActivityLevelViewModel();    
-
+        [Obsolete]
         public ActivityLevelPage()
         {
             try
             {
                 this.InitializeComponent();
                 Debug.WriteLine("ActivityLevelPage initialized successfully.");
-                this.DataContext = viewModel;
+                this.DataContext = this.viewModel;
             }
             catch (Exception ex)
             {
@@ -34,30 +38,39 @@ namespace MealPlannerProject.Pages
             if (e.Parameter is GoalPageViewModel goalPageViewModel)
             {
                 Debug.WriteLine($"GoalPage received user: {goalPageViewModel.FirstName} {goalPageViewModel.LastName}");
-                viewModel.SetUserInfo(goalPageViewModel.FirstName, goalPageViewModel.LastName);
+                this.viewModel.SetUserInfo(goalPageViewModel.FirstName, goalPageViewModel.LastName);
             }
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        private async Task ShowErrorDialog(string v)
+        {
+            var dialog = new ContentDialog
+            {
+                Title = "Error",
+                Content = v,
+                CloseButtonText = "OK",
+                XamlRoot = this.XamlRoot,
+            };
+            await dialog.ShowAsync();
+        }
+
+        [Obsolete]
+        private async void NextButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(viewModel.SelectedActivity))
+                if (!ActivityPageService.ValidateSelectedActivity(this.viewModel.SelectedActivity))
                 {
-                    ShowErrorDialog("Please select an activity level.");
+                    await ShowErrorDialog("Please select an activity level.");
                     return;
                 }
-                this.Frame.Navigate(typeof(CookingLevelPage), viewModel);
+
+                this.Frame.Navigate(typeof(CookingLevelPage), this.viewModel);
             }
             catch (Exception ex)
             {
-                ShowErrorDialog($"An error occurred: {ex.Message}");
+                await ShowErrorDialog($"An error occurred: {ex.Message}");
             }
-        }
-
-        private void ShowErrorDialog(string v)
-        {
-         
         }
     }
 }

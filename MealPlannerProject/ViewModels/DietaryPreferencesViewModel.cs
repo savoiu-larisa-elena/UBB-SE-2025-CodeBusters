@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using MealPlannerProject.Interfaces.Services;
 using MealPlannerProject.Pages;
+using MealPlannerProject.Queries;
 using MealPlannerProject.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,8 +14,8 @@ namespace MealPlannerProject.ViewModels
         public ICommand BackCommand { get; set; }
         public ICommand NextCommand { get; set; }
 
-        private DietaryPreferencesService _dietaryPreferencesService = new DietaryPreferencesService();
-
+        private IDietaryPreferencesService _dietaryPreferencesService = new DietaryPreferencesService(DataLink.Instance);
+        
         public ObservableCollection<string> OtherDietOptions { get; set; }
         public ObservableCollection<string> AllergenOptions { get; set; }
 
@@ -69,7 +71,7 @@ namespace MealPlannerProject.ViewModels
 
         private void NextAction()
         {
-            _dietaryPreferencesService.addAllergyAndDietaryPreference(FirstName, LastName, OtherDiet, Allergens);
+            _dietaryPreferencesService.AddAllergyAndDietaryPreference(FirstName, LastName, OtherDiet, Allergens);
             NavigationService.Instance.NavigateTo(typeof(YoureAllSetPage), this);
         }
 
