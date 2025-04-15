@@ -1,11 +1,12 @@
-﻿using System.Data.SqlClient;
-using System.Threading.Tasks;
-using MealPlannerProject.Models;
-using MealPlannerProject.Queries;
-using MealPlannerProject.Interfaces;
-
-namespace MealPlannerProject.Repositories
+﻿namespace MealPlannerProject.Repositories
 {
+    using System.Data.SqlClient;
+    using System.Threading.Tasks;
+    using MealPlannerProject.Interfaces;
+    using MealPlannerProject.Interfaces.Repositories;
+    using MealPlannerProject.Models;
+    using MealPlannerProject.Queries;
+
     public class MealRepository : IMealRepository
     {
         private readonly IDataLink dataLink;
