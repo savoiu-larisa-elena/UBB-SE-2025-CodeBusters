@@ -10,6 +10,7 @@
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+    using MealPlannerProject.Interfaces;
 
     [TestClass]
     public class GoalPageServiceTests

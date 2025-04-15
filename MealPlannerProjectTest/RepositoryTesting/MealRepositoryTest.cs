@@ -1,14 +1,13 @@
 ﻿namespace MealPlannerProjectTest.RepositoryTesting
 {
     using MealPlannerProject.Models;
-    using MealPlannerProject.Queries;
     using MealPlannerProject.Repositories;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using NSubstitute;
     using System.Data.SqlClient;
     using System.Linq;
+    using MealPlannerProject.Interfaces;
     using System.Threading.Tasks;
-    using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
     [TestClass]
     public class MealRepositoryTests
@@ -56,21 +55,21 @@
 
         [TestMethod]
         [System.Obsolete]
-        public async Task AddMealIngredientAsync_ShouldCallExecuteNonQueryAsyncWithCorrectParameters()
+        public async Task AddMealIngredientAsync_ShouldCallExecuteNonQueryWithCorrectParameters()
         {
             // Arrange
             var dataLink = Substitute.For<IDataLink>();
             var repository = new MealRepository(dataLink);
 
-            dataLink.ExecuteNonQueryAsync("InsertMealIngredient", Arg.Any<SqlParameter[]>())
-                .Returns(Task.FromResult(1));
+            dataLink.ExecuteNonQuery("InsertMealIngredient", Arg.Any<SqlParameter[]>())
+                .Returns(1);
 
             // Act
             var result = await repository.AddMealIngredientAsync(5, 8, 2.5f);
 
             // Assert
             Assert.AreEqual(1, result);
-            await dataLink.Received().ExecuteNonQueryAsync(
+            dataLink.Received().ExecuteNonQuery(
                 "InsertMealIngredient",
                 Arg.Is<SqlParameter[]>(p =>
                     p.Any(x => x.ParameterName == "@mealId" && (int)x.Value == 5) &&

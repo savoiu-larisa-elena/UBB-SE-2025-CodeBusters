@@ -1,10 +1,11 @@
-﻿namespace MealPlannerProject.Repositories
-{
-    using System.Data.SqlClient;
-    using System.Threading.Tasks;
-    using MealPlannerProject.Models;
-    using MealPlannerProject.Queries;
+﻿using System.Data.SqlClient;
+using System.Threading.Tasks;
+using MealPlannerProject.Models;
+using MealPlannerProject.Queries;
+using MealPlannerProject.Interfaces;
 
+namespace MealPlannerProject.Repositories
+{
     public class MealRepository : IMealRepository
     {
         private readonly IDataLink dataLink;
@@ -14,11 +15,11 @@
             this.dataLink = dataLink;
         }
 
+        [System.Obsolete]
         public MealRepository()
         {
             this.dataLink = DataLink.Instance;
         }
-
 
         [System.Obsolete]
         public async Task<int> CreateMealAsync(Meal meal, int cookingSkillId, int mealTypeId)
@@ -44,7 +45,7 @@
                 new ("@photo_link", meal.PhotoLink ?? "default.jpg"),
             };
 
-            return await Task.FromResult(dataLink.ExecuteScalar<int>(query, parameters, false));
+            return await Task.FromResult(this.dataLink.ExecuteScalar<int>(query, parameters, false));
         }
 
         [System.Obsolete]
@@ -52,12 +53,13 @@
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@mealId", mealId),
-                new SqlParameter("@ingredientId", ingredientId),
-                new SqlParameter("@quantity", quantity),
+        new ("@mealId", mealId),
+        new ("@ingredientId", ingredientId),
+        new ("@quantity", quantity),
             };
 
-            return await this.dataLink.ExecuteNonQueryAsync("InsertMealIngredient", parameters);
+            int result = this.dataLink.ExecuteNonQuery("InsertMealIngredient", parameters);
+            return await Task.FromResult(result);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using MealPlannerProject.Exceptions;
 using MealPlannerProject.Queries;
+using MealPlannerProject.Interfaces;
 
 namespace MealPlannerProject.Services
 {
