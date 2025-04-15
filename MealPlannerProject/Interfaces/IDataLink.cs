@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-﻿﻿using System;
-=======
+
 ﻿using System;
->>>>>>> d94c7e742c2c933962afdd1d7e5b6c25110af836
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -23,8 +20,4 @@ namespace MealPlannerProject.Interfaces
         [Obsolete]
         DataTable ExecuteSqlQuery(string query, SqlParameter[]? sqlParameters);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d94c7e742c2c933962afdd1d7e5b6c25110af836
