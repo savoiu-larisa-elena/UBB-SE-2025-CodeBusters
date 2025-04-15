@@ -1,8 +1,8 @@
-﻿namespace MealPlannerProject.Services
-{
-    using System.Data.SqlClient;
-    using System.Diagnostics;
-    using MealPlannerProject.Queries;
+﻿using System.Data.SqlClient;
+using System.Diagnostics;
+using MealPlannerProject.Exceptions;
+using MealPlannerProject.Queries;
+using MealPlannerProject.Interfaces;
 
     internal class GoalPageService
     {
