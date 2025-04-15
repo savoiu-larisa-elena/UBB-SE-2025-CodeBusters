@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealPlannerProject.Exceptions
 {
-    public class DatabaseOperationException : Exception
+    class DatabaseOperationException : Exception
     {
         public DatabaseOperationException() { }
 
