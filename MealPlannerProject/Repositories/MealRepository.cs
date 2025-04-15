@@ -14,6 +14,12 @@
             this.dataLink = dataLink;
         }
 
+        public MealRepository()
+        {
+            this.dataLink = DataLink.Instance;
+        }
+
+
         [System.Obsolete]
         public async Task<int> CreateMealAsync(Meal meal, int cookingSkillId, int mealTypeId)
         {
