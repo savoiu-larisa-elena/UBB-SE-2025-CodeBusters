@@ -14,14 +14,16 @@
 
     public class CookingPageService : ICookingPageService
     {
-        private readonly IDataLink _dataLink;
+        private readonly IDataLink dataLink;
 
-        public CookingPageService() : this(DataLink.Instance) { }
+        [Obsolete]
+        public CookingPageService()
+            : this(DataLink.Instance) { }
 
         // This constructor allows injecting a mock for tests
         public CookingPageService(IDataLink dataLink)
         {
-            _dataLink = dataLink;
+            this.dataLink = dataLink;
         }
 
         [Obsolete]
@@ -36,7 +38,7 @@
             };
 
             Debug.WriteLine($"User name: {u_name}");
-            int user_id = _dataLink.ExecuteScalar<int>("SELECT dbo.GetUserByName(@u_name)", parameters, false);
+            int user_id = this.dataLink.ExecuteScalar<int>("SELECT dbo.GetUserByName(@u_name)", parameters, false);
             Debug.WriteLine($"User ID: {user_id}");
 
             parameters = new SqlParameter[]
@@ -44,7 +46,7 @@
             new SqlParameter("@cs_description", cookingDescription),
             };
 
-            int cookingSkill_id = _dataLink.ExecuteScalar<int>("SELECT dbo.GetCookingSkillByDescription(@cs_description)", parameters, false);
+            int cookingSkill_id = this.dataLink.ExecuteScalar<int>("SELECT dbo.GetCookingSkillByDescription(@cs_description)", parameters, false);
 
             parameters = new SqlParameter[]
             {
@@ -52,7 +54,7 @@
             new SqlParameter("@cs_id", cookingSkill_id),
             };
 
-            _dataLink.ExecuteNonQuery("UpdateUserCookingSkill", parameters);
+            this.dataLink.ExecuteNonQuery("UpdateUserCookingSkill", parameters);
         }
     }
 }
